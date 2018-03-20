@@ -1,0 +1,13 @@
+body {background-color: powderblue;}
+
+h1 {color: orange;
+    font-size: 500%;
+    font-family: arial;}
+
+h2 {color: orange;
+    font-family: arial;}
+
+p {background-color: orange;
+   color: black;
+   font-family: arial;;
+   padding: 25px;}
