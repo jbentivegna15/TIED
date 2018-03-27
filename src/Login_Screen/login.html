@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style>
+			#background{
+				position: center;
+				top: -25%;
+				left: -25%;
+				width:150%;
+				height:150%;
+			}
+
+			#background img{
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				margin: auto;
+				min-width: 100%;
+				min-height: 100%;
+			}
+
+			div.transbox{
+				margin: 10px;
+				background-color: #ffffff;
+				background-size: contain;
+				opacity: 0.6;
+				filter: alpha(opacity=60);
+				margin-left:25%;
+				margin-right:25%;
+				margin-top:10%;
+				margin-bottom: 10%;
+			}
+
+			div.transbox p{
+				margin:5%;
+				font-weight: bold:
+				font-family: courier;
+				font-size : 200%;
+				color: orange;
+				margin-left:25%;
+				margin-right:25%;
+				margin-top:10%;
+				margin-bottom: 10%;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="background">
+			<img src = "https://i.ytimg.com/vi/tFffbkXSgNI/maxresdefault.jpg" alt"">
+		</div>	
+		<div class="transbox">
+				<p>
+				username: <br>
+				<input id="username" type ="uname" name="username"><br>
+				password: <br>
+				<input id= "password" type ="password" name="password"><br>
+				<input type="submit" value="submit" onclick="submitFunction()">
+				</p>
+		</div>
+
+		<script>
+			//document.getElementById("submit").onclick = submitFunction();
+
+			function submitFunction(){
+				var username = document.getElementById("username").value;
+				var password = document.getElementById("password").value;
+				// Debug (Don't actually print this lol)
+				alert("Username: "+username+"\n Password: "+ password);
+			}
+		</script>
+
+	</body>
+</html>
+
+
