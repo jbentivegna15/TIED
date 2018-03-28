@@ -98,22 +98,23 @@ router.route('/comments/:comment_id')
 
 router.route('/users')
 //retrieve all users from the database
-.get(function(req, res) {
-    //looks at our user schema
-    User.find(function(err, users) {
-        if (err)
-            res.send(err);
-        //responds with a json object of our database users.
-    });
+  .get(function(req, res) {
+      //looks at our user schema
+      User.find(function(err, users) {
+          if (err)
+              res.send(err);
+              //responds with a json object of our database users.
+          res.json(users)
+      });
 })
 //post new users to the database
 .post(function(req, res) {
     var user = new User();
     //body parser lets us use the req.body
-    User.name = req.body.name;
-    User.password = req.body.password;
+    user.name = req.body.name;
+    user.password = req.body.password;
 
-    User.save(function(err) {
+    user.save(function(err) {
         if (err)
             res.send(err);
         res.json({ message: 'User successfully added!' });
