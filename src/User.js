@@ -13,7 +13,7 @@ class User extends Component {
     this.deleteUser = this.deleteUser.bind(this);
     this.updateUser = this.updateUser.bind(this);
     this.handleNameChange = this.handleNameChange.bind(this);
-    this.handlePassowrdChange = this.handlePasswordChange.bind(this);
+    this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handleUserUpdate = this.handleUserUpdate.bind(this);
   }
   updateUser(e) {
@@ -26,7 +26,7 @@ class User extends Component {
     let id = this.props.uniqueID;
     let name = (this.state.name) ? this.state.name : null;
     let password = (this.state.password) ? this.state.password : null;
-    let user = {name : name, password: passowrd};
+    let user = {name : name, password: password};
     this.props.onUserUpdate(id, user);
     this.setState({
       toBeUpdated: !this.state.toBeUpdated,
