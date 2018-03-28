@@ -18,3 +18,32 @@ p {background-color: orange;
   left: 16%;
   margin-left: -3px;
   top: 0;}
+
+table, th, td{
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+th,td{
+  padding: 10px;
+}
+
+table#myView tr:nth-child(odd){
+  background-color: orange;
+}
+table#myView tr:nth-child(even){
+  background-color: gold;
+}
+table#myView th{
+  background-color: coral;
+}
+
+table#othView tr:nth-child(odd){
+  background-color: slateblue;
+}
+table#othView tr:nth-child(even){
+  background-color: mediumslateblue;
+}
+table#othView th{
+  background-color: darkorchid;
+}
