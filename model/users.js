@@ -5,13 +5,12 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var userSchema = new Schema({
-	_id: int,
 	name: String,
 	password: String,
-	admin_groups: [{ _id: int}],
-	private_groups: [{ _id, int}],
-	rsvps: [{ group_id: int, event_id: int}],
-	messages: [{ _id: int }]
+	admin_groups: [{ _id: Schema.Types.ObjectId}],
+	private_groups: [{ _id: Schema.Types.ObjectId}],
+	rsvps: [{ group_id: Schema.Types.ObjectId, event_id: Schema.Types.ObjectId}],
+	messages: [{ _id: Schema.Types.ObjectId }]
 });
 
 module.exports = mongoose.model('User', userSchema);
