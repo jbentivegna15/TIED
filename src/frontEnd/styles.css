@@ -7,7 +7,7 @@ h1 {color: orange;
 h2 {color: orange;
     font-family: arial;}
 
-p {background-color: orange;
+p.button {background-color: orange;
    color: black;
    font-family: arial;
    padding: 25px;}
@@ -46,4 +46,11 @@ table#othView tr:nth-child(even){
 }
 table#othView th{
   background-color: darkorchid;
+}
+
+#bannerImage{
+  width: 95%;
+  height: 300px;
+  background-color: purple;
+  background-position: center;
 }

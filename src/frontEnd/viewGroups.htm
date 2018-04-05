@@ -1,23 +1,25 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <link rel="stylesheet" href="styles.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+  </script>
+  <script>
+  $(function(){
+    $("#includedContent").load("navigate.htm");
+  });
+  </script>
 </head>
 
 <body>
   <div id="container" style="width:100%;">
     <div id="left" style="float:left; width:15%;">
-      <h1 style="text-align:center;">TIED</h1>
-      <p style="text-align:center;"><a href="landingPage.htm">Main Page</a></p>
-      <p style="text-align:center;"><a href="myGroups.htm">My Groups</a></p>
-      <p style="text-align:center;"><a href="myRSVPs.htm">My RSVPs</a></p>
-      <p style="text-align:center;"><a href="viewEvent.htm">View Events</a></p>
-      <p style="text-align:center;"><a href="logOut.htm">Log Out</a></p>
+      <div id="includedContent"></div>
     </div>
 
     <div id="right" style="float:right; width:80%;">
-      <h1 style="text-align:center">List of Events</h1>
+      <h1 style="text-align:center">List of Groups</h1>
+      <h2>My Groups</h2>
       <table id="myView" align="center">
         <tr>
           <th>Your Events</th>
@@ -30,7 +32,7 @@
       </table>
 
       <br><br><br>
-
+      <h2>Other Groups</h2>
       <table id="othView" align="center">
         <tr>
           <th>Other Events</th>

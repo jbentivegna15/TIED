@@ -2,17 +2,19 @@
 <html>
 <head>
   <link rel="stylesheet" href="styles.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+  </script>
+  <script>
+  $(function(){
+    $("#includedContent").load("navigate.htm");
+  });
+  </script>
 </head>
 
 <body>
   <div id="container" style="width:100%;">
     <div id="left" style="float:left; width:15%;">
-      <h1 style="text-align:center;">TIED</h1>
-      <p style="text-align:center;"><a href="landingPage.htm">Main Page</a></p>
-      <p style="text-align:center;"><a href="myGroups.htm">My Groups</a></p>
-      <p style="text-align:center;"><a href="myRSVPs.htm">My RSVPs</a></p>
-      <p style="text-align:center;"><a href="viewEvent.htm">View Events</a></p>
-      <p style="text-align:center;"><a href="logOut.htm">Log Out</a></p>
+      <div id="includedContent"></div>
     </div>
 
     <div id="right" style="float:right; width:80%;">
@@ -21,6 +23,8 @@
         <input type="text" name="groupName" placeholder="Pete Coop's Lads" style="width:20%; padding:10px"><br>
         Description:<br>
         <textarea id="groupDesc" name="Description" placeholder="Free Cooper Pls" rows="5" cols="50" style="padding:10px;font-family:arial;"></textarea><br>
+        Group Banner:<br>
+        <input type="file" name="bannerGroup" accept="image/*"><br>
         <input type="submit" value="Create Group">
       </form></h2>
     </div>
