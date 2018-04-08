@@ -12,24 +12,39 @@
 
 <form action="landingPage.htm" style="text-align:center;">
   username:<br>
-  <input type="text" name="username" placeholder="peteycoops"><br>
+  <input type="text" id ="username" name="username" placeholder="peteycoops" required="required"><br>
   firstname:<br>
-  <input type="text" name="firstName" placeholder="Peter"><br>
+  <input type="text" id="firstName" name="firstName" placeholder="Peter" required="required"><br>
   lastname:<br>
-  <input type="text" name="lastName" placeholder="Cooper"><br>
+  <input type="text" id="lastName" name="lastName" placeholder="Cooper" required="required"><br>
   password:<br>
-  <input type="text" name="password" placeholder="********"><br>
+  <input type="password" id = "password" name="password" placeholder="f1veVolt_gnd" required="required"><br>
   confirm password:<br>
-  <input type="text" name="confirmPassword" placeholder="********"><br>
+  <input type="password" id = "confirmPassword" name="confirmPassword" placeholder="f1veVolt_gnd" required="required"><br>
   email:<br>
-  <input type="email" name="email" placeholder="notpeter@cooper.edu"><br>
+  <input type="email" id = "email" name="email" placeholder="notpeter@cooper.edu" required="required"><br>
   DOB:<br>
-  <input type="date" name="birthDate" placeholder="02/12/1791" style="font-family:arial"><br>
+  <input type="date" id = "birthDate" name="birthDate" placeholder="02/12/1791" style="font-family:arial" required="required"><br>
   gender:<br>
-  <input type="text" name="gender" placeholder="Apache Helicopter"><br><br>
+  <input type="text" id = "gender" name="gender" placeholder="Apache Helicopter" required="required"><br><br>
 
-  <input type = "submit" value="I have read the T&C and agree">
+  <input type = "submit" value="I have read the T&C and agree" onclick="submitFunction()">
+
 </form>
 
+<script>
+	function submitFunction(){
+		var username = document.getElementById("username").value;
+		var firstName = document.getElementById("firstName").value;
+		var lastName = document.getElementById("lastName").value;
+		var password= document.getElementById("password").value;
+		var password2 = document.getElementById("confirmPassword").value;
+		var email = document.getElementById("email").value;
+		var bdate = document.getElementById("birthDate").value;
+		var gender= document.getElementById("gender").value;
+		
+		alert("username: "+username+"\n firstName: "+firstName+"\n lastName: "+lastName+"\n password: "+password+"\n password2: "+password2+ "\n email: "+email+"\n birthdate: "+bdate+"\n gender: "+gender);
+	}
+</script>
 </body>
 </html>
