@@ -7,15 +7,18 @@ import style from './style';
 class UserBox extends Component {
     constructor(props) {
         super(props);
+        this.state = { data: [] }
         this.handleUserSubmit = this.handleUserSubmit.bind(this);
       }
       handleUserSubmit(user) {
-          user.id = Date.now();
-          axios.post(this.props.url, user)
-              .catch(err => {
-                  console.error(err);
-              });
-      }
+        user.id = user.user;
+        axios.post(this.props.url, user)
+          .catch(err => {
+            console.error(err);
+
+          });
+
+        }
       render() {
           return (
             <div>
