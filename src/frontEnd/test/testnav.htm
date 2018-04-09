@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="styleNav.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+  <div class="topNav" id="pageNav">
+    <a href="#home" class="active"><img src="../img/logo.png" alt="logo picture" style="width:15px; height:15px;"></img></a>
+    <a href="#logout" style="float:right;">Log Out</a>
+    <div class="dropDown" style="float:right;">
+      <button class="dropButton">Groups <i class="fa fa-caret-down"></i> </button>
+      <div class="dropDownContent">
+        <a href="#groupView">View Groups</a>
+        <a href="#groupCreate">Create Group</a>
+      </div>
+    </div>
+    <a href="javascript:void(0);"  class="icon" style="font-size:15px;" onclick="myFunction()">&#9776;</a>
+  </div>
+
+  <script>
+  function myFunction() {
+      var x = document.getElementById("pageNav");
+      if (x.className === "topnav") {
+          x.className += " responsive";
+      } else {
+          x.className = "topnav";
+      }
+  }
+  </script>
+
+</body>
+</html>
