@@ -1,13 +1,13 @@
 //index.js
 import React from 'react';
 import ReactDOM from 'react-dom';
-import CommentBox from './CommentBox';
+import UserBox from './UserBox';
 
 
 
 ReactDOM.render(
-        <CommentBox
-        url='http://localhost:3001/api/comments'
+        <UserBox
+        url='http://localhost:3001/api/users'
         pollInterval={2000} />,
         document.getElementById('root')
     );

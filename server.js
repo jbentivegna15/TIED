@@ -4,7 +4,6 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
-var Comment = require('./model/comments');
 var User = require('./model/users');
 
 //and create our instances
@@ -111,9 +110,12 @@ router.route('/users')
 .post(function(req, res) {
     var user = new User();
     //body parser lets us use the req.body
-    user.name = req.body.name;
+    user.user = req.body.user;
     user.password = req.body.password;
-
+    user.firstname = req.body.firstname;
+    user.lastname = req.body.lastname;
+    user.email = req.body.email;
+    
     user.save(function(err) {
         if (err)
             res.send(err);

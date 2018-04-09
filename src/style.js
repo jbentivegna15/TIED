@@ -27,6 +27,11 @@ const style = {
         flexFlow:'row wrap',
         justifyContent:'space-between'
     },
+    userForm: {
+        margin:'10px',
+        textAlign:'center',
+        justifyContent:'space-between',
+    },
     commentFormAuthor: {
         minWidth:'150px',
         margin:'3px',
@@ -35,6 +40,14 @@ const style = {
         height:'40px',
         flex:'2'
     },
+    userFormUsername: {
+      minWidth:'200px',
+      margin:'3px',
+      padding:'0 10px',
+      borderRadius:'3px',
+      height:'40px',
+      flex:'2'
+    },
     commentFormText: {
         flex:'4',
         minWidth:'400px',
@@ -42,6 +55,14 @@ const style = {
         padding:'0 10px',
         height:'40px',
         borderRadius:'3px'
+    },
+    userFormPassword: {
+      flex:'2',
+      minWidth:'200px',
+      margin:'3px',
+      padding:'0 10px',
+      height:'40px',
+      borderRadius:'3px'
     },
     commentFormPost: {
         minWidth:'75px',
@@ -55,6 +76,18 @@ const style = {
         textTransform:'uppercase',
         letterSpacing:'.055rem',
         border:'none'
+    },
+    userFormPost: {
+      minWidth:'75px',
+      flex:'1',
+      height:'40px',
+      margin:'5px 3px',
+      fontSize:'1rem',
+      backgroundColor:'#A3CDFD',
+      borderRadius:'3px',
+      color:'#fff',
+      textTransform:'uppercase',
+      letterSpacing:'.055rem',
     },
     updateLink: {
         textDecoration:'none',
