@@ -1,13 +1,37 @@
-import React from 'react';
-import  { Route } from 'react-router';
-import App from './components/app';
-import Home from './components/views/home';
-import Contact from './components/views/contact';
+import CommentBox from './CommentBox'
+import UserBox from './UserBox'
 
-export default (
-  <Route path='/' component={App}>
-    <Route exact path = "/" component={Home} />
-    <Route path='comment' component={Comment} />
-    <Route path='*' component={Home} />
-  </Route>
+import React from "react";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+
+const Routes = () => (
+  <Router>
+    <div>
+      <ul>
+        <li>
+          <Link to="/">Home</Link>
+        </li>
+        <li>
+          <Link to="/signup">Sign Up</Link>
+        </li>
+        <li>
+          <Link to="/comment">Comment</Link>
+        </li>
+      </ul>
+
+      <hr />
+
+      <Route exact path={"/"} component={() => <Home/>}/>
+      <Route path={"/signup"} component={() => <UserBox url={'http://localhost:3001/api/users'} pollInterval={2000}/>}/>
+      <Route path={"/comment"} component={() => <CommentBox url={'http://localhost:3001/api/comments'} pollInterval={2000}/>}/>
+    </div>
+  </Router>
 );
+
+const Home = () => (
+  <div>
+    <h2>Home</h2>
+  </div>
+);
+
+export default Routes;

@@ -1,19 +1,18 @@
 //index.js
 import React from 'react';
 import ReactDOM from 'react-dom';
-import UserBox from './UserBox';
+import Routes from './routes';
 
 
 
 ReactDOM.render(
-        <UserBox
-        url='http://localhost:3001/api/users'
-        pollInterval={2000} />,
+        <Routes />,
         document.getElementById('root')
     );
 
 // import React from 'react';
-// import ReactDom from 'react-dom';
+// import ReactDOM from 'react-dom';
+// import App from './components/app'
 //
 // import { Router } from 'react-router-dom';
 // import history from './history';
@@ -23,7 +22,7 @@ ReactDOM.render(
 // // require('./stylesheets/home.scss');
 // // require('./stylesheets/contact.scss');
 //
-// ReactDom.render(
+// ReactDOM.render(
 //   <Router history={history} routes={routes} />,
-//   document.querySelector('#app')
+//   document.querySelector('#root')
 // );
