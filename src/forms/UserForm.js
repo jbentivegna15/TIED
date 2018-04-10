@@ -5,7 +5,7 @@ import '../components/styles.css';
 class UserForm extends Component {
   constructor(props) {
     super(props)
-    this.state = { user: '', password: ''};
+    this.state = { firstname:'', lastname:'', email:'', user:'', password: '', confpassword:''};
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleUserChange = this.handleUserChange.bind(this);
     this.handlePasswordChange = this.handlePasswordChange.bind(this);

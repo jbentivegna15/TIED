@@ -6,6 +6,7 @@ var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var User = require('./model/users');
 var Comment = require('./model/comments')
+var Group = require('./model/groups');
 
 //and create our instances
 var app = express();
@@ -98,14 +99,14 @@ router.route('/comments/:comment_id')
 
 router.route('/users')
 //retrieve all users from the database
-  .get(function(req, res) {
-      //looks at our user schema
-      User.find(function(err, users) {
-          if (err)
-              res.send(err);
-              //responds with a json object of our database users.
-          res.json(users)
-      });
+.get(function(req, res) {
+    //looks at our user schema
+    User.find(function(err, users) {
+        if (err)
+            res.send(err);
+            //responds with a json object of our database users.
+        res.json(users)
+    });
 })
 //post new users to the database
 .post(function(req, res) {
@@ -121,6 +122,30 @@ router.route('/users')
         if (err)
             res.send(err);
         res.json({ message: 'User successfully added!' });
+    });
+});
+
+router.route('/groups')
+//retrieve all groups from the database
+.get(function(req, res) {
+    //look at the group schema
+    Group.find(function(err, groups) {
+        if (err)
+            res.send(err);
+        res.json(groups)
+    });
+})
+//post new group to the database
+.post(function(req, res) {
+    var group = new Group();
+    group.name = req.body.name;
+    group.description = req.body.description;
+    group.img = req.body.img;
+
+    group.save(function(err) {
+        if (err)
+            res.send(err);
+        res.json({ message: 'Group successfully added'});
     });
 });
 
