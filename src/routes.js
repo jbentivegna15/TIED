@@ -1,6 +1,6 @@
-import CommentBox from './CommentBox'
 import UserBox from './UserBox'
 import GroupBox from './GroupBox'
+import GroupListBox from './GroupListBox'
 import Home from './Home'
 
 import React from "react";
@@ -11,8 +11,8 @@ const Routes = () => (
     <div>
       <Route exact path={"/"} component={() => <Home/>}/>
       <Route path={"/signup"} component={() => <UserBox url={'http://localhost:3001/api/users'} pollInterval={2000}/>}/>
-      <Route path={"/comment"} component={() => <CommentBox url={'http://localhost:3001/api/comments'} pollInterval={2000}/>}/>
       <Route path={"/createGroup"} component={() => <GroupBox url={'http://localhost:3001/api/groups'} pollInterval={2000}/>}/>
+      <Route path={"/groupList"} component={() => <GroupListBox url={'http://localhost:3001/api/groups'} pollInterval={2000}/>}/>
     </div>
   </Router>
 );

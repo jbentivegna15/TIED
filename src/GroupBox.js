@@ -5,9 +5,9 @@ import GroupForm from './forms/GroupForm';
 import style from './style';
 
 class GroupBox extends Component {
-    constructor(props) {
-        super(props);
-        this.handleGroupSubmit = this.handleGroupSubmit.bind(this);
+      constructor(props) {
+          super(props);
+          this.handleGroupSubmit = this.handleGroupSubmit.bind(this);
       }
       handleGroupSubmit(group) {
           group.id = Date.now();

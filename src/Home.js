@@ -17,6 +17,9 @@ class Home extends Component {
             <li>
             <Link to="/createGroup" style={{ textDecoration: 'none'}}>Create Group</Link>
             </li>
+            <li>
+            <Link to="/groupList" style={{ textDecoration: 'none'}}>Group List</Link>
+            </li>
             </div>
           )
       }
