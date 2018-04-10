@@ -7,6 +7,8 @@ var bodyParser = require('body-parser');
 var User = require('./model/users');
 var Comment = require('./model/comments')
 var Group = require('./model/groups');
+const jwt = require('express-jwt');
+const jwks = require('jwks-rsa');
 
 //and create our instances
 var app = express();
@@ -14,6 +16,21 @@ var router = express.Router();
 
 //set our port to either a predetermined port number if you have set it up, or 3001
 var port = process.env.API_PORT || 3001;
+
+//authorization method
+const authCheck = jwt({
+  secret: jwks.expressJwtSecret({
+        cache: true,
+        rateLimit: true,
+        jwksRequestsPerMinute: 5,
+        // YOUR-AUTH0-DOMAIN name e.g prosper.auth0.com
+        jwksUri: "https://tied.auth0.com/.well-known/jwks.json"
+    }),
+    // This is the identifier we set when we created the API
+    audience: 'CtS7hL_GmQPa6DLR-I2ZQIbiPfmu97G1',
+    issuer: 'https://tied.auth0.com',
+    algorithms: ['RS256']
+});
 
 //db config
 var mongoDB = 'mongodb://Jab123:softcoop1@ds125113.mlab.com:25113/test1';
@@ -125,7 +142,7 @@ router.route('/users')
     });
 });
 
-router.route('/groups')
+router.route('/groups', authCheck)
 //retrieve all groups from the database
 .get(function(req, res) {
     //look at the group schema

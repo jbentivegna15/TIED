@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import GroupForm from './forms/GroupForm';
 import style from './style';
+import { Redirect } from 'react-router-dom';
+import isAuthenticated from './Auth/isAuthenticated';
 
 class GroupBox extends Component {
       constructor(props) {
@@ -18,12 +20,19 @@ class GroupBox extends Component {
       }
       render() {
           return (
-            <div>
-            <h1 style={style.title}>TIED</h1>
-            <h2 style={style.title}>Create Group</h2>
-            <GroupForm onGroupSubmit={ this.handleGroupSubmit }/>
-            </div>
-                 )
+            isAuthenticated() ? (
+              <div>
+              <h1 style={style.title}>TIED</h1>
+              <h2 style={style.title}>Create Group</h2>
+              <GroupForm onGroupSubmit={ this.handleGroupSubmit }/>
+              </div>
+            ) : (
+              <Redirect to={{
+                pathname: '/login',
+                state: { from: this.props.location }
+              }} />
+            )
+          )
       }
   }
 

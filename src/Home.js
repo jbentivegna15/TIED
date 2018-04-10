@@ -5,17 +5,8 @@ import style from './style';
 
 class Home extends Component {
 
-      login = () => {
-        this.props.auth.login();
-      }
-      // calls the logout method in authentication service
-      logout = () => {
-        this.props.auth.logout();
-      }
-
       render() {
 
-          const { isAuthenticated } = this.props.auth;
           return (
             <div>
             <h1 style={style.title}>TIED</h1>

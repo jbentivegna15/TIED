@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import GroupList from './GroupList';
 import style from './style';
+import { Redirect } from 'react-router-dom';
+import isAuthenticated from './Auth/isAuthenticated';
 
 class GroupListBox extends Component {
 			constructor(props) {
@@ -25,11 +27,18 @@ class GroupListBox extends Component {
 			}
       render() {
           return (
-            <div>
-            <h1 style={style.title}>TIED</h1>
-            <h2 style={style.title}>Groups:</h2>
-						<GroupList data={ this.state.data }/>
-            </div>
+						isAuthenticated() ? (
+	            <div>
+	            <h1 style={style.title}>TIED</h1>
+	            <h2 style={style.title}>Groups:</h2>
+							<GroupList data={ this.state.data }/>
+	            </div>
+						) : (
+							<Redirect to={{
+								pathname: '/login',
+								state: { from: this.props.location }
+							}} />
+						)
           )
       }
   }

@@ -2,32 +2,29 @@ import UserBox from './UserBox'
 import GroupBox from './GroupBox'
 import GroupListBox from './GroupListBox'
 import Home from './Home'
-import Auth from './auth';
-import Callback from './Callback';
-import history from './history'
+import Header from './Header';
+import Private from './Private';
+import Login from './Auth/Login';
+import Logout from './Auth/Logout';
+
 
 import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
+import createBrowserHistory from 'history/createBrowserHistory';
 
-const auth = new Auth();
-
-const handleAuthentication = (nextState, replace) => {
-  if (/access_token|id_token|error/.test(nextState.location.hash)) {
-    auth.handleAuthentication();
-  }
-}
+const history = createBrowserHistory();
 
 const Routes = () => (
-  <Router history = {history}>
+  <Router>
     <div>
-      <Route exact path={"/"} component={() => <Home auth={auth}/>}/>
-      <Route path={"/signup"} component={() => <UserBox url={'http://localhost:3001/api/users'} auth={auth} pollInterval={2000}/>}/>
-      <Route path={"/createGroup"} component={() => <GroupBox url={'http://localhost:3001/api/groups'} auth={auth} pollInterval={2000}/>}/>
-      <Route path={"/groupList"} component={() => <GroupListBox url={'http://localhost:3001/api/groups'} auth={auth} pollInterval={2000}/>}/>
-      <Route path="/callback" render={(props) => {
-        handleAuthentication(props);
-        return <Callback {...props} />
-      }}/>
+      <Header />
+      <Route exact path={"/"} component={() => <Home />}/>
+      <Route path={"/signup"} component={() => <UserBox url={'http://localhost:3001/api/users'} pollInterval={2000}/>}/>
+      <Route path="/login" component={Login} />
+      <Route path="/logout" component={Logout} />
+      <Route path="/private" component={Private} />
+      <Route path={"/createGroup"} component={() => <GroupBox url={'http://localhost:3001/api/groups'} pollInterval={2000}/>}/>
+      <Route path={"/groupList"} component={() => <GroupListBox url={'http://localhost:3001/api/groups'} pollInterval={2000}/>}/>
     </div>
   </Router>
 );

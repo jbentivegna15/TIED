@@ -2,8 +2,13 @@
 import React, { Component } from 'react';
 import Group from './Group';
 import style from './style';
+import { Redirect } from 'react-router-dom';
+import isAuthenticated from './Auth/isAuthenticated';
 
 class GroupList extends Component {
+    constructor(props)  {
+      super(props);
+    }
     render() {
         let groupNodes = this.props.data.map(group => {
             return (
@@ -19,7 +24,7 @@ class GroupList extends Component {
                 <div style={ style.commentList }>
                 { groupNodes }
                 </div>
-               )
+              )
     }
 }
 
