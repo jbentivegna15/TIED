@@ -52,7 +52,7 @@ class GroupForm extends Component {
 						Enter Group Image:<br/>
 						<input type="file" name="bannerGroup" accept="image/*" /><br/>
 						<input type="submit"
-						style={ style.userFormPost} />
+						style={ style.userFormPost} value='Submit'/>
 					</form></h2>
 				</div>
 			</div>
