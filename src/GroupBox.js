@@ -22,9 +22,9 @@ class GroupBox extends Component {
           return (
             isLoggedIn() ? (
               <div>
-              <h1 style={style.title}>TIED</h1>
-              <h2 style={style.title}>Create Group</h2>
-              <GroupForm onGroupSubmit={ this.handleGroupSubmit }/>
+                <h1 style={style.title}>TIED</h1>
+                <h2 style={style.title}>Create Group</h2>
+                <GroupForm onGroupSubmit={ this.handleGroupSubmit }/>
               </div>
             ) : (
               <Redirect to={{

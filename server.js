@@ -9,9 +9,15 @@ var Comment = require('./model/comments')
 var Group = require('./model/groups');
 const jwt = require('express-jwt');
 const jwks = require('jwks-rsa');
+const cors = require('cors');
 
 //and create our instances
 var app = express();
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors());
+
 var router = express.Router();
 
 //set our port to either a predetermined port number if you have set it up, or 3001
@@ -27,8 +33,8 @@ const authCheck = jwt({
         jwksUri: "https://tied.auth0.com/.well-known/jwks.json"
     }),
     // This is the identifier we set when we created the API
-    audience: 'CtS7hL_GmQPa6DLR-I2ZQIbiPfmu97G1',
-    issuer: 'https://tied.auth0.com',
+    aud: 'http://tiedgroups.com',
+    issuer: 'tied.auth0.com',
     algorithms: ['RS256']
 });
 
@@ -124,7 +130,7 @@ router.route('/users')
             //responds with a json object of our database users.
         res.json(users)
     });
-})
+},authCheck)
 //post new users to the database
 .post(function(req, res) {
     var user = new User();
@@ -134,24 +140,53 @@ router.route('/users')
     user.firstname = req.body.firstname;
     user.lastname = req.body.lastname;
     user.email = req.body.email;
+    user.uniqueId = req.body.uniqueId;
 
     user.save(function(err) {
         if (err)
             res.send(err);
         res.json({ message: 'User successfully added!' });
     });
-});
+},authCheck);
 
-router.route('/groups', authCheck)
+router.route('/users/:user_id')
+  .get(function(req, res) {
+    var user_id = req.params.user_id;
+    var userFound = null;
+
+    User.find(function(err,users) {
+      if(err)
+        res.send(err);
+      users.map(function(user) {
+        if (user.uniqueId === user_id) {
+          userFound = user;
+        }
+      });
+      res.json(userFound);
+    });
+  },authCheck)
+
+  .post(function(req,res){
+    var user_id = Number(req.params.user_id);
+    var user = new User();
+    user._id = user_id;
+    user.save(function(err) {
+      if(err)
+        res.send(err);
+
+    });
+  },authCheck);
+
+router.route('/groups')
 //retrieve all groups from the database
-.get(function(req, res) {
+.get((req,res) => {
     //look at the group schema
     Group.find(function(err, groups) {
         if (err)
             res.send(err);
         res.json(groups)
     });
-})
+},authCheck)
 //post new group to the database
 .post(function(req, res) {
     var group = new Group();
@@ -164,7 +199,7 @@ router.route('/groups', authCheck)
             res.send(err);
         res.json({ message: 'Group successfully added'});
     });
-});
+},authCheck);
 
 //Use our router configuration when we call /api
 app.use('/api', router);
