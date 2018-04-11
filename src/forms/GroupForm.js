@@ -39,7 +39,7 @@ class GroupForm extends Component {
 				</div>
 
 				<div id="right">
-					<h2><form style={ style.userForm} onSubmit={ this.handleSubmit}>
+					<h2><form style={ style.userForm} onSubmit={ this.handleSubmit }>
 						Enter Group Name:<br/>
 						<input type="text" placeholder="TIDE Enthusiasts"
 						style={ style.userFormUsername}
