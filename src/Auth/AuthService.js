@@ -1,5 +1,4 @@
 import decode from 'jwt-decode';
-import { Redirect } from 'react-router-dom';
 import auth0 from 'auth0-js';
 import axios from 'axios';
 const ID_TOKEN_KEY = 'id_token';
