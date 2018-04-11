@@ -24,7 +24,6 @@ class GroupListBox extends Component {
 			}
 			componentDidMount() {
 					this.loadGroupsFromServer();
-					setInterval(this.loadGroupsFromServer, this.props.pollInterval);
 			}
       render() {
           return (

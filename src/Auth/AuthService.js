@@ -6,15 +6,10 @@ const ACCESS_TOKEN_KEY = 'access_token';
 
 const CLIENT_ID = 'CtS7hL_GmQPa6DLR-I2ZQIbiPfmu97G1';
 const CLIENT_DOMAIN = 'tied.auth0.com';
-<<<<<<< HEAD
 const REDIRECT = 'http://199.98.27.116:3000/callback';
-const SCOPE = 'read:allgroups';
-const AUDIENCE = 'http://tiedgroups.com';
-=======
-const REDIRECT = 'http://localhost:3000/callback';
 const SCOPE = 'openid profile';
 const AUDIENCE = 'https://tied.auth0.com/userinfo';
->>>>>>> b059e2a50a04c87639c1b895fd72a5634cd8f993
+
 
 var auth = new auth0.WebAuth({
   clientID: CLIENT_ID,

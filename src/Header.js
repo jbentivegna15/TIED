@@ -17,7 +17,7 @@ const Header = () => (
           isLoggedIn() && (
             <div>
               <button onClick={() => logout()} className="loggedStyle">Logout</button>
-              <Link to='/grouplist' className="loggedHeader">View Groups List</Link>
+              <Link to='/groupList' className="loggedHeader">View Groups List</Link>
               <Link to='/creategroup' className="loggedHeader">Create a Group</Link>
             </div>
           )
