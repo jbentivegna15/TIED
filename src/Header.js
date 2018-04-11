@@ -1,21 +1,21 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import isAuthenticated from './Auth/isAuthenticated';
+import { login, logout, isLoggedIn } from './Auth/AuthService';
 
 const Header = () => (
   <header>
     <nav>
       <ul>
         {
-          !isAuthenticated() && (
-            <li><Link to='/login'>Login</Link></li>
+          !isLoggedIn() && (
+            <li><button onClick={() => login()}>Login</button></li>
           )
         }
         {
-          isAuthenticated() && (
+          isLoggedIn() && (
             <div>
             <li>
-              <Link to='/logout'>Logout</Link>
+              <button onClick={() => logout()}>Logout</button>
             </li>
             <li>
               <Link to='/grouplist'>Groups</Link>

@@ -4,7 +4,9 @@ import axios from 'axios';
 import GroupList from './GroupList';
 import style from './style';
 import { Redirect } from 'react-router-dom';
-import isAuthenticated from './Auth/isAuthenticated';
+import { isLoggedIn, getAccessToken } from './Auth/AuthService';
+
+const BASE_URL = 'http://localhost:3333';
 
 class GroupListBox extends Component {
 			constructor(props) {
@@ -13,7 +15,8 @@ class GroupListBox extends Component {
 					this.loadGroupsFromServer = this.loadGroupsFromServer.bind(this);
       }
 			loadGroupsFromServer() {
-					axios.get(this.props.url)
+					console.log(getAccessToken());
+					axios.get(this.props.url, { headers: { Authorization: `Bearer ${getAccessToken()}` }})
 							.then(res => {
 									this.setState({ data: res.data });
 							})
@@ -27,7 +30,7 @@ class GroupListBox extends Component {
 			}
       render() {
           return (
-						isAuthenticated() ? (
+						isLoggedIn() ? (
 	            <div>
 	            <h1 style={style.title}>TIED</h1>
 	            <h2 style={style.title}>Groups:</h2>
@@ -35,7 +38,7 @@ class GroupListBox extends Component {
 	            </div>
 						) : (
 							<Redirect to={{
-								pathname: '/login',
+								pathname: '/',
 								state: { from: this.props.location }
 							}} />
 						)

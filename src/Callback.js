@@ -1,9 +1,23 @@
-import React from 'react';
+import { Component } from 'react';
+import { setAccessToken, setIdToken} from './Auth/AuthService';
+//import setIdToken from './Auth/setIdToken'
+//import setAccessToken  from './Auth/setAccessToken';
 
-const Callback = () => (
-  <div className="container">
-    <h4>Eating Detergent...</h4>
-  </div>
-);
+class Callback extends Component {
+
+  constructor() {
+    super()
+  }
+
+  componentDidMount() {
+    setAccessToken();
+    setIdToken();
+    window.location.href = "/";
+  }
+
+  render() {
+    return null;
+  }
+}
 
 export default Callback;
