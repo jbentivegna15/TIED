@@ -7,9 +7,10 @@ const ACCESS_TOKEN_KEY = 'access_token';
 
 const CLIENT_ID = 'CtS7hL_GmQPa6DLR-I2ZQIbiPfmu97G1';
 const CLIENT_DOMAIN = 'tied.auth0.com';
-const REDIRECT = 'http://localhost:3000/callback';
+const REDIRECT = 'http://199.98.27.116:3000/callback';
 const SCOPE = 'openid profile';
 const AUDIENCE = 'https://tied.auth0.com/userinfo';
+
 
 var auth = new auth0.WebAuth({
   clientID: CLIENT_ID,
@@ -78,15 +79,19 @@ export function isLoggedIn() {
   return !!idToken && !isTokenExpired(idToken);
 }
 
-export function checkUserInDB() {
-  var id = String(getUserIdentifier());
-  var isThere = axios.get(`http://localhost:3001/api/users/${id}`)
+export function checkUserInDB(id) {
+  axios.get(`http://localhost:3001/api/users/${id}`)
+                    .then((res) => {
+                      console.log(res);
+                      if(res == null){
+                        return false;
+                      } else{
+                        return true;
+                      }
+                    })
                     .catch(err => {
                         console.error(err);
                     });
-  if(isThere == null)
-    return false;
-  return true;
 }
 
 export function getUserIdentifier() {

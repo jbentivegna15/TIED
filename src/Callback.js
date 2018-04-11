@@ -8,41 +8,56 @@ class Callback extends Component {
 
   constructor() {
     super()
-    this.state = { data: {} };
+    this.state = { data: {}, is: true };
   }
 
   componentDidMount() {
     setAccessToken();
     setIdToken();
     console.log(getAccessToken());
-    var token = String(getAccessToken());
-        axios.get('https://tied.auth0.com/userinfo/', { headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/x-www-form-urlencoded','Cache-Control': 'no-cache'},async:true, crossDomain:true,})
+    var token = getAccessToken();
+        axios.get('https://tied.auth0.com/userinfo/', { headers: { Authorization: `Bearer ${token}`,'Content-type': 'application/json'}})
           .then((res) => {
-            console.log(res.data.toString());
+            console.log(res.data);
+            this.setState({data: res.data});
+          })
+          .then(() => {
+            var subId = String(this.state.data.sub);
+            axios.get(`http://localhost:3001/api/users/${subId}`)
+              .then((res) => {
+                console.log(res);
+                if(res.data == null){
+                  console.log('yup');
+                  var user = {user:this.state.data.nickname,
+                              uniqueId: this.state.data.sub,
+                              password: '',
+                              firstname: '',
+                              lastname: '',
+                              email: '',
+                              admin_groups: [],
+                              private_groups: [],
+                              rsvps: [],
+                              messages: []
+                            };
+                  axios.post(this.props.url, user)
+                      .then(() => {
+                        window.location.href = "/";
+                      })
+                      .catch(err => {
+                          console.error(err);
+                      });
+                }
+                else {
+                  window.location.href = "/";
+                }
+              })
+              .catch(err => {
+                console.error(err);
+              });
           })
           .catch(err => {
               console.error(err);
           });
-
-      console.log(this.state.data);
-      //var userIdentifier = getUserIdentifier();
-      var user = {user:'',
-                  uniqueId: this.state.data.sub,
-                  password: '',
-                  firstname: '',
-                  lastname: '',
-                  email: '',
-                  admin_groups: [],
-                  private_groups: [],
-                  rsvps: [],
-                  messages: []
-                };
-      axios.post(this.props.url, user)
-          .catch(err => {
-              console.error(err);
-          });
-
-    window.location.href = "/";
   }
 
   render() {

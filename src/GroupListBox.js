@@ -9,11 +9,16 @@ import { Link } from 'react-router-dom';
 class GroupListBox extends Component {
 			constructor(props) {
 					super(props);
-					this.state = { data: [] }
+					this.state = { data: [], userId: '' }
 					this.loadGroupsFromServer = this.loadGroupsFromServer.bind(this);
       }
 			loadGroupsFromServer() {
+<<<<<<< HEAD
+					console.log(getAccessToken());
+					axios.get(this.props.url)
+=======
 					axios.get(this.props.url, { headers: { Authorization: `Bearer ${getAccessToken()}` }})
+>>>>>>> c49c77e6a8a38480002fb58ec45391ff6baa41d0
 							.then(res => {
 									this.setState({ data: res.data });
 							})
