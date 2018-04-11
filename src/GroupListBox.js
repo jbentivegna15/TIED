@@ -13,7 +13,6 @@ class GroupListBox extends Component {
 					this.loadGroupsFromServer = this.loadGroupsFromServer.bind(this);
       }
 			loadGroupsFromServer() {
-					console.log(getAccessToken());
 					axios.get(this.props.url, { headers: { Authorization: `Bearer ${getAccessToken()}` }})
 							.then(res => {
 									this.setState({ data: res.data });
@@ -24,7 +23,6 @@ class GroupListBox extends Component {
 			}
 			componentDidMount() {
 					this.loadGroupsFromServer();
-					setInterval(this.loadGroupsFromServer, this.props.pollInterval);
 			}
       render() {
           return (

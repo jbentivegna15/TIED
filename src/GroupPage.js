@@ -1,9 +1,7 @@
 //GroupPage.js
 import React, { Component } from 'react';
 import style from './style';
-import { withRouter } from "react-router-dom";
 import Group from './Group';
-//import EventList from './EventList';\
 
 class GroupPage extends Component {
       render() {
@@ -19,4 +17,4 @@ class GroupPage extends Component {
 }
 
 //<EventList data={ this.state.data }/>
-export default withRouter(GroupPage);
+export default GroupPage;

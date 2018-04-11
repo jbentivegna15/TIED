@@ -44,7 +44,7 @@ class EventForm extends Component {
     if (!name || !description || !date || !time || !loc) {
       return;
     }
-    this.props.onEventSubmit(id, event);
+    this.props.onEventSubmit(event);
 		// TODO: add admin update support
     this.setState({ name:'', description:'', date:'', time:'', loc:'', img:'' });
   }

@@ -215,10 +215,8 @@ router.route('/groups/:group_id')
  .put(function(req, res) {
       Group.findById(req.params.group_id, function(err, group) {
           if (err)
-            res.send(err);
-          //setting the new author and text to whatever was changed. If
-          //nothing was changed we will not alter the field.
-          (req.body.events) ? group.events = req.body.events: null;
+                res.send(err);
+          group.events.unshift(req.body);
           //save event
           group.save(function(err) {
               if (err)
