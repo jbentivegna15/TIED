@@ -5,28 +5,24 @@ import { login, logout, isLoggedIn } from './Auth/AuthService';
 const Header = () => (
   <header>
     <nav>
-      <ul>
+      <div className="divFont">
         {
           !isLoggedIn() && (
-            <li><button onClick={() => login()}>Login</button></li>
+          <div className="divCenter">
+            <button onClick={() => login()} className="loginStyle">Log In/Register</button>
+          </div>
           )
         }
         {
           isLoggedIn() && (
             <div>
-            <li>
-              <button onClick={() => logout()}>Logout</button>
-            </li>
-            <li>
-              <Link to='/grouplist'>Groups</Link>
-            </li>
-            <li>
-              <Link to='/creategroup'>Make a Group</Link>
-            </li>
+              <button onClick={() => logout()} className="loggedStyle">Logout</button>
+              <Link to='/grouplist' className="loggedHeader">View Groups List</Link>
+              <Link to='/creategroup' className="loggedHeader">Create a Group</Link>
             </div>
           )
         }
-      </ul>
+      </div>
     </nav>
   </header>
 )

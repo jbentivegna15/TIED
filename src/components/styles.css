@@ -1,5 +1,12 @@
 body {background-color: powderblue;}
 
+.introLogo{
+  text-align: center;
+  color: orange;
+  font-size: 350%;
+  font-family: arial;
+}
+
 h1 {color: orange;
     font-size: 350%;
     font-family: arial;}
@@ -58,4 +65,71 @@ table#othView th{
   height: 300px;
   background-color: purple;
   background-position: center;
+}
+
+/*new things below */
+
+.loginStyle{
+  margin-top: 15%;
+  width: 30%;
+  background-color: orange;
+  border: 1px orange;
+  padding: 15px;
+}
+.loginStyle:hover{
+  background-color: darkorange;
+}
+.loggedStyle{
+  background-color: orange;
+  border: 1px orange;
+  padding: 10px 15px;
+}
+.loggedStyle:hover{
+  background-color: darkorange;
+}
+.loggedHeader{
+  margin-left: 5px;
+  margin-right: 5px;
+  padding: 10px 15px;
+  text-decoration: none;
+}
+.loggedHeader:hover{
+  background-color: steelblue;
+}
+
+.divCenter{
+  text-align: center;
+  text-decoration: none;
+}
+.divFont{
+  font-family: arial, helvetica, sans-serif;
+}
+
+.pageButton{
+  background-color: orange;
+  color: black;
+  font-size: 14px;
+  padding: 10px;
+  cursor: pointer;
+  border: 1px orange;
+  margin: 10px;
+  width: 300px;
+}
+.pageButton:hover{
+  background-color: darkorange;
+}
+
+a:link {
+  color:inherit;
+  text-decoration: none;
+}
+a:visited {
+  color:inherit;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: none;
+}
+a:active {
+  text-decoration: none;
 }

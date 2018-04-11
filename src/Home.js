@@ -2,29 +2,29 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import style from './style';
+import { isLoggedIn } from './Auth/AuthService';
 
-class Home extends Component {
+const Home = () => (
+  <div>
+    {
+      !isLoggedIn() && (
+        <div>
+          <h1 style={style.title}>TIED</h1>
+        </div>
+      )
+    }
+    {
+      isLoggedIn()&&(
+        <div>
+          <h1 style={style.title}>TIED</h1>
+          <div className="divCenter">
+            <button className="pageButton"><Link to="/createGroup">Create Group</Link></button><br/>
+            <button className="pageButton"><Link to="/groupList">Group List</Link></button>
+          </div>
+        </div>
+      )
+    }
+  </div>
+)
 
-      render() {
-
-          return (
-            <div>
-            <h1 style={style.title}>TIED</h1>
-            <li>
-            <Link to="/login" style={{ textDecoration: 'none'}}>Login</Link>
-            </li>
-            <li>
-            <Link to="/signup" style={{ textDecoration: 'none'}}>Sign Up</Link>
-            </li>
-            <li>
-            <Link to="/createGroup" style={{ textDecoration: 'none'}}>Create Group</Link>
-            </li>
-            <li>
-            <Link to="/groupList" style={{ textDecoration: 'none'}}>Group List</Link>
-            </li>
-            </div>
-          )
-      }
-  }
-
-  export default Home;
+export default Home;
