@@ -6,8 +6,6 @@ import style from './style';
 import { Redirect } from 'react-router-dom';
 import { isLoggedIn, getAccessToken } from './Auth/AuthService';
 
-const BASE_URL = 'http://localhost:3333';
-
 class GroupListBox extends Component {
 			constructor(props) {
 					super(props);
@@ -44,6 +42,6 @@ class GroupListBox extends Component {
 						)
           )
       }
-  }
+}
 
-  export default GroupListBox;
+export default GroupListBox;

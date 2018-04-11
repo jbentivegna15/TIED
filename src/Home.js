@@ -1,5 +1,5 @@
 //Home.js
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from "react-router-dom";
 import style from './style';
 import { isLoggedIn } from './Auth/AuthService';

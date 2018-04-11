@@ -23,9 +23,7 @@ class UserBox extends Component {
         axios.post(this.props.url, user)
           .catch(err => {
             console.error(err);
-
           });
-
       }
       render() {
           return (
@@ -34,7 +32,7 @@ class UserBox extends Component {
             <h2 style={style.title}>REGISTERING</h2>
             <UserForm onUserSubmit={this.handleUserSubmit }/>
             </div>
-                 )
+          )
       }
   }
 

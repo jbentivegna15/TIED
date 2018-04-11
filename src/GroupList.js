@@ -1,7 +1,7 @@
 //GroupList.js
 import React, { Component } from 'react';
-import Group from './Group';
 import style from './style';
+import Group from "./Group";
 
 
 class GroupList extends Component {
@@ -11,8 +11,7 @@ class GroupList extends Component {
                     <Group
                     name={ group.name }
                     uniqueID={ group['_id'] }
-                    key={ group['_id']}>
-                    { group.description}
+                    description={ group.description }>
                     </Group>
                    )
         })
