@@ -1,5 +1,4 @@
 'use strict'
-
 //first we import our dependencies...
 var express = require('express');
 var mongoose = require('mongoose');
@@ -200,6 +199,43 @@ router.route('/groups')
         res.json({ message: 'Group successfully added'});
     });
 },authCheck);
+
+router.route('/groups/:group_id')
+//retrieve a groups from the database
+.get(function(req, res) {
+    //look at the group schema
+    Group.findById(req.params.group_id, function(err, group) {
+        if (err)
+            res.send(err);
+        res.json(group)
+    });
+})
+//The put method gives us the chance to add an event based on
+//the ID passed to the route
+ .put(function(req, res) {
+      Group.findById(req.params.group_id, function(err, group) {
+          if (err)
+            res.send(err);
+          //setting the new author and text to whatever was changed. If
+          //nothing was changed we will not alter the field.
+          (req.body.events) ? group.events = req.body.events: null;
+          //save event
+          group.save(function(err) {
+              if (err)
+                  res.send(err);
+                  res.json({ message: 'Event has been added' });
+          });
+      });
+ })
+ //delete method for removing a comment from our database
+ .delete(function(req, res) {
+ //selects the comment by its ID, then removes it.
+      Group.remove({ _id: req.params.group_id }, function(err, group) {
+          if (err)
+              res.send(err);
+          res.json({ message: 'Event has been deleted' })
+      })
+ });
 
 //Use our router configuration when we call /api
 app.use('/api', router);
