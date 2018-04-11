@@ -78,15 +78,19 @@ export function isLoggedIn() {
   return !!idToken && !isTokenExpired(idToken);
 }
 
-export function checkUserInDB() {
-  var id = String(getUserIdentifier());
-  var isThere = axios.get(`http://localhost:3001/api/users/${id}`)
+export function checkUserInDB(id) {
+  axios.get(`http://localhost:3001/api/users/${id}`)
+                    .then((res) => {
+                      console.log(res);
+                      if(res == null){
+                        return false;
+                      } else{
+                        return true;
+                      }
+                    })
                     .catch(err => {
                         console.error(err);
                     });
-  if(isThere == null)
-    return false;
-  return true;
 }
 
 export function getUserIdentifier() {

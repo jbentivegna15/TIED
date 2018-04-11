@@ -9,7 +9,7 @@ import { isLoggedIn, getAccessToken } from './Auth/AuthService';
 class GroupListBox extends Component {
 			constructor(props) {
 					super(props);
-					this.state = { data: [] }
+					this.state = { data: [], userId: '' }
 					this.loadGroupsFromServer = this.loadGroupsFromServer.bind(this);
       }
 			loadGroupsFromServer() {
