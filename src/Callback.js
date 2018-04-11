@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { setAccessToken, setIdToken, checkUserInDB, getUserIdentifier } from './Auth/AuthService';
+import { setAccessToken, setIdToken, checkUserInDB, getUserIdentifier, getAccessToken } from './Auth/AuthService';
 import axios from 'axios';
 //import setIdToken from './Auth/setIdToken'
 //import setAccessToken  from './Auth/setAccessToken';
@@ -8,16 +8,27 @@ class Callback extends Component {
 
   constructor() {
     super()
-    this.state = { uniqueID: ''};
+    this.state = { data: {} };
   }
 
   componentDidMount() {
     setAccessToken();
     setIdToken();
-    if(!checkUserInDB()){
-      var userIdentifier = getUserIdentifier();
+
+      console.log(getAccessToken());
+      var token = String(getAccessToken());
+      axios.get('https://tied.auth0.com/userinfo/', { headers: { Authorization: `Bearer ${token}` }})
+        .then((res) => {
+          console.log(res.data);
+            this.setState({ data: res.data });
+        })
+        .catch(err => {
+            console.error(err);
+        });
+      console.log(this.state.data);
+      //var userIdentifier = getUserIdentifier();
       var user = {user:'',
-                  uniqueID: userIdentifier,
+                  uniqueId: this.state.data.sub,
                   password: '',
                   firstname: '',
                   lastname: '',
@@ -31,7 +42,7 @@ class Callback extends Component {
           .catch(err => {
               console.error(err);
           });
-    }
+
     window.location.href = "/";
   }
 

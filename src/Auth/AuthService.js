@@ -6,20 +6,27 @@ const ACCESS_TOKEN_KEY = 'access_token';
 
 const CLIENT_ID = 'CtS7hL_GmQPa6DLR-I2ZQIbiPfmu97G1';
 const CLIENT_DOMAIN = 'tied.auth0.com';
+<<<<<<< HEAD
 const REDIRECT = 'http://199.98.27.116:3000/callback';
 const SCOPE = 'read:allgroups';
 const AUDIENCE = 'http://tiedgroups.com';
+=======
+const REDIRECT = 'http://localhost:3000/callback';
+const SCOPE = 'openid profile';
+const AUDIENCE = 'https://tied.auth0.com/userinfo';
+>>>>>>> b059e2a50a04c87639c1b895fd72a5634cd8f993
 
 var auth = new auth0.WebAuth({
   clientID: CLIENT_ID,
-  domain: CLIENT_DOMAIN
+  domain: CLIENT_DOMAIN,
+  scope: SCOPE
 });
 
 export function login() {
   auth.authorize({
     responseType: 'token id_token',
     redirectUri: REDIRECT,
-    audience: AUDIENCE,
+    //audience: AUDIENCE,
     scope: SCOPE
   });
 
@@ -77,18 +84,30 @@ export function isLoggedIn() {
 }
 
 export function checkUserInDB() {
-  var user = axios.get('https://tied.auth0.com/userinfo', { headers: { Authorization: `Bearer ${getAccessToken()}` }});
-  var id = user.user_id;
-  var isThere = axios.get(`http://localhost:3001/api/users/${id}`, { headers: { Authorization: `Bearer ${getAccessToken()}` }});
+  var id = String(getUserIdentifier());
+  var isThere = axios.get(`http://localhost:3001/api/users/${id}`)
+                    .catch(err => {
+                        console.error(err);
+                    });
   if(isThere == null)
     return false;
   return true;
 }
 
 export function getUserIdentifier() {
-  var user = axios.get('https://tied.auth0.com/userinfo', { headers: { Authorization: 'Bearer ${getAccessToken()}'}});
-  var id = user.user_id;
-  return id;
+  var userData = getUserInfo(getAccessToken());
+  console.log(userData);
+    //console.log(userData);
+    var id = null;
+    //console.log(id);
+    return id;
+}
+
+function getUserInfo(token) {
+  axios.get('https://tied.auth0.com/userinfo', { headers: {Authorization: `Bearer ${token}`}})
+    .then(res => {
+      return res.data;
+    });
 }
 
 function getTokenExpirationDate(encodedToken) {

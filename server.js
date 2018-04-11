@@ -32,7 +32,7 @@ const authCheck = jwt({
         jwksUri: "https://tied.auth0.com/.well-known/jwks.json"
     }),
     // This is the identifier we set when we created the API
-    aud: 'http://tiedgroups.com',
+    aud: 'https://tied.auth0.com/api/v2',
     issuer: 'tied.auth0.com',
     algorithms: ['RS256']
 });
@@ -150,7 +150,7 @@ router.route('/users')
 
 router.route('/users/:user_id')
   .get(function(req, res) {
-    var user_id = req.params.user_id;
+    var user_id = String(req.params.user_id);
     var userFound = null;
 
     User.find(function(err,users) {
@@ -163,7 +163,7 @@ router.route('/users/:user_id')
       });
       res.json(userFound);
     });
-  },authCheck)
+  })
 
   .post(function(req,res){
     var user_id = Number(req.params.user_id);
@@ -174,7 +174,7 @@ router.route('/users/:user_id')
         res.send(err);
 
     });
-  },authCheck);
+  });
 
 router.route('/groups')
 //retrieve all groups from the database
