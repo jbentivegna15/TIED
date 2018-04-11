@@ -14,17 +14,16 @@ class Callback extends Component {
   componentDidMount() {
     setAccessToken();
     setIdToken();
+    console.log(getAccessToken());
+    var token = String(getAccessToken());
+        axios.get('https://tied.auth0.com/userinfo/', { headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/x-www-form-urlencoded','Cache-Control': 'no-cache'},async:true, crossDomain:true,})
+          .then((res) => {
+            console.log(res.data.toString());
+          })
+          .catch(err => {
+              console.error(err);
+          });
 
-      console.log(getAccessToken());
-      var token = String(getAccessToken());
-      axios.get('https://tied.auth0.com/userinfo/', { headers: { Authorization: `Bearer ${token}` }})
-        .then((res) => {
-          console.log(res.data);
-            this.setState({ data: res.data });
-        })
-        .catch(err => {
-            console.error(err);
-        });
       console.log(this.state.data);
       //var userIdentifier = getUserIdentifier();
       var user = {user:'',
