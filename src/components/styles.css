@@ -4,25 +4,22 @@ body {background-color: powderblue;}
   text-align: center;
   color: orange;
   font-size: 350%;
-  font-family: arial;
 }
 
-h1 {color: orange;
-    font-size: 350%;
-    font-family: arial;}
+h1 {
+  color: orange;
+  font-size: 350%;
+}
 
-h2 {color: orange;
-    font-size: 150%;
-    font-family: arial;}
+h2 {
+  color: orange;
+  font-size: 150%;
+}
 
-h3 {color: slateblue;
-    line-height: 20px;
-    font-family: arial;}
-
-p.button {background-color: orange;
-   color: black;
-   font-family: arial;
-   padding: 25px;}
+h3 {
+  color: slateblue;
+  line-height: 10px;
+}
 
 .vl{border-left: 5px solid gold;
   height: 1000px;
@@ -38,33 +35,6 @@ table, th, td{
 
 th,td{
   padding: 10px;
-}
-
-table#myView tr:nth-child(odd){
-  background-color: orange;
-}
-table#myView tr:nth-child(even){
-  background-color: gold;
-}
-table#myView th{
-  background-color: coral;
-}
-
-table#othView tr:nth-child(odd){
-  background-color: slateblue;
-}
-table#othView tr:nth-child(even){
-  background-color: mediumslateblue;
-}
-table#othView th{
-  background-color: darkorchid;
-}
-
-#bannerImage{
-  width: 95%;
-  height: 300px;
-  background-color: purple;
-  background-position: center;
 }
 
 /*new things below */
@@ -132,4 +102,21 @@ a:hover {
 }
 a:active {
   text-decoration: none;
+}
+
+.listStyle{
+  background-color: white;
+  padding: 5px;
+  margin: 5px;
+}
+
+.formStyle{
+  padding: 10px;
+}
+
+.scrollList{
+  border: 1px solid #f1f1f1;
+  padding: 0 12px;
+  maxHeight: 70vh;
+  overflow: scroll;
 }

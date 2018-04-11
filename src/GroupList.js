@@ -1,6 +1,5 @@
 //GroupList.js
 import React, { Component } from 'react';
-import style from './style';
 import Group from "./Group";
 
 
@@ -16,7 +15,8 @@ class GroupList extends Component {
                    )
         })
         return (
-                <div style={ style.commentList }>
+//page formatting
+                <div className="scrollList">
                 { groupNodes }
                 </div>
               )

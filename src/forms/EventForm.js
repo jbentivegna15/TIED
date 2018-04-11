@@ -1,6 +1,4 @@
 import React, {Component} from 'react';
-import style from '../style';
-import '../components/styles.css';
 
 class EventForm extends Component {
   constructor(props) {
@@ -50,43 +48,23 @@ class EventForm extends Component {
   }
   render() {
     return (
-			<div id="container">
-				<div id="left">
-					<div id="includedContent"></div>
-				</div>
-
-				<div id="right">
-					<h2><form style={ style.userForm} onSubmit={ this.handleSubmit}>
-						Enter Event Name:<br/>
-						<input type="text" placeholder="Cat Party"
-						style={ style.userFormUsername}
-						value={ this.state.name}
-						onChange={ this.handleNameChange } /><br/>
-						Description:<br/>
-						<textarea id="groupDesc" name="Description" placeholder="Lots of Cats." rows="5" cols="50"
-						value={ this.state.description}
-						onChange={ this.handleDescriptionChange } ></textarea><br/>
-						Enter Date of Event:<br/>
-						<input type="text" placeholder="05/16/2019"
-						style={ style.userFormUsername}
-						value={ this.state.date}
-						onChange={ this.handleDateChange } /><br/>
-						Enter Time of Event:<br/>
-						<input type="text" placeholder="5:30 PM"
-						style={ style.userFormUsername}
-						value={ this.state.time}
-						onChange={ this.handleTimeChange } /><br/>
-						Enter Location of Event:<br/>
-						<input type="text" placeholder="Not the Ocean"
-						style={ style.userFormUsername}
-						value={ this.state.loc}
-						onChange={ this.handleLocChange } /><br/>
-						<input type="file" name="bannerGroup" accept="image/*" /><br/>
-						<input type="submit"
-						style={ style.userFormPost}
-						value="Submit" />
-					</form></h2>
-				</div>
+//page formatting
+			<div id="divFont divCenter">
+				<h2><form onSubmit={ this.handleSubmit} className="formStyle">
+					Event Name:<br/>
+					<input type="text" placeholder="Cat Party" value={ this.state.name} onChange={ this.handleNameChange }/><br/>
+					Description:<br/>
+					<textarea id="groupDesc" name="Description" placeholder="Lots of Cats." rows="7" cols="30" value={ this.state.description} onChange={ this.handleDescriptionChange }></textarea><br/>
+					Date of Event:<br/>
+					<input type="text" placeholder="05/16/2019" value={ this.state.date } onChange={ this.handleDateChange }/><br/>
+					Time of Event:<br/>
+					<input type="text" placeholder="5:30 PM" value={ this.state.time} onChange={ this.handleTimeChange }/><br/>
+					Location of Event:<br/>
+					<input type="text" placeholder="Not the Ocean" value={ this.state.loc} onChange={ this.handleLocChange }/><br/>
+          Image of Event:<br/>
+					<input type="file" name="bannerGroup" accept="image/*"/><br/>
+					<input type="submit" value="Submit"/>
+				</form></h2>
 			</div>
     )
   }

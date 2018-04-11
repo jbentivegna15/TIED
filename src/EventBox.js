@@ -2,8 +2,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import EventForm from './forms/EventForm';
-import style from './style';
 import { withRouter } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 class EventBox extends Component {
     constructor(props) {
@@ -19,10 +19,11 @@ class EventBox extends Component {
   		}
       render() {
           return (
-            <div>
-            <h1 style={style.title}>TIED</h1>
-            <h2 style={style.title}>Create Event</h2>
-            <EventForm onEventSubmit={ this.handleEventSubmit }/>
+//page formatting
+            <div className="divFont divCenter">
+              <h1><Link to="/">TIED</Link></h1>
+              <h2>Create Event</h2>
+              <EventForm onEventSubmit={ this.handleEventSubmit }/>
             </div>
           )
       }

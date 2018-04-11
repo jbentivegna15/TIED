@@ -1,26 +1,25 @@
 //Home.js
 import React from 'react';
 import { Link } from "react-router-dom";
-import style from './style';
 import { isLoggedIn } from './Auth/AuthService';
 
 const Home = () => (
   <div>
     {
       !isLoggedIn() && (
-        <div>
-          <h1 style={style.title}>TIED</h1>
+//page formatting
+        <div className="divFont divCenter">
+          <h1>TIED</h1>
         </div>
       )
     }
     {
       isLoggedIn()&&(
-        <div>
-          <h1 style={style.title}>TIED</h1>
-          <div className="divCenter">
-            <button className="pageButton"><Link to="/createGroup">Create Group</Link></button><br/>
-            <button className="pageButton"><Link to="/groupList">Group List</Link></button>
-          </div>
+//page formatting
+        <div className="divFont divCenter">
+          <h1><Link to='/'>TIED</Link></h1>
+          <Link to="/createGroup"><button className="pageButton">Create Group</button></Link><br/>
+          <Link to="/groupList"><button className="pageButton">Group List</button></Link>
         </div>
       )
     }

@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import GroupPage from './GroupPage';
 import EventList from './EventList';
-import style from './style';
 import { Link, withRouter } from "react-router-dom";
 
 class GroupPageBox extends Component {
@@ -27,15 +26,16 @@ class GroupPageBox extends Component {
 			}
       render() {
           return (
-						<div>
-            <h1 style={style.title}>TIED</h1>
-						<li><Link to={`/groupList/${this.state.id}/createEvent`} style={{ textDecoration: 'none'}}>Click here to create an event!</Link></li>
-						<h2 style={style.title}>Group Information:</h2>
-						<GroupPage
-						data={ this.state.data }/>
-						<h2 style={style.title}>Event List:</h2>
-						<EventList
-						data={ this.state.edata }/>
+//page formatting
+						<div className="divFont">
+							<div className="divCenter">
+            		<h1><Link to="/">TIED</Link></h1>
+							</div>
+							<Link to={`/groupList/${this.state.id}/createEvent`}><button className="pageButton">Click here to create an event!</button></Link>
+							<h2>Group Information:</h2>
+							<GroupPage data={ this.state.data }/>
+							<h2>Event List:</h2>
+							<EventList data={ this.state.edata }/>
 						</div>
         )}
   }

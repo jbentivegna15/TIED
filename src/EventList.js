@@ -1,6 +1,5 @@
 //EventList.js
 import React, { Component } from 'react';
-import style from './style';
 import Event from "./Event";
 
 class EventList extends Component {
@@ -15,7 +14,8 @@ class EventList extends Component {
 								 )
 			})
 			return (
-							<div style={ style.commentList }>
+//page formatting
+							<div className="scrollList">
 							{ eventNodes }
 							</div>
 						)

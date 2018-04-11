@@ -2,9 +2,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import GroupForm from './forms/GroupForm';
-import style from './style';
 import { Redirect } from 'react-router-dom';
 import { isLoggedIn } from './Auth/AuthService';
+import { Link } from 'react-router-dom';
 
 class GroupBox extends Component {
       constructor(props) {
@@ -21,9 +21,10 @@ class GroupBox extends Component {
       render() {
           return (
             isLoggedIn() ? (
-              <div>
-                <h1 style={style.title}>TIED</h1>
-                <h2 style={style.title}>Create Group</h2>
+//page formatting
+              <div className="divFont divCenter">
+                <h1><Link to='/'>TIED</Link></h1>
+                <h2>Create Group</h2>
                 <GroupForm onGroupSubmit={ this.handleGroupSubmit }/>
               </div>
             ) : (

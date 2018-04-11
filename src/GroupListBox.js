@@ -2,9 +2,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import GroupList from './GroupList';
-import style from './style';
 import { Redirect } from 'react-router-dom';
 import { isLoggedIn, getAccessToken } from './Auth/AuthService';
+import { Link } from 'react-router-dom';
 
 class GroupListBox extends Component {
 			constructor(props) {
@@ -27,10 +27,13 @@ class GroupListBox extends Component {
       render() {
           return (
 						isLoggedIn() ? (
-	            <div>
-	            <h1 style={style.title}>TIED</h1>
-	            <h2 style={style.title}>Groups:</h2>
-							<GroupList data={ this.state.data }/>
+//page formatting
+	            <div className="divFont">
+								<div className="divCenter">
+									<h1><Link to='/'>TIED</Link></h1>
+								</div>
+	            	<h2>Groups:</h2>
+								<GroupList data={ this.state.data }/>
 	            </div>
 						) : (
 							<Redirect to={{

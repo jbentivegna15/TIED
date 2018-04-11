@@ -33,26 +33,17 @@ class GroupForm extends Component {
   }
   render() {
     return (
-			<div id="container">
-				<div id="left">
-					<div id="includedContent"></div>
-				</div>
-
+//page formatting
+			<div className="divFont divCenter">
 				<div id="right">
-					<h2><form style={ style.userForm} onSubmit={ this.handleSubmit }>
+					<h2><form onSubmit={ this.handleSubmit }>
 						Enter Group Name:<br/>
-						<input type="text" placeholder="TIDE Enthusiasts"
-						style={ style.userFormUsername}
-						value={ this.state.name}
-						onChange={ this.handleNameChange } /><br/>
+						<input type="text" placeholder="TIDE Enthusiasts" value={ this.state.name} onChange={ this.handleNameChange } /><br/>
 						Description:<br/>
-						<textarea id="groupDesc" name="Description" placeholder="Do not eat." rows="5" cols="50"
-						value={ this.state.description}
-						onChange={ this.handleDescriptionChange } ></textarea><br/>
-						Enter Group Image:<br/>
-						<input type="file" name="bannerGroup" accept="image/*" /><br/>
-						<input type="submit"
-						style={ style.userFormPost} value='Submit'/>
+						<textarea id="groupDesc" name="Description" placeholder="Do not eat." rows="5" cols="50" value={ this.state.description} onChange={ this.handleDescriptionChange } ></textarea><br/>
+            {/*Enter Group Image:<br/>
+						<input type="file" name="bannerGroup" accept="image/*" /><br/> */}
+						<input type="submit" value='Submit'/>
 					</form></h2>
 				</div>
 			</div>

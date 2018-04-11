@@ -1,6 +1,5 @@
 //Group.js
 import React, { Component } from 'react';
-import style from './style';
 import { Link } from 'react-router-dom';
 
 class Group extends Component {
@@ -15,9 +14,12 @@ class Group extends Component {
   }
   render() {
       return (
-              <div style={ style.comment }>
-              <li><Link to={`/groupList/${this.props.uniqueID}`} style={{ textDecoration: 'none'}}>{this.props.name}</Link></li>
-              <h3>{this.props.description}</h3>
+//page formatting
+              <div className="divFont listStyle">
+                <Link to={`/groupList/${this.props.uniqueID}`}>
+                  <h3>{this.props.name}</h3>
+                  {this.props.description}
+                </Link>
               </div>
              )
   }
