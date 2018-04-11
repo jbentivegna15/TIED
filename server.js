@@ -129,7 +129,7 @@ router.route('/users')
             //responds with a json object of our database users.
         res.json(users)
     });
-})
+},authCheck)
 //post new users to the database
 .post(function(req, res) {
     var user = new User();
@@ -146,7 +146,7 @@ router.route('/users')
             res.send(err);
         res.json({ message: 'User successfully added!' });
     });
-});
+},authCheck);
 
 router.route('/users/:user_id')
   .get(function(req, res) {
@@ -185,7 +185,7 @@ router.route('/groups')
             res.send(err);
         res.json(groups)
     });
-})
+},authCheck)
 //post new group to the database
 .post(function(req, res) {
     var group = new Group();
@@ -198,7 +198,7 @@ router.route('/groups')
             res.send(err);
         res.json({ message: 'Group successfully added'});
     });
-});
+},authCheck);
 
 router.route('/groups/:group_id')
 //retrieve a groups from the database
@@ -215,10 +215,8 @@ router.route('/groups/:group_id')
  .put(function(req, res) {
       Group.findById(req.params.group_id, function(err, group) {
           if (err)
-            res.send(err);
-          //setting the new author and text to whatever was changed. If
-          //nothing was changed we will not alter the field.
-          (req.body.events) ? group.events = req.body.events: null;
+                res.send(err);
+          group.events.unshift(req.body);
           //save event
           group.save(function(err) {
               if (err)

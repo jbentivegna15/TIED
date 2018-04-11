@@ -1,9 +1,9 @@
-//Group.js
+//Event.js
 import React, { Component } from 'react';
 import style from './style';
 import { Link } from 'react-router-dom';
 
-class Group extends Component {
+class Event extends Component {
   constructor(props) {
     super(props);
     this.state= {
@@ -16,11 +16,11 @@ class Group extends Component {
   render() {
       return (
               <div style={ style.comment }>
-              <li><Link to={`/groupList/${this.props.uniqueID}`} style={{ textDecoration: 'none'}}>{this.props.name}</Link></li>
+              <h3>{this.props.name}</h3>
               <h3>{this.props.description}</h3>
               </div>
              )
   }
 }
 
-export default Group;
+export default Event;
