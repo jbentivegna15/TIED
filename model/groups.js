@@ -5,15 +5,13 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var groupSchema = new Schema({
-	_id: int,
 	name: String,
 	events: [{
-		_id: int
 		name: String,
 		date: String,
 		time: String,
 		loc: String,
-		attendees: [{ _id: int }],
+		attendees: [{ _id: Schema.Types.Mixed}],
 		description: String,
 	}],
 	description: String,

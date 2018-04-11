@@ -1,18 +1,41 @@
 'use strict'
-
 //first we import our dependencies...
 var express = require('express');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var User = require('./model/users');
 var Comment = require('./model/comments')
+var Group = require('./model/groups');
+const jwt = require('express-jwt');
+const jwks = require('jwks-rsa');
+const cors = require('cors');
 
 //and create our instances
 var app = express();
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors());
+
 var router = express.Router();
 
 //set our port to either a predetermined port number if you have set it up, or 3001
 var port = process.env.API_PORT || 3001;
+
+//authorization method
+const authCheck = jwt({
+  secret: jwks.expressJwtSecret({
+        cache: true,
+        rateLimit: true,
+        jwksRequestsPerMinute: 5,
+        // YOUR-AUTH0-DOMAIN name e.g prosper.auth0.com
+        jwksUri: "https://tied.auth0.com/.well-known/jwks.json"
+    }),
+    // This is the identifier we set when we created the API
+    aud: 'https://tied.auth0.com/api/v2',
+    issuer: 'tied.auth0.com',
+    algorithms: ['RS256']
+});
 
 //db config
 var mongoDB = 'mongodb://Jab123:softcoop1@ds125113.mlab.com:25113/test1';
@@ -98,15 +121,15 @@ router.route('/comments/:comment_id')
 
 router.route('/users')
 //retrieve all users from the database
-  .get(function(req, res) {
-      //looks at our user schema
-      User.find(function(err, users) {
-          if (err)
-              res.send(err);
-              //responds with a json object of our database users.
-          res.json(users)
-      });
-})
+.get(function(req, res) {
+    //looks at our user schema
+    User.find(function(err, users) {
+        if (err)
+            res.send(err);
+            //responds with a json object of our database users.
+        res.json(users)
+    });
+},authCheck)
 //post new users to the database
 .post(function(req, res) {
     var user = new User();
@@ -116,13 +139,101 @@ router.route('/users')
     user.firstname = req.body.firstname;
     user.lastname = req.body.lastname;
     user.email = req.body.email;
+    user.uniqueId = req.body.uniqueId;
 
     user.save(function(err) {
         if (err)
             res.send(err);
         res.json({ message: 'User successfully added!' });
     });
-});
+},authCheck);
+
+router.route('/users/:user_id')
+  .get(function(req, res) {
+    var user_id = String(req.params.user_id);
+    var userFound = null;
+
+    User.find(function(err,users) {
+      if(err)
+        res.send(err);
+      users.map(function(user) {
+        if (user.uniqueId === user_id) {
+          userFound = user;
+        }
+      });
+      res.json(userFound);
+    });
+  })
+
+  .post(function(req,res){
+    var user_id = Number(req.params.user_id);
+    var user = new User();
+    user._id = user_id;
+    user.save(function(err) {
+      if(err)
+        res.send(err);
+
+    });
+  });
+
+router.route('/groups')
+//retrieve all groups from the database
+.get((req,res) => {
+    //look at the group schema
+    Group.find(function(err, groups) {
+        if (err)
+            res.send(err);
+        res.json(groups)
+    });
+},authCheck)
+//post new group to the database
+.post(function(req, res) {
+    var group = new Group();
+    group.name = req.body.name;
+    group.description = req.body.description;
+    group.img = req.body.img;
+
+    group.save(function(err) {
+        if (err)
+            res.send(err);
+        res.json({ message: 'Group successfully added'});
+    });
+},authCheck);
+
+router.route('/groups/:group_id')
+//retrieve a groups from the database
+.get(function(req, res) {
+    //look at the group schema
+    Group.findById(req.params.group_id, function(err, group) {
+        if (err)
+            res.send(err);
+        res.json(group)
+    });
+})
+//The put method gives us the chance to add an event based on
+//the ID passed to the route
+ .put(function(req, res) {
+      Group.findById(req.params.group_id, function(err, group) {
+          if (err)
+                res.send(err);
+          group.events.unshift(req.body);
+          //save event
+          group.save(function(err) {
+              if (err)
+                  res.send(err);
+                  res.json({ message: 'Event has been added' });
+          });
+      });
+ })
+ //delete method for removing a comment from our database
+ .delete(function(req, res) {
+ //selects the comment by its ID, then removes it.
+      Group.remove({ _id: req.params.group_id }, function(err, group) {
+          if (err)
+              res.send(err);
+          res.json({ message: 'Event has been deleted' })
+      })
+ });
 
 //Use our router configuration when we call /api
 app.use('/api', router);

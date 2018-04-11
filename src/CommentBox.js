@@ -15,7 +15,6 @@ class CommentBox extends Component {
         this.handleCommentUpdate = this.handleCommentUpdate.bind(this);
     }
     loadCommentsFromServer() {
-        console.log("did it")
         axios.get(this.props.url)
             .then(res => {
                 this.setState({ data: res.data });
