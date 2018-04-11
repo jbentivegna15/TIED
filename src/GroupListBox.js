@@ -16,7 +16,7 @@ class GroupListBox extends Component {
       }
 			loadGroupsFromServer() {
 					console.log(getAccessToken());
-					axios.get(this.props.url, { headers: { Authorization: `Bearer ${getAccessToken()}` }})
+					axios.get(this.props.url)
 							.then(res => {
 									this.setState({ data: res.data });
 							})
