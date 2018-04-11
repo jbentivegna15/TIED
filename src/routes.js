@@ -19,7 +19,7 @@ const Routes = () => (
       <Route path={"/signup"} component={() => <UserBox url={'http://localhost:3001/api/users'} pollInterval={2000}/>}/>
       <Route path={"/createGroup"} component={() => <GroupBox url={'http://localhost:3001/api/groups'} pollInterval={2000}/>}/>
       <Route path={"/groupList"} onEnter={requireAuth} component={() => <GroupListBox url={'http://localhost:3001/api/groups'} pollInterval={2000}/>}/>
-      <Route path={"/callback"} component={Callback} />
+      <Route path={"/callback"} component={() => <Callback url={'http://localhost:3001/api/users'}/>} />
     </div>
   </Router>
 );

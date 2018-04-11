@@ -1,6 +1,7 @@
 import decode from 'jwt-decode';
 import { Redirect } from 'react-router-dom';
 import auth0 from 'auth0-js';
+import axios from 'axios';
 const ID_TOKEN_KEY = 'id_token';
 const ACCESS_TOKEN_KEY = 'access_token';
 
@@ -22,6 +23,7 @@ export function login() {
     audience: AUDIENCE,
     scope: SCOPE
   });
+
 }
 
 export function logout() {
@@ -73,6 +75,21 @@ export function setIdToken() {
 export function isLoggedIn() {
   const idToken = getIdToken();
   return !!idToken && !isTokenExpired(idToken);
+}
+
+export function checkUserInDB() {
+  var user = axios.get('https://tied.auth0.com/userinfo', { headers: { Authorization: `Bearer ${getAccessToken()}` }});
+  var id = user.user_id;
+  var isThere = axios.get(`http://localhost:3001/api/users/${id}`, { headers: { Authorization: `Bearer ${getAccessToken()}` }});
+  if(isThere == null)
+    return false;
+  return true;
+}
+
+export function getUserIdentifier() {
+  var user = axios.get('https://tied.auth0.com/userinfo', { headers: { Authorization: 'Bearer ${getAccessToken()}'}});
+  var id = user.user_id;
+  return id;
 }
 
 function getTokenExpirationDate(encodedToken) {
