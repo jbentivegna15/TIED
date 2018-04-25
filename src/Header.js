@@ -21,6 +21,7 @@ const Header = () => (
               <button onClick={() => logout()} className="loggedStyle">Logout</button>
               <Link to='/groupList' className="loggedHeader">View Groups List</Link>
               <Link to='/createGroup' className="loggedHeader">Create a Group</Link>
+              <Link to='/' className="loggedHeader">Home</Link>
             </div>
           )
         }

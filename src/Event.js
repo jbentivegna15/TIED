@@ -11,6 +11,13 @@ class Event extends Component {
       uniqueID: '',
       image: ''
     };
+    this.deleteEvent = this.deleteEvent.bind(this);
+  }
+  deleteEvent(e) {
+    e.preventDefault();
+    let id = this.props.uniqueID;
+    this.props.onEventDelete(id);
+    console.log('event deleted');
   }
   render() {
       return (
@@ -18,6 +25,7 @@ class Event extends Component {
               <div className="divFont listStyle">
                 <h3>{this.props.name}</h3>
                 {this.props.description}
+                <h4><a style={{ color: 'red' }} href='foo' onClick={ this.deleteEvent }>delete</a></h4>
               </div>
              )
   }

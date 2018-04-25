@@ -9,11 +9,14 @@ import { isAdmin } from './Auth/UserChecks'
 class EventBox extends Component {
     constructor(props) {
         super(props);
-        this.state = { data: [], id: props.match.params.group_id, adminStatus: true };
+        this.state = { data: [], id: props.match.params.group_id, submitted: false, adminStatus: true };
         this.handleEventSubmit = this.handleEventSubmit.bind(this);
       }
       handleEventSubmit(event) {
         axios.put(`${this.props.url}/${this.state.id}`, event)
+          .then(res => {
+            this.setState({ submitted: true});
+          })
           .catch(err => {
             console.error(err);
           });
@@ -31,6 +34,12 @@ class EventBox extends Component {
                 <h1><Link to="/">TIED</Link></h1>
                 <h2>Create Event</h2>
                 <EventForm onEventSubmit={ this.handleEventSubmit }/>
+                {this.state.submitted ?
+                  (<Redirect to={{
+                    pathname: `/groupList/${this.state.id}`,
+                    state: { from: this.props.location }
+                  }} />)
+                  : null}
               </div>
             ) : (
               <Redirect to={{

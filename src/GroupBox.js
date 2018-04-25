@@ -10,6 +10,7 @@ import { getUserIdentifier } from './Auth/AuthService'
 class GroupBox extends Component {
       constructor(props) {
           super(props);
+          this.state = { submitted: false };
           this.handleGroupSubmit = this.handleGroupSubmit.bind(this);
       }
       handleGroupSubmit(group) {
@@ -17,6 +18,9 @@ class GroupBox extends Component {
           getUserIdentifier(function(userId){
             group.admins = [userId];
             axios.post(this.props.url, group)
+                .then(res => {
+                  this.setState({ submitted: true });
+                })
                 .catch(err => {
                     console.error(err);
                 });
@@ -30,6 +34,12 @@ class GroupBox extends Component {
                 <h1><Link to='/'>TIED</Link></h1>
                 <h2>Create Group</h2>
                 <GroupForm onGroupSubmit={ this.handleGroupSubmit }/>
+                {this.state.submitted ?
+                  (<Redirect to={{
+                    pathname: '/groupList',
+                    state: { from: this.props.location }
+                  }} />)
+                  : null}
               </div>
             ) : (
               <Redirect to={{

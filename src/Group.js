@@ -18,8 +18,8 @@ class Group extends Component {
               <div className="divFont listStyle">
                 <Link to={`/groupList/${this.props.uniqueID}`}>
                   <h3>{this.props.name}</h3>
-                  {this.props.description}
                 </Link>
+                {this.props.description}
               </div>
              )
   }

@@ -9,6 +9,7 @@ class EventList extends Component {
 									<Event
 									name={ events.name }
 									uniqueID={ events['_id'] }
+									onEventDelete={ this.props.onEventDelete }
 									description={ events.description }>
 									</Event>
 								 )
