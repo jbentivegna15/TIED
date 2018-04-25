@@ -7,7 +7,7 @@ const ACCESS_TOKEN_KEY = 'access_token';
 
 const CLIENT_ID = 'CtS7hL_GmQPa6DLR-I2ZQIbiPfmu97G1';
 const CLIENT_DOMAIN = 'tied.auth0.com';
-const REDIRECT = 'http://199.98.27.116:3000/callback';
+const REDIRECT = 'http://localhost:3000/callback';
 const SCOPE = 'openid profile';
 const AUDIENCE = 'https://tied.auth0.com/userinfo';
 
@@ -94,20 +94,15 @@ export function checkUserInDB(id) {
                     });
 }
 
-export function getUserIdentifier() {
-  var userData = getUserInfo(getAccessToken());
-  console.log(userData);
-    //console.log(userData);
-    var id = null;
-    //console.log(id);
-    return id;
-}
+export function getUserIdentifier(callback) {
+  var token = getAccessToken();
+  var userID;
+  axios.get('https://tied.auth0.com/userinfo/', { headers: { Authorization: `Bearer ${token}`,'Content-type': 'application/json'}})
+    .then((res) => {
+      userID = res.data.sub;
+      callback(userID);
+    })
 
-function getUserInfo(token) {
-  axios.get('https://tied.auth0.com/userinfo', { headers: {Authorization: `Bearer ${token}`}})
-    .then(res => {
-      return res;
-    });
 }
 
 function getTokenExpirationDate(encodedToken) {
