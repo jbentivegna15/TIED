@@ -25,3 +25,5 @@ export function isAdmin(groupId,callback){
       });
   });
 }
+
+//export function isRSVP()

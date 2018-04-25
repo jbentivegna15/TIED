@@ -29,13 +29,11 @@ class Callback extends Component {
                 console.log(res);
                 if(res.data == null){
                   console.log('yup');
-                  console.log(this.state.data.sub)
+                  console.log(this.state.data);
                   var user = {user: this.state.data.nickname,
                               uniqueId: String(this.state.data.sub),
-                              test: 'beep',
-                              password: '',
-                              firstname: '',
-                              lastname: '',
+                              firstname: this.state.data.given_name,
+                              lastname: this.state.data.family_name,
                               email: '',
                               admin_groups: [],
                               private_groups: [],

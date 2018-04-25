@@ -12,7 +12,7 @@ var groupSchema = new Schema({
 		date: String,
 		time: String,
 		loc: String,
-		attendees: [{ _id: Schema.Types.Mixed}],
+		attendees: [],
 		description: String,
 	}],
 	description: String,

@@ -2,13 +2,14 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import EventForm from './forms/EventForm';
-import { withRouter } from "react-router-dom";
+import { withRouter, Redirect } from "react-router-dom";
 import { Link } from 'react-router-dom';
+import { isAdmin } from './Auth/UserChecks'
 
 class EventBox extends Component {
     constructor(props) {
         super(props);
-        this.state = { data: [], id: props.match.params.group_id };
+        this.state = { data: [], id: props.match.params.group_id, adminStatus: true };
         this.handleEventSubmit = this.handleEventSubmit.bind(this);
       }
       handleEventSubmit(event) {
@@ -17,14 +18,26 @@ class EventBox extends Component {
             console.error(err);
           });
   		}
+      componentDidMount() {
+        isAdmin( this.state.id, function(adminStat){
+          this.setState({ adminStatus: adminStat });
+        }.bind(this));
+      }
       render() {
           return (
 //page formatting
-            <div className="divFont divCenter">
-              <h1><Link to="/">TIED</Link></h1>
-              <h2>Create Event</h2>
-              <EventForm onEventSubmit={ this.handleEventSubmit }/>
-            </div>
+            this.state.adminStatus ? (
+              <div className="divFont divCenter">
+                <h1><Link to="/">TIED</Link></h1>
+                <h2>Create Event</h2>
+                <EventForm onEventSubmit={ this.handleEventSubmit }/>
+              </div>
+            ) : (
+              <Redirect to={{
+                pathname: '/groupList',
+                state: { from: this.props.location }
+              }} />
+            )
           )
       }
   }
