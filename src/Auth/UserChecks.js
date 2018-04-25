@@ -9,7 +9,7 @@ export function isAdmin(groupId,callback){
   console.log(groupId);
   getUserIdentifier(function(userId){
     console.log(userId);
-    var admins = []
+    var admins = [];
     axios.get(`${APICONST}/groups/${groupId}`)
       .then((res) => {
         admins = res.data.admins;
@@ -24,6 +24,44 @@ export function isAdmin(groupId,callback){
         console.error(err);
       });
   });
+}
+
+export function isRSVP(groupId,eventId,callback){
+  getUserIdentifier(function(userId){
+    var attendees = [];
+    axios.get(`${APICONST}/groups/${groupId}/${eventId}`)
+      .then((res) => {
+        attendees = res.data.attendees;
+        if( attendees.indexOf(userId) == -1){
+          callback(false);
+        }
+        else{
+          callback(true);
+        }
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  })
+}
+
+export function isRQAdmin(groupId,callback){
+  getUserIdentifier(function(userId){
+    var requests = [];
+    axios.get(`${APICONST}/groups/${groupId}`)
+      .then((res) => {
+        requests = res.data.rqadmins;
+        if( requests.indexOf(userId) == -1){
+          callback(false);
+        }
+        else{
+          callback(true);
+        }
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  })
 }
 
 //export function isRSVP()
