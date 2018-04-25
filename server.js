@@ -192,6 +192,7 @@ router.route('/groups')
     group.name = req.body.name;
     group.description = req.body.description;
     group.img = req.body.img;
+    group.admins = req.body.admins;
 
     group.save(function(err) {
         if (err)

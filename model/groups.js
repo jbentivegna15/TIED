@@ -6,6 +6,7 @@ var Schema = mongoose.Schema;
 
 var groupSchema = new Schema({
 	name: String,
+	admins: [],
 	events: [{
 		name: String,
 		date: String,

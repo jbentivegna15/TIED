@@ -28,16 +28,17 @@ class Callback extends Component {
                 console.log(res);
                 if(res.data == null){
                   console.log('yup');
-                  var user = {user:this.state.data.nickname,
-                              uniqueId: this.state.data.sub,
+                  console.log(this.state.data.sub)
+                  var user = {user: this.state.data.nickname,
+                              uniqueId: String(this.state.data.sub),
+                              test: 'beep',
                               password: '',
                               firstname: '',
                               lastname: '',
                               email: '',
                               admin_groups: [],
                               private_groups: [],
-                              rsvps: [],
-                              messages: []
+                              rsvps: []
                             };
                   axios.post(this.props.url, user)
                       .then(() => {

@@ -4,11 +4,12 @@ import axios from 'axios';
 import GroupPage from './GroupPage';
 import EventList from './EventList';
 import { Link, withRouter } from "react-router-dom";
+import {isAdmin} from './Auth/UserChecks'
 
 class GroupPageBox extends Component {
 			constructor(props) {
 					super(props);
-					this.state = { data: [], edata: [], id: props.match.params.group_id }
+					this.state = { data: [], edata: [], id: props.match.params.group_id, adminStatus: false}
 					this.handleClickGroup= this.handleClickGroup.bind(this);
       }
 			handleClickGroup() {
@@ -23,6 +24,10 @@ class GroupPageBox extends Component {
 			}
 			componentDidMount() {
 					this.handleClickGroup();
+					isAdmin(this.state.id,function(adminStat){
+						this.setState({ adminStatus: adminStat});
+						console.log(this.state.adminStatus);
+					}.bind(this));
 			}
       render() {
           return (
@@ -31,7 +36,13 @@ class GroupPageBox extends Component {
 							<div className="divCenter">
             		<h1><Link to="/">TIED</Link></h1>
 							</div>
-							<Link to={`/groupList/${this.state.id}/createEvent`}><button className="pageButton">Click here to create an event!</button></Link>
+							{
+								this.state.adminStatus && (
+										<div className="divFont">
+											<Link to={`/groupList/${this.state.id}/createEvent`}><button className="pageButton">Click here to create an event!</button></Link>
+										</div>
+									)
+							}
 							<h2>Group Information:</h2>
 							<GroupPage data={ this.state.data }/>
 							<h2>Event List:</h2>
