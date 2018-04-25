@@ -68,7 +68,8 @@ class GroupPageBox extends Component {
 							<h2>Event List:</h2>
 							<EventList
 							onEventDelete={ this.handleEventDelete }
-							data={ this.state.edata }/>
+							data={ this.state.edata }
+							admin={ this.state.adminStatus }/>
 							{this.state.adminStatus &&
 										(<button onClick={ this.handleGroupDelete } className="pageButton">Click here to delete group</button>)
 							}

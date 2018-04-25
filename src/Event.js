@@ -25,7 +25,9 @@ class Event extends Component {
               <div className="divFont listStyle">
                 <h3>{this.props.name}</h3>
                 {this.props.description}
-                <h4><a style={{ color: 'red' }} href='foo' onClick={ this.deleteEvent }>delete</a></h4>
+                {this.props.admin &&
+                    (<h4><a style={{ color: 'red' }} href='foo' onClick={ this.deleteEvent }>delete</a></h4>)
+                }
               </div>
              )
   }
