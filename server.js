@@ -222,19 +222,36 @@ router.route('/groups/:group_id')
           group.save(function(err) {
               if (err)
                   res.send(err);
-                  res.json({ message: 'Event has been added' });
+              res.json({ message: 'Event has been added' });
           });
       });
  })
- //delete method for removing a comment from our database
+ //delete method for removing a group from our database
  .delete(function(req, res) {
- //selects the comment by its ID, then removes it.
+ //selects the group by its ID, then removes it.
       Group.remove({ _id: req.params.group_id }, function(err, group) {
           if (err)
               res.send(err);
-          res.json({ message: 'Event has been deleted' })
+          res.json({ message: 'Group has been deleted' })
       })
  });
+
+router.route('/groups/:group_id/:event_id')
+//retrieve an event from a group in the database
+  .delete(function(req, res) {
+  //selects the event by its ID, then removes it.
+      Group.findById(req.params.group_id, function(err, group) {
+        if (err)
+            res.send(err);
+        var index = group.events.indexOf(req.params.event_id);
+        group.events.splice(index, 1);
+        group.save(function(err) {
+          if (err)
+              res.send(err);
+          res.json({ message: 'Event has been deleted' })
+        })
+      })
+  });
 
 //Use our router configuration when we call /api
 app.use('/api', router);

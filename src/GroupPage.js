@@ -16,5 +16,4 @@ class GroupPage extends Component {
       }
 }
 
-//<EventList data={ this.state.data }/>
 export default GroupPage;
