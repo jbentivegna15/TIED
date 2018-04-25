@@ -5,6 +5,7 @@ import GroupForm from './forms/GroupForm';
 import { Redirect } from 'react-router-dom';
 import { isLoggedIn } from './Auth/AuthService';
 import { Link } from 'react-router-dom';
+import { getUserIdentifier } from './Auth/AuthService'
 
 class GroupBox extends Component {
       constructor(props) {
@@ -13,10 +14,13 @@ class GroupBox extends Component {
       }
       handleGroupSubmit(group) {
           group.id = Date.now();
-          axios.post(this.props.url, group)
-              .catch(err => {
-                  console.error(err);
-              });
+          getUserIdentifier(function(userId){
+            group.admins = [userId];
+            axios.post(this.props.url, group)
+                .catch(err => {
+                    console.error(err);
+                });
+          }.bind(this))
       }
       render() {
           return (

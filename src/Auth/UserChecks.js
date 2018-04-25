@@ -1,6 +1,8 @@
 import { getUserIdentifier } from './AuthService';
 import axios from 'axios';
+import {APICONST} from '../urlConst';
 const GROUPURL = 'http://localhost:3001/api/groups';
+
 
 //checks whether a user is an admin of a given group
 export function isAdmin(groupId,callback){
@@ -8,7 +10,7 @@ export function isAdmin(groupId,callback){
   getUserIdentifier(function(userId){
     console.log(userId);
     var admins = []
-    axios.get(`${GROUPURL}/${groupId}`)
+    axios.get(`${APICONST}/groups/${groupId}`)
       .then((res) => {
         admins = res.data.admins;
         if( admins.indexOf(userId) == -1){

@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import { setAccessToken, setIdToken, checkUserInDB, getUserIdentifier, getAccessToken } from './Auth/AuthService';
 import axios from 'axios';
+import { APICONST } from './urlConst';
 //import setIdToken from './Auth/setIdToken'
 //import setAccessToken  from './Auth/setAccessToken';
 
@@ -23,7 +24,7 @@ class Callback extends Component {
           })
           .then(() => {
             var subId = String(this.state.data.sub);
-            axios.get(`http://localhost:3001/api/users/${subId}`)
+            axios.get(`${APICONST}/users/${subId}`)
               .then((res) => {
                 console.log(res);
                 if(res.data == null){

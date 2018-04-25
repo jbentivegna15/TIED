@@ -2,12 +2,13 @@ import decode from 'jwt-decode';
 import { Redirect } from 'react-router-dom';
 import auth0 from 'auth0-js';
 import axios from 'axios';
+import {APICONST, CALLBACKCONST} from '../urlConst';
 const ID_TOKEN_KEY = 'id_token';
 const ACCESS_TOKEN_KEY = 'access_token';
 
 const CLIENT_ID = 'CtS7hL_GmQPa6DLR-I2ZQIbiPfmu97G1';
 const CLIENT_DOMAIN = 'tied.auth0.com';
-const REDIRECT = 'http://localhost:3000/callback';
+const REDIRECT = CALLBACKCONST;
 const SCOPE = 'openid profile';
 const AUDIENCE = 'https://tied.auth0.com/userinfo';
 
