@@ -38,9 +38,9 @@ class GroupForm extends Component {
 				<div id="right">
 					<h2><form onSubmit={ this.handleSubmit }>
 						Enter Group Name:<br/>
-						<input type="text" placeholder="TIDE Enthusiasts" value={ this.state.name} onChange={ this.handleNameChange } /><br/>
+						<input type="text" placeholder="TIDE Enthusiasts" value={ this.state.name} onChange={ this.handleNameChange } required="required"/><br/>
 						Description:<br/>
-						<textarea id="groupDesc" name="Description" placeholder="Do not eat." rows="5" cols="50" value={ this.state.description} onChange={ this.handleDescriptionChange } ></textarea><br/>
+						<textarea id="groupDesc" name="Description" placeholder="Do not eat." rows="5" cols="50" value={ this.state.description} onChange={ this.handleDescriptionChange } required="required"></textarea><br/>
             {/*Enter Group Image:<br/>
 						<input type="file" name="bannerGroup" accept="image/*" /><br/> */}
 						<input type="submit" value='Submit'/>

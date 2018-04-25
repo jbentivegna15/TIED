@@ -52,17 +52,17 @@ class EventForm extends Component {
 			<div id="divFont divCenter">
 				<h2><form onSubmit={ this.handleSubmit} className="formStyle">
 					Event Name:<br/>
-					<input type="text" placeholder="Cat Party" value={ this.state.name} onChange={ this.handleNameChange }/><br/>
+					<input type="text" placeholder="Cat Party" value={ this.state.name} onChange={ this.handleNameChange } required="required"/><br/>
 					Description:<br/>
-					<textarea id="groupDesc" name="Description" placeholder="Lots of Cats." rows="7" cols="30" value={ this.state.description} onChange={ this.handleDescriptionChange }></textarea><br/>
+					<textarea id="groupDesc" name="Description" placeholder="Lots of Cats." rows="7" cols="30" value={ this.state.description} onChange={ this.handleDescriptionChange } required="required"></textarea><br/>
 					Date of Event:<br/>
-					<input type="text" placeholder="05/16/2019" value={ this.state.date } onChange={ this.handleDateChange }/><br/>
+					<input type="date" value={ this.state.date } onChange={ this.handleDateChange } required="required"/><br/>
 					Time of Event:<br/>
-					<input type="text" placeholder="5:30 PM" value={ this.state.time} onChange={ this.handleTimeChange }/><br/>
+					<input type="time" value={ this.state.time } onChange={ this.handleTimeChange } required="required"/><br/>
 					Location of Event:<br/>
-					<input type="text" placeholder="Not the Ocean" value={ this.state.loc} onChange={ this.handleLocChange }/><br/>
+					<input type="text" placeholder="Not the Ocean" value={ this.state.loc} onChange={ this.handleLocChange } required="required"/><br/>
           Image of Event:<br/>
-					<input type="file" name="bannerGroup" accept="image/*"/><br/>
+					<input type="file" name="thumbnail" accept="image/*"/><br/>
 					<input type="submit" value="Submit"/>
 				</form></h2>
 			</div>
