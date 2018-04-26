@@ -264,6 +264,7 @@ router.route('/groups/:group_id/:event_id')
         (req.body.date) ? group.events[index].date = req.body.date : null;
         (req.body.time) ? group.events[index].time = req.body.time : null;
         (req.body.loc) ? group.events[index].loc = req.body.loc : null;
+        (req.body.userId) ? group.events[index].attendees.unshift(req.body.userId) : null;
         group.save(function(err) {
           if (err)
               res.send(err);
