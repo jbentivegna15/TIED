@@ -96,6 +96,7 @@ class GroupPageBox extends Component {
 							<h2>Event List:</h2>
 							<EventList
 							data={ this.state.edata }
+							groupId={ this.state.id }
 							onEventDelete={ this.handleEventDelete }
 							onEventEdit={ this.handleEventEdit }
 							admin={ this.state.adminStatus }/>

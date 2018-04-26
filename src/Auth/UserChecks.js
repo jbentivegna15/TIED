@@ -64,4 +64,15 @@ export function isRQAdmin(groupId,callback){
   })
 }
 
+
+
+export function rsvp(groupId,eventId){
+  getUserIdentifier(function(userId){
+    axios.put(`${APICONST}/groups/${groupId}/${eventId}`,{userId: userId})
+      .catch(err => {
+        console.log(err);
+      });
+  })
+}
+
 //export function isRSVP()

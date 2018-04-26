@@ -13,7 +13,9 @@ class EventList extends Component {
 									time={ events.time }
 									loc={ events.loc }
 									img={ events.img }
+									attendees={ events.attendees}
 									uniqueID={ events['_id'] }
+									groupId={ this.props.groupId }
 									onEventDelete={ this.props.onEventDelete }
 									onEventEdit={ this.props.onEventEdit }
 									key={ events['_id']}
