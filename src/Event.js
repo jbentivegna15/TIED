@@ -47,6 +47,7 @@ class Event extends Component {
   doRSVP(e){
     e.preventDefault();
     rsvp(this.props.groupId,this.props.uniqueID);
+    this.setState({ isRSVP: true});
   }
   componentDidMount(){
     this.isRSVP(this.props.attendees,function(res){
