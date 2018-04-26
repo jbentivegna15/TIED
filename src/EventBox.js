@@ -33,7 +33,8 @@ class EventBox extends Component {
               <div className="divFont divCenter">
                 <h1><Link to="/">TIED</Link></h1>
                 <h2>Create Event</h2>
-                <EventForm onEventSubmit={ this.handleEventSubmit }/>
+                <EventForm onEventSubmit={ this.handleEventSubmit }
+                data={ this.state.data }/>
                 {this.state.submitted ?
                   (<Redirect to={{
                     pathname: `/groupList/${this.state.id}`,

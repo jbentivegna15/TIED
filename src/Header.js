@@ -18,10 +18,10 @@ const Header = () => (
           isLoggedIn() && (
 //page formatting
             <div className="divFont">
-              <button onClick={() => logout()} className="loggedStyle">Logout</button>
+              <Link to='/' className="loggedHeader"><img src={ require('./img/logo.png') } className="navLogo"/></Link>
               <Link to='/groupList' className="loggedHeader">View Groups List</Link>
               <Link to='/createGroup' className="loggedHeader">Create a Group</Link>
-              <Link to='/' className="loggedHeader">Home</Link>
+              <button onClick={() => logout()} className="loggedStyle">Logout</button>
             </div>
           )
         }

@@ -5,7 +5,7 @@ import '../components/styles.css';
 class GroupForm extends Component {
   constructor(props) {
     super(props)
-    this.state = { user: '', password: ''};
+    this.state = { name: this.props.data.name, description: this.props.data.description, img: ''};
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleNameChange = this.handleNameChange.bind(this);
     this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
@@ -28,7 +28,6 @@ class GroupForm extends Component {
       return;
     }
     this.props.onGroupSubmit({ name:name, description:description});
-		// TODO: add admin update support
     this.setState({ name:'', description:'', img:'' });
   }
   render() {
@@ -38,9 +37,9 @@ class GroupForm extends Component {
 				<div id="right">
 					<h2><form onSubmit={ this.handleSubmit }>
 						Enter Group Name:<br/>
-						<input type="text" placeholder="TIDE Enthusiasts" value={ this.state.name} onChange={ this.handleNameChange } /><br/>
+						<input type="text" placeholder="TIDE Enthusiasts" value={ this.state.name} onChange={ this.handleNameChange } required="required"/><br/>
 						Description:<br/>
-						<textarea id="groupDesc" name="Description" placeholder="Do not eat." rows="5" cols="50" value={ this.state.description} onChange={ this.handleDescriptionChange } ></textarea><br/>
+						<textarea id="groupDesc" name="Description" placeholder="Do not eat." rows="5" cols="50" value={ this.state.description} onChange={ this.handleDescriptionChange } required="required"></textarea><br/>
             {/*Enter Group Image:<br/>
 						<input type="file" name="bannerGroup" accept="image/*" /><br/> */}
 						<input type="submit" value='Submit'/>

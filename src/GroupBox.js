@@ -10,7 +10,7 @@ import { getUserIdentifier } from './Auth/AuthService'
 class GroupBox extends Component {
       constructor(props) {
           super(props);
-          this.state = { submitted: false };
+          this.state = { data: [], submitted: false };
           this.handleGroupSubmit = this.handleGroupSubmit.bind(this);
       }
       handleGroupSubmit(group) {
@@ -33,7 +33,8 @@ class GroupBox extends Component {
               <div className="divFont divCenter">
                 <h1><Link to='/'>TIED</Link></h1>
                 <h2>Create Group</h2>
-                <GroupForm onGroupSubmit={ this.handleGroupSubmit }/>
+                <GroupForm onGroupSubmit={ this.handleGroupSubmit }
+                  data={ this.state.data }/>
                 {this.state.submitted ?
                   (<Redirect to={{
                     pathname: '/groupList',
