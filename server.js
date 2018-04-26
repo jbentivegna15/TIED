@@ -203,7 +203,7 @@ router.route('/groups')
 
 router.route('/groups/:group_id')
 //retrieve a groups from the database
-.get(function(req, res) {
+ .get(function(req, res) {
     //look at the group schema
     Group.findById(req.params.group_id, function(err, group) {
         if (err)
@@ -218,7 +218,6 @@ router.route('/groups/:group_id')
           if (err)
                 res.send(err);
           group.events.unshift(req.body);
-          //save event
           group.save(function(err) {
               if (err)
                   res.send(err);
@@ -226,6 +225,7 @@ router.route('/groups/:group_id')
           });
       });
  })
+
  //delete method for removing a group from our database
  .delete(function(req, res) {
  //selects the group by its ID, then removes it.
@@ -236,14 +236,47 @@ router.route('/groups/:group_id')
       })
  });
 
+router.route('/groups/:group_id/edit')
+ //for editing groups
+ .put(function(req, res) {
+    Group.findById(req.params.group_id, function(err, group) {
+        if (err)
+            res.send(err);
+        (req.body.name) ? group.name = req.body.name : null;
+        (req.body.description) ? group.description = req.body.description : null;
+        group.save(function(err) {
+            if (err)
+                res.send(err)
+          res.json({ message: 'Group Updated'})
+        })
+    })
+ });
+
 router.route('/groups/:group_id/:event_id')
 //retrieve an event from a group in the database
+  .put(function(req, res) {
+      Group.findById(req.params.group_id, function(err, group) {
+        if (err)
+            res.send(err);
+        var index = group.events.findIndex(x => x._id == req.params.event_id);
+        (req.body.name) ? group.events[index].name = req.body.name : null;
+        (req.body.description) ? group.events[index].description = req.body.description : null;
+        (req.body.date) ? group.events[index].date = req.body.date : null;
+        (req.body.time) ? group.events[index].time = req.body.time : null;
+        (req.body.loc) ? group.events[index].loc = req.body.loc : null;
+        group.save(function(err) {
+          if (err)
+              res.send(err);
+          res.json({ message: 'Event has been updated' })
+        })
+      })
+  })
   .delete(function(req, res) {
   //selects the event by its ID, then removes it.
       Group.findById(req.params.group_id, function(err, group) {
         if (err)
             res.send(err);
-        var index = group.events.indexOf(req.params.event_id);
+        var index = group.events.findIndex(x => x._id == req.params.event_id);
         group.events.splice(index, 1);
         group.save(function(err) {
           if (err)

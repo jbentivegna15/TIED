@@ -8,10 +8,16 @@ class EventList extends Component {
 					return (
 									<Event
 									name={ events.name }
+									description={ events.description }
+									date={ events.date }
+									time={ events.time }
+									loc={ events.loc }
+									img={ events.img }
 									uniqueID={ events['_id'] }
 									onEventDelete={ this.props.onEventDelete }
-									admin={ this.props.admin }
-									description={ events.description }>
+									onEventEdit={ this.props.onEventEdit }
+									key={ events['_id']}
+									admin={ this.props.admin }>
 									</Event>
 								 )
 			})

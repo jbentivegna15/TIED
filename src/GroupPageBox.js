@@ -3,17 +3,25 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import GroupPage from './GroupPage';
 import EventList from './EventList';
+import Modal from './Modal';
+import GroupForm from './forms/GroupForm';
 import { Link, withRouter, Redirect } from "react-router-dom";
 import {isAdmin} from './Auth/UserChecks'
 
 class GroupPageBox extends Component {
 			constructor(props) {
 					super(props);
-					this.state = { data: [], edata: [], id: props.match.params.group_id, deleted: false, adminStatus: false}
+					this.state = { data: [], edata: [], id: props.match.params.group_id, deleted: false, isOpen: false, adminStatus: false}
+					this.toggleModal = this.toggleModal.bind(this)
 					this.handleClickGroup= this.handleClickGroup.bind(this);
 					this.handleGroupDelete = this.handleGroupDelete.bind(this);
 					this.handleEventDelete = this.handleEventDelete.bind(this);
+					this.handleGroupEdit = this.handleGroupEdit.bind(this);
+					this.handleEventEdit = this.handleEventEdit.bind(this);
       }
+			toggleModal = () => {
+				this.setState({ isOpen: !this.state.isOpen});
+			}
 			handleClickGroup() {
 				axios.get(`${this.props.url}/${this.state.id}`)
 					.then(res => {
@@ -34,13 +42,33 @@ class GroupPageBox extends Component {
 						console.error(err);
 					});
 			}
+			handleGroupEdit(group) {
+				axios.put(`${this.props.url}/${this.state.id}/edit`, group)
+					.then(res => {
+						this.setState({ isOpen: !this.state.isOpen})
+						console.log('Group Edited');
+					})
+					.catch(err => {
+						console.log(err);
+					});
+			}
 			handleEventDelete(id) {
 				axios.delete(`${this.props.url}/${this.state.id}/${id}`)
 					.then(res => {
-						console.log('Event deleted');
+						console.log('Event Deleted');
 					})
 					.catch(err => {
 						console.error(err);
+					});
+			}
+			handleEventEdit(id, event) {
+				axios.put(`${this.props.url}/${this.state.id}/${id}`, event)
+					.then(res => {
+						//this.setState({ isOpen: !this.state.isOpen})
+						console.log('Event Updated');
+					})
+					.catch(err => {
+						console.log(err);
 					});
 			}
 			componentDidMount() {
@@ -67,12 +95,21 @@ class GroupPageBox extends Component {
 							<GroupPage data={ this.state.data }/>
 							<h2>Event List:</h2>
 							<EventList
-							onEventDelete={ this.handleEventDelete }
 							data={ this.state.edata }
+							onEventDelete={ this.handleEventDelete }
+							onEventEdit={ this.handleEventEdit }
 							admin={ this.state.adminStatus }/>
 							{this.state.adminStatus &&
-										(<button onClick={ this.handleGroupDelete } className="pageButton">Click here to delete group</button>)
+									 (<div>
+										 	<button onClick={ this.toggleModal } className="pageButton">Click here to edit group</button>
+											<button onClick={ this.handleGroupDelete } className="pageButton">Click here to delete group</button>
+									 </div>)
 							}
+							<Modal show={ this.state.isOpen }
+								onClose={ this.toggleModal }>
+                <GroupForm onGroupSubmit={ this.handleGroupEdit }
+									data={ this.state.data }/>
+							</Modal>
 							{this.state.deleted ?
 								(<Redirect to={{
 									pathname: '/groupList',

@@ -5,7 +5,7 @@ import '../components/styles.css';
 class GroupForm extends Component {
   constructor(props) {
     super(props)
-    this.state = { user: '', password: ''};
+    this.state = { name: this.props.data.name, description: this.props.data.description, img: ''};
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleNameChange = this.handleNameChange.bind(this);
     this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
@@ -28,7 +28,6 @@ class GroupForm extends Component {
       return;
     }
     this.props.onGroupSubmit({ name:name, description:description});
-		// TODO: add admin update support
     this.setState({ name:'', description:'', img:'' });
   }
   render() {
