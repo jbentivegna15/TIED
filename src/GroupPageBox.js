@@ -6,12 +6,13 @@ import EventList from './EventList';
 import Modal from './Modal';
 import GroupForm from './forms/GroupForm';
 import { Link, withRouter, Redirect } from "react-router-dom";
-import {isAdmin} from './Auth/UserChecks'
+import {isAdmin } from './Auth/UserChecks'
+import { getUserIdentifier } from './Auth/AuthService';
 
 class GroupPageBox extends Component {
 			constructor(props) {
 					super(props);
-					this.state = { data: [], edata: [], id: props.match.params.group_id, deleted: false, isOpen: false, adminStatus: false}
+					this.state = { data: [], edata: [], id: props.match.params.group_id, deleted: false, isOpen: false, adminStatus: false, userId:''}
 					this.toggleModal = this.toggleModal.bind(this)
 					this.handleClickGroup= this.handleClickGroup.bind(this);
 					this.handleGroupDelete = this.handleGroupDelete.bind(this);
@@ -73,10 +74,15 @@ class GroupPageBox extends Component {
 			}
 			componentDidMount() {
 					this.handleClickGroup();
-					isAdmin(this.state.id,function(adminStat){
-						this.setState({ adminStatus: adminStat});
-						console.log(this.state.adminStatus);
-					}.bind(this));
+					getUserIdentifier(function(res){
+						this.setState({userId: res},() => {
+							isAdmin(this.state.userId,this.state.id,function(adminStat){
+								this.setState({ adminStatus: adminStat});
+								console.log(this.state.adminStatus);
+							}.bind(this));
+						});
+					}.bind(this))
+
 					setInterval(this.handleClickGroup, this.props.pollInterval);
 			}
       render() {
@@ -94,12 +100,17 @@ class GroupPageBox extends Component {
 							<h2>Group Information:</h2>
 							<GroupPage data={ this.state.data }/>
 							<h2>Event List:</h2>
-							<EventList
-							data={ this.state.edata }
-							groupId={ this.state.id }
-							onEventDelete={ this.handleEventDelete }
-							onEventEdit={ this.handleEventEdit }
-							admin={ this.state.adminStatus }/>
+							{this.state.userId.length ? (
+								<EventList
+								data={ this.state.edata }
+								groupId={ this.state.id }
+								userId={ this.state.userId }
+								onEventDelete={ this.handleEventDelete }
+								onEventEdit={ this.handleEventEdit }
+								admin={ this.state.adminStatus }/>
+								) : (<span>Loading Events</span>)
+							}
+
 							{this.state.adminStatus &&
 									 (<div>
 										 	<button onClick={ this.toggleModal } className="pageButton">Click here to edit group</button>

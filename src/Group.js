@@ -16,7 +16,8 @@ class Group extends Component {
       return (
 //page formatting
               <div className="divFont listStyle">
-                <Link to={`/groupList/${this.props.uniqueID}`}>
+                <Link to={{pathname: `/groupList/${this.props.uniqueID}`,
+                          userId: this.props.userId}}>
                   <h3>{this.props.name}</h3>
                 </Link>
                 {this.props.description}

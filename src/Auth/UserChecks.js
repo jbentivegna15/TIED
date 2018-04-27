@@ -5,9 +5,8 @@ const GROUPURL = 'http://localhost:3001/api/groups';
 
 
 //checks whether a user is an admin of a given group
-export function isAdmin(groupId,callback){
+export function isAdmin(userId,groupId,callback){
   console.log(groupId);
-  getUserIdentifier(function(userId){
     console.log(userId);
     var admins = [];
     axios.get(`${APICONST}/groups/${groupId}`)
@@ -23,11 +22,9 @@ export function isAdmin(groupId,callback){
       .catch(err => {
         console.error(err);
       });
-  });
 }
 
-export function isRSVP(groupId,eventId,callback){
-  getUserIdentifier(function(userId){
+export function isRSVP(userId,groupId,eventId,callback){
     var attendees = [];
     axios.get(`${APICONST}/groups/${groupId}/${eventId}`)
       .then((res) => {
@@ -42,11 +39,9 @@ export function isRSVP(groupId,eventId,callback){
       .catch(err => {
         console.error(err);
       });
-  })
 }
 
-export function isRQAdmin(groupId,callback){
-  getUserIdentifier(function(userId){
+export function isRQAdmin(userId,groupId,callback){
     var requests = [];
     axios.get(`${APICONST}/groups/${groupId}`)
       .then((res) => {
@@ -61,18 +56,19 @@ export function isRQAdmin(groupId,callback){
       .catch(err => {
         console.error(err);
       });
-  })
 }
 
 
 
-export function rsvp(groupId,eventId){
-  getUserIdentifier(function(userId){
+export function rsvp(userId,groupId,eventId){
     axios.put(`${APICONST}/groups/${groupId}/${eventId}`,{userId: userId})
       .catch(err => {
         console.log(err);
       });
-  })
+}
+
+export function unrsvp(groupId,eventId){
+
 }
 
 //export function isRSVP()

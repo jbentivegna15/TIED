@@ -3,17 +3,18 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Modal from './Modal';
 import EventForm from './forms/EventForm';
-import { rsvp } from './Auth/UserChecks';
+import { rsvp, unrsvp } from './Auth/UserChecks';
 import { getUserIdentifier } from './Auth/AuthService';
 
 class Event extends Component {
   constructor(props) {
     super(props);
-    this.state= { name: '', description: '', image: '', isOpen: false, isRSVP: false};
+    this.state= { name: '', description: '', image: '', isOpen: false, isRSVP: false, userId: ''};
     this.toggleModal = this.toggleModal.bind(this);
     this.deleteEvent = this.deleteEvent.bind(this);
     this.editEvent = this.editEvent.bind(this);
     this.doRSVP = this.doRSVP.bind(this);
+    this.undoRSVP = this.undoRSVP.bind(this);
     this.isRSVP = this.isRSVP.bind(this);
   }
   toggleModal(e) {
@@ -33,32 +34,42 @@ class Event extends Component {
     this.setState({ isOpen: !this.state.isOpen})
   }
   isRSVP(attendees,callback){
-    console.log('1');
-    getUserIdentifier(function(userId){
-      console.log(userId);
-      if( attendees.indexOf(userId) == -1){
-        callback(false);
-      }
-      else{
-        callback(true);
-      }
-    });
+    console.log("event:");
+    console.log(this.state.userId);
+    if( attendees.indexOf(this.state.userId) == -1){
+      callback(false);
+    }
+    else{
+      callback(true);
+    }
   }
   doRSVP(e){
     e.preventDefault();
-    rsvp(this.props.groupId,this.props.uniqueID);
+    rsvp(this.state.userId,this.props.groupId,this.props.uniqueID);
     this.setState({ isRSVP: true});
   }
+  undoRSVP(e){
+    e.preventDefault();
+
+  }
+  componentWillReceiveProps(nextProps){
+		if(this.state.userId != nextProps.userId){
+			this.setState({userId: nextProps.userId});
+		}
+	}
   componentDidMount(){
-    this.isRSVP(this.props.attendees,function(res){
-      console.log(res);
-      if(res){
-        this.setState({ isRSVP: true})
-      }
-      else{
-        this.setState({ isRSVP: false})
-      }
-    }.bind(this));
+    console.log(`oi:${this.props.userId}`);
+    this.setState({userId: this.props.userId},()=>{
+      this.isRSVP(this.props.attendees,function(res){
+        console.log(res);
+        if(res){
+          this.setState({ isRSVP: true})
+        }
+        else{
+          this.setState({ isRSVP: false})
+        }
+      }.bind(this));
+    });
   }
   render() {
       return (
