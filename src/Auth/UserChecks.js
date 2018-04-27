@@ -67,8 +67,11 @@ export function rsvp(userId,groupId,eventId){
       });
 }
 
-export function unrsvp(groupId,eventId){
-
+export function unrsvp(userId,groupId,eventId){
+  axios.put(`${APICONST}/groups/${groupId}/${eventId}/unrsvp`,{userId: userId})
+    .catch(err => {
+      console.log(err);
+    });
 }
 
 //export function isRSVP()

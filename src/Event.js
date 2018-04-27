@@ -50,7 +50,8 @@ class Event extends Component {
   }
   undoRSVP(e){
     e.preventDefault();
-
+    unrsvp(this.state.userId,this.props.groupId,this.props.uniqueID);
+    this.setState({ isRSVP: false});
   }
   componentWillReceiveProps(nextProps){
 		if(this.state.userId != nextProps.userId){
@@ -85,11 +86,11 @@ class Event extends Component {
                 }
                 {!this.state.isRSVP ?
                   (<div>
-                    <h4><a style={{ color: 'green'}} href='foo' onClick={ this.doRSVP }> going </a></h4>
+                    <h4><a style={{ color: 'green'}} href='foo' onClick={ this.doRSVP }>Rsvp 'going' to this event</a></h4>
                    </div>
                  ) : (
                    <div>
-                    <h4>You are going to this event!</h4>
+                    <h4>You are going to this event!<a style={{color:'red'}} href='foo' onClick={this.undoRSVP }>Cancel RSVP</a></h4>
                   </div>
                  )
                 }

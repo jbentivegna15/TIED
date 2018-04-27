@@ -287,6 +287,25 @@ router.route('/groups/:group_id/:event_id')
       })
   });
 
+router.route('/groups/:group_id/:event_id/unrsvp')
+  .put(function(req,res){
+    Group.findById(req.params.group_id, function(err, group) {
+      if(err)
+        res.send(err);
+      var index = group.events.findIndex(x => x._id == req.params.event_id);
+      var userIndex = group.events[index].attendees.indexOf(req.body.userId);
+      console.log(`index:${userIndex}`);
+      if(userIndex > -1){
+        group.events[index].attendees.splice(userIndex,1);
+      }
+      group.save(function(err){
+        if(err)
+          res.send(err);
+        res.json({ message: 'RSVP removed'})
+      })
+    })
+  });
+
 //Use our router configuration when we call /api
 app.use('/api', router);
 
