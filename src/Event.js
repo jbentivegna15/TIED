@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Modal from './Modal';
 import EventForm from './forms/EventForm';
+import UserList from './UserList';
 import { rsvp, unrsvp } from './Auth/UserChecks';
 
 class Event extends Component {
@@ -10,6 +11,7 @@ class Event extends Component {
     super(props);
     this.state= { name: '', description: '', image: '', isOpen: false, isRSVP: false, userId: ''};
     this.toggleModal = this.toggleModal.bind(this);
+    this.toggleUserModal = this.toggleUserModal.bind(this);
     this.deleteEvent = this.deleteEvent.bind(this);
     this.editEvent = this.editEvent.bind(this);
     this.doRSVP = this.doRSVP.bind(this);
@@ -19,6 +21,10 @@ class Event extends Component {
   toggleModal(e) {
     e.preventDefault();
     this.setState({ isOpen: !this.state.isOpen});
+  }
+  toggleUserModal(e) {
+    e.preventDefault();
+    this.setState({ isUserOpen: !this.state.isUserOpen})
   }
   deleteEvent(e) {
     e.preventDefault();
@@ -69,7 +75,8 @@ class Event extends Component {
                 {this.props.admin &&
                     (<div>
                       <h4><a style={{ color: 'blue' }} href='foo' onClick={ this.toggleModal }>edit   </a>
-                      <a style={{ color: 'red' }} href='foo' onClick={ this.deleteEvent }>   delete</a></h4>
+                      <a style={{ color: 'red' }} href='foo' onClick={ this.deleteEvent }>   delete</a>
+                      <a style={{ color: 'purple'}} href='foo' onClick={ this.toggleUserModal }> list of attendees </a></h4>
                     </div>)
                 }
                 {!this.state.isRSVP ?
@@ -80,12 +87,17 @@ class Event extends Component {
                    <div>
                     <h4>You are going to this event!<a style={{color:'red'}} href='foo' onClick={this.undoRSVP }>Cancel RSVP</a></h4>
                   </div>
-                 )
+                  )
                 }
                 <Modal show={ this.state.isOpen }
                   onClose={ this.toggleModal }>
                   <EventForm onEventSubmit={ this.editEvent }
                     data={{ name: this.props.name, description: this.props.description, date: this.props.date, time: this.props.time, loc: this.props.loc}}/>
+                </Modal>
+                <Modal show={ this.state.isUserOpen }
+                  onClose={ this.toggleUserModal }>
+                  <UserList
+                    data={ this.props.attendees }/>
                 </Modal>
               </div>
              )

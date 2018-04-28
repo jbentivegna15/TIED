@@ -150,21 +150,20 @@ router.route('/users')
 
 router.route('/users/:user_id')
   .get(function(req, res) {
-    var user_id = String(req.params.user_id);
-    var userFound = null;
+      var user_id = String(req.params.user_id);
+      var userFound = null;
 
-    User.find(function(err,users) {
-      if(err)
-        res.send(err);
-      users.map(function(user) {
-        if (user.uniqueId === user_id) {
-          userFound = user;
-        }
+      User.find(function(err, users) {
+          if (err)
+              res.send(err)
+          users.map(function(user) {
+              if (user.uniqueId === user_id) {
+                  userFound = user;
+              }
+          });
+          res.json(userFound);
       });
-      res.json(userFound);
-    });
   })
-
   .post(function(req,res){
     var user_id = Number(req.params.user_id);
     var user = new User();

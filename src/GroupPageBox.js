@@ -13,7 +13,7 @@ class GroupPageBox extends Component {
 			constructor(props) {
 					super(props);
 					this.state = { data: [], edata: [], id: props.match.params.group_id, deleted: false, isOpen: false, adminStatus: false, userId:''}
-					this.toggleModal = this.toggleModal.bind(this)
+					this.toggleModal = this.toggleModal.bind(this);
 					this.handleClickGroup= this.handleClickGroup.bind(this);
 					this.handleGroupDelete = this.handleGroupDelete.bind(this);
 					this.handleEventDelete = this.handleEventDelete.bind(this);
