@@ -1,7 +1,5 @@
-import { getUserIdentifier } from './AuthService';
 import axios from 'axios';
 import {APICONST} from '../urlConst';
-const GROUPURL = 'http://localhost:3001/api/groups';
 
 
 //checks whether a user is an admin of a given group
@@ -12,7 +10,7 @@ export function isAdmin(userId,groupId,callback){
     axios.get(`${APICONST}/groups/${groupId}`)
       .then((res) => {
         admins = res.data.admins;
-        if( admins.indexOf(userId) == -1){
+        if( admins.indexOf(userId) === -1){
           callback(false);
         }
         else{
@@ -24,29 +22,14 @@ export function isAdmin(userId,groupId,callback){
       });
 }
 
-export function isRSVP(userId,groupId,eventId,callback){
-    var attendees = [];
-    axios.get(`${APICONST}/groups/${groupId}/${eventId}`)
-      .then((res) => {
-        attendees = res.data.attendees;
-        if( attendees.indexOf(userId) == -1){
-          callback(false);
-        }
-        else{
-          callback(true);
-        }
-      })
-      .catch(err => {
-        console.error(err);
-      });
-}
+
 
 export function isRQAdmin(userId,groupId,callback){
     var requests = [];
     axios.get(`${APICONST}/groups/${groupId}`)
       .then((res) => {
         requests = res.data.rqadmins;
-        if( requests.indexOf(userId) == -1){
+        if( requests.indexOf(userId) === -1){
           callback(false);
         }
         else{
@@ -58,7 +41,26 @@ export function isRQAdmin(userId,groupId,callback){
       });
 }
 
+export function rqAdmin(userId,groupId){
+  axios.put(`${APICONST}/groups/${groupId}/requestAdmin`,{userId: userId})
+    .catch(err => {
+      console.log(err);
+    });
+}
 
+export function approveAdmin(userId,groupId){
+  axios.put(`${APICONST}/groups/${groupId}/approveAdmin`,{userId: userId})
+    .catch(err => {
+      console.log(err);
+    });
+}
+
+export function rejectAdmin(userId,groupId){
+  axios.put(`${APICONST}/groups/${groupId}/rejectAdmin`,{userId: userId})
+    .catch(err => {
+      console.log(err);
+    });
+}
 
 export function rsvp(userId,groupId,eventId){
     axios.put(`${APICONST}/groups/${groupId}/${eventId}`,{userId: userId})

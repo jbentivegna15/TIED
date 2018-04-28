@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { setAccessToken, setIdToken, checkUserInDB, getUserIdentifier, getAccessToken } from './Auth/AuthService';
+import { setAccessToken, setIdToken, getAccessToken } from './Auth/AuthService';
 import axios from 'axios';
 import { APICONST } from './urlConst';
 //import setIdToken from './Auth/setIdToken'

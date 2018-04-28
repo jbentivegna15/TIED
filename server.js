@@ -225,7 +225,6 @@ router.route('/groups/:group_id')
           });
       });
  })
-
  //delete method for removing a group from our database
  .delete(function(req, res) {
  //selects the group by its ID, then removes it.
@@ -235,6 +234,58 @@ router.route('/groups/:group_id')
           res.json({ message: 'Group has been deleted' })
       })
  });
+
+ router.route('/groups/:group_id/requestAdmin')
+  .put(function(req, res){
+    Group.findById(req.params.group_id, function(err, group){
+      if(err)
+        res.send(err);
+      if(group.rqadmins.indexOf(req.body.userId) > -1){
+        group.rqadmins.unshift(req.body.userId);
+      }
+      group.save(function(err){
+        if(err)
+          res.send(err);
+        res.json({ message: 'Request sent'})
+      });
+    });
+  });
+
+router.route('/groups/:group_id/approveAdmin')
+  .put(function(req, res){
+    Group.findById(req.params.group_id, function(err, group){
+      if(err)
+        res.send(err);
+      if(group.rqadmins.indexOf(req.body.userId) > -1){
+        group.rqadmins.splice(indexOf(req.body.userId),1);
+        if(group.admins.indexOf(req.body.userId) > -1){
+          group.admins.unshift(req.body.userId);
+        }
+      }
+      group.save(function(err){
+        if(err)
+          res.send(err);
+        res.json({ message: 'User approved for admin'})
+      });
+    });
+  });
+
+router.route('/groups/:group_id/rejectAdmin')
+  .put(function(req, res){
+    Group.findById(req.params.group_id, function(err, group){
+      if(err)
+        res.send(err);
+      if(group.rqadmins.indexOf(req.body.userId) > -1){
+        group.rqadmins.splice(indexOf(req.body.userId),1);
+      }
+      group.save(function(err){
+        if(err)
+          res.send(err);
+        res.json({ message: 'User rejected for admin'})
+      });
+    });
+  });
+
 
 router.route('/groups/:group_id/edit')
  //for editing groups
@@ -294,7 +345,6 @@ router.route('/groups/:group_id/:event_id/unrsvp')
         res.send(err);
       var index = group.events.findIndex(x => x._id == req.params.event_id);
       var userIndex = group.events[index].attendees.indexOf(req.body.userId);
-      console.log(`index:${userIndex}`);
       if(userIndex > -1){
         group.events[index].attendees.splice(userIndex,1);
       }

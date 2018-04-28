@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import Modal from './Modal';
 import EventForm from './forms/EventForm';
 import { rsvp, unrsvp } from './Auth/UserChecks';
-import { getUserIdentifier } from './Auth/AuthService';
 
 class Event extends Component {
   constructor(props) {
@@ -25,18 +24,14 @@ class Event extends Component {
     e.preventDefault();
     let id = this.props.uniqueID;
     this.props.onEventDelete(id);
-    console.log('event deleted');
   }
   editEvent(event) {
     let id = this.props.uniqueID;
     this.props.onEventEdit(id, event);
-    console.log('event edited');
     this.setState({ isOpen: !this.state.isOpen})
   }
   isRSVP(attendees,callback){
-    console.log("event:");
-    console.log(this.state.userId);
-    if( attendees.indexOf(this.state.userId) == -1){
+    if( attendees.indexOf(this.state.userId) === -1){
       callback(false);
     }
     else{
@@ -53,16 +48,9 @@ class Event extends Component {
     unrsvp(this.state.userId,this.props.groupId,this.props.uniqueID);
     this.setState({ isRSVP: false});
   }
-  componentWillReceiveProps(nextProps){
-		if(this.state.userId != nextProps.userId){
-			this.setState({userId: nextProps.userId});
-		}
-	}
   componentDidMount(){
-    console.log(`oi:${this.props.userId}`);
     this.setState({userId: this.props.userId},()=>{
       this.isRSVP(this.props.attendees,function(res){
-        console.log(res);
         if(res){
           this.setState({ isRSVP: true})
         }

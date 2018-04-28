@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import GroupList from './GroupList';
 import { Redirect } from 'react-router-dom';
-import { isLoggedIn, getAccessToken } from './Auth/AuthService';
+import { isLoggedIn } from './Auth/AuthService';
 import { Link } from 'react-router-dom';
 
 class GroupListBox extends Component {

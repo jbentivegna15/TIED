@@ -1,7 +1,6 @@
 //EventList.js
 import React, { Component } from 'react';
 import Event from "./Event";
-import { getUserIdentifier } from './Auth/AuthService';
 
 class EventList extends Component {
 	constructor(props) {
@@ -38,7 +37,7 @@ class EventList extends Component {
 	render() {
 		const userId = this.state.userId;
 		return(
-			(userId.length != 0) ? (
+			(userId.length !== 0) ? (
 							this.renderEvents()
 						) : (
 							<span>Loading Events</span>

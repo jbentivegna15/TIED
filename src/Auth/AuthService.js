@@ -81,7 +81,7 @@ export function isLoggedIn() {
 }
 
 export function checkUserInDB(id) {
-  axios.get(`http://localhost:3001/api/users/${id}`)
+  axios.get(`${APICONST}/users/${id}`)
                     .then((res) => {
                       console.log(res);
                       if(res == null){
@@ -98,7 +98,7 @@ export function checkUserInDB(id) {
 export function getUserIdentifier(callback) {
   var token = getAccessToken();
   var userID;
-  axios.get('https://tied.auth0.com/userinfo/', { headers: { Authorization: `Bearer ${token}`,'Content-type': 'application/json'}})
+  axios.get(AUDIENCE, { headers: { Authorization: `Bearer ${token}`,'Content-type': 'application/json'}})
     .then((res) => {
       userID = res.data.sub;
       callback(userID);
