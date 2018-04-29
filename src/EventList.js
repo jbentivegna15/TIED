@@ -28,8 +28,7 @@ class EventList extends Component {
 								key={ events['_id']}
 								admin={ this.props.admin }>
 								</Event>
-							)
-
+						)
 				 })
 	}
 	componentDidMount(){

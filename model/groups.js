@@ -15,9 +15,9 @@ var groupSchema = new Schema({
 		loc: String,
 		attendees: [],
 		description: String,
+		img:String
 	}],
 	description: String,
-	img: String
 });
 
 module.exports = mongoose.model('Group', groupSchema);

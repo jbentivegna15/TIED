@@ -1,7 +1,10 @@
 'use strict'
 //first we import our dependencies...
 var express = require('express');
+var multer = require('multer');
 var mongoose = require('mongoose');
+//var fs = require('fs');
+//var grid = require('grid');
 var bodyParser = require('body-parser');
 var User = require('./model/users');
 var Comment = require('./model/comments')
@@ -58,6 +61,7 @@ mongoose.connect(mongoDB)
         res.setHeader('Cache-Control', 'no-cache');
         next();
     });
+
 
 //now  we can set the route path & initialize the API
 router.get('/', function(req, res) {
@@ -314,6 +318,7 @@ router.route('/groups/:group_id/:event_id')
         (req.body.time) ? group.events[index].time = req.body.time : null;
         (req.body.loc) ? group.events[index].loc = req.body.loc : null;
         (req.body.userId) ? group.events[index].attendees.unshift(req.body.userId) : null;
+        (req.body.img) ? group.events[index].img = req.body.img : null;
         group.save(function(err) {
           if (err)
               res.send(err);
