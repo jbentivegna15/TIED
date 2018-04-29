@@ -1,7 +1,6 @@
 'use strict'
 //first we import our dependencies...
 var express = require('express');
-var multer = require('multer');
 var mongoose = require('mongoose');
 //var fs = require('fs');
 //var grid = require('grid');
