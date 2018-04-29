@@ -157,15 +157,10 @@ router.route('/users/:user_id')
       var user_id = String(req.params.user_id);
       var userFound = null;
 
-      User.find(function(err, users) {
+      User.find({uniqueId: user_id}, function(err, user) {
           if (err)
               res.send(err)
-          users.map(function(user) {
-              if (user.uniqueId === user_id) {
-                  userFound = user;
-              }
-          });
-          res.json(userFound);
+          res.json(user[0]);
       });
   })
   .post(function(req,res){
@@ -177,7 +172,66 @@ router.route('/users/:user_id')
         res.send(err);
 
     });
+  })
+  .put(function(req,res){
+    User.find({uniqueId: req.params.user_id}, function(err, user){
+      if(err)
+        res.send(err);
+      (req.body.firstame) ? user[0].firstname = req.body.firstname : null;
+      (req.body.lastname) ? user[0].lastname = req.body.lastname : null;
+      (req.body.email) ? user[0].email = req.body.email : null;
+    })
   });
+
+router.route('/users/:user_id/rsvp')
+  .put(function(req, res) {
+      User.find({uniqueId: req.params.user_id}, function(err, user) {
+        if (err)
+            res.send(err);
+        if(user[0].rsvps.length > 0){
+          var groupIndex = user[0].rsvps.findIndex(x => x.group_id == req.body.groupId);
+          if(groupIndex > -1){
+                      user[0].rsvps[groupIndex].events.unshift(req.body.eventId);
+          }
+          else{
+            user[0].rsvps.unshift({group_id: req.body.groupId, events:[req.body.eventId]});
+          }
+        }
+        else{
+          user[0].rsvps.unshift({group_id: req.body.groupId, events: [req.body.eventId]});
+        }
+        user[0].save(function(err) {
+          if (err)
+              res.send(err);
+          res.json({ message: 'User RSVP updated' })
+        })
+      })
+  })
+
+router.route('/users/:user_id/unrsvp')
+  .put(function(req,res){
+    User.find({uniqueId:req.params.user_id}, function(err, user) {
+      if(err)
+        res.send(err);
+      if(user[0].rsvps.length > 0){
+        var index = user[0].rsvps.findIndex(x => x.group_id == req.body.groupId);
+        if(index > -1){
+          if(user[0].rsvps[index].events.length > -1){
+            var eventIndex = user[0].rsvps[index].events.indexOf(req.body.eventId);
+            user[0].rsvps[index].events.splice(eventIndex,1);
+            if(user[0].rsvps[index].events.length === 0){
+              user[0].rsvps.splice(index,1);
+            }
+          }
+        }
+      }
+      user[0].save(function(err){
+        if (err)
+          res.send(err);
+        res.json({ message: 'User RSVP updated'})
+      })
+    })
+  })
 
 router.route('/groups')
 //retrieve all groups from the database
@@ -243,7 +297,7 @@ router.route('/groups/:group_id')
     Group.findById(req.params.group_id, function(err, group){
       if(err)
         res.send(err);
-      if(group.rqadmins.indexOf(req.body.userId) > -1){
+      if(group.rqadmins.indexOf(req.body.userId) < 0){
         group.rqadmins.unshift(req.body.userId);
       }
       group.save(function(err){
@@ -259,9 +313,9 @@ router.route('/groups/:group_id/approveAdmin')
     Group.findById(req.params.group_id, function(err, group){
       if(err)
         res.send(err);
-      if(group.rqadmins.indexOf(req.body.userId) > -1){
-        group.rqadmins.splice(indexOf(req.body.userId),1);
-        if(group.admins.indexOf(req.body.userId) > -1){
+      if(group.rqadmins.indexOf(req.body.userId) > -1) {
+        group.rqadmins.splice(group.rqadmins.indexOf(req.body.userId),1);
+        if(group.admins.indexOf(req.body.userId) < 0) {
           group.admins.unshift(req.body.userId);
         }
       }
@@ -279,7 +333,7 @@ router.route('/groups/:group_id/rejectAdmin')
       if(err)
         res.send(err);
       if(group.rqadmins.indexOf(req.body.userId) > -1){
-        group.rqadmins.splice(indexOf(req.body.userId),1);
+        group.rqadmins.splice(group.rqadmins.indexOf(req.body.userId),1);
       }
       group.save(function(err){
         if(err)

@@ -5,21 +5,26 @@ import GroupPage from './GroupPage';
 import EventList from './EventList';
 import Modal from './Modal';
 import GroupForm from './forms/GroupForm';
+import AdminList from './AdminList';
 import { Link, withRouter, Redirect } from "react-router-dom";
-import {isAdmin } from './Auth/UserChecks'
+import {isAdmin, isRQAdmin, rqAdmin, approveAdmin, rejectAdmin } from './Auth/UserChecks'
 import { getUserIdentifier } from './Auth/AuthService';
 
 class GroupPageBox extends Component {
 			constructor(props) {
 					super(props);
-					this.state = { data: [], edata: [], id: props.match.params.group_id, deleted: false, isOpen: false, adminStatus: false, userId:''}
+					this.state = { data: [], edata: [], id: props.match.params.group_id, deleted: false, isOpen: false, isAdminOpen: false, adminStatus: false, rqAdminStatus: false, userId:''}
 					this.toggleModal = this.toggleModal.bind(this);
+					this.toggleAdminModal = this.toggleAdminModal.bind(this);
 					this.handleClickGroup= this.handleClickGroup.bind(this);
 					this.handleGroupDelete = this.handleGroupDelete.bind(this);
 					this.handleMessageSend = this.handleMessageSend.bind(this);
 					this.handleEventDelete = this.handleEventDelete.bind(this);
 					this.handleGroupEdit = this.handleGroupEdit.bind(this);
 					this.handleEventEdit = this.handleEventEdit.bind(this);
+					this.handleAdminRequest = this.handleAdminRequest.bind(this);
+					this.handleAdminAccept = this.handleAdminAccept.bind(this);
+					this.handleAdminDecline = this.handleAdminDecline.bind(this);
       }
 			toggleModal = () => {
 				this.setState({ isOpen: !this.state.isOpen});
@@ -82,19 +87,33 @@ class GroupPageBox extends Component {
 					console.error(err);
 				});
 			}
-
-
+			handleAdminRequest() {
+				rqAdmin(this.state.userId,this.state.id);
+				this.setState({ rqAdminStatus: !this.state.rqAdminStatus})
+			}
+			toggleAdminModal() {
+				this.setState({ isAdminOpen: !this.state.isAdminOpen});
+			}
+			handleAdminAccept(id) {
+				approveAdmin(id,this.state.id);
+				console.log('admin accepted');
+			}
+			handleAdminDecline(id) {
+				rejectAdmin(id,this.state.id);
+				console.log('admin rejected');
+			}
 			componentDidMount() {
 					this.handleClickGroup();
 					getUserIdentifier(function(res){
 						this.setState({userId: res},() => {
 							isAdmin(this.state.userId,this.state.id,function(adminStat){
 								this.setState({ adminStatus: adminStat});
-								console.log(this.state.adminStatus);
+							}.bind(this));
+							isRQAdmin(this.state.userId,this.state.id,function(rqAdminStat){
+								this.setState({ rqAdminStatus: rqAdminStat});
 							}.bind(this));
 						});
 					}.bind(this))
-
 					setInterval(this.handleClickGroup, this.props.pollInterval);
 			}
       render() {
@@ -103,10 +122,17 @@ class GroupPageBox extends Component {
 							<div className="divCenter">
             		<h1><Link to="/">TIED</Link></h1>
 							</div>
-							{this.state.adminStatus &&
+							{this.state.adminStatus ?
 										(<div className="divFont">
 											<Link to={`/groupList/${this.state.id}/createEvent`}><button className="pageButton">Click here to create an event!</button></Link>
+											<button onClick={ this.toggleAdminModal } className="pageButton">Click here to manage admin requests</button>
 										</div>)
+										: [(!this.state.rqAdminStatus ?
+													(<div>
+															<button onClick={ this.handleAdminRequest } className="pageButton">Click here to request admin status</button>
+													</div>)
+													: null)
+											]
 							}
 							<h2>Group Information:</h2>
 							<GroupPage data={ this.state.data }/>
@@ -133,6 +159,13 @@ class GroupPageBox extends Component {
 								onClose={ this.toggleModal }>
                 <GroupForm onGroupSubmit={ this.handleGroupEdit }
 									data={ this.state.data }/>
+							</Modal>
+							<Modal show={ this.state.isAdminOpen }
+								onClose={ this.toggleAdminModal }>
+								<AdminList
+									data={ this.state.data }
+									onAdminAccept={ this.handleAdminAccept }
+									onAdminDecline={ this.handleAdminDecline }/>
 							</Modal>
 							{this.state.deleted ?
 								(<Redirect to={{

@@ -8,18 +8,7 @@ class UserList extends Component {
     constructor(props) {
       super(props);
       this.state = { data: [] };
-      //this.getUserData = this.getUserData.bind(this);
     }
-    // getUserData(id) {
-    //   axios.get(`${APICONST}/users/${id}`)
-    //   .then(res => {
-    //       console.log(res.data.firstname)
-    //       return res.data.firstname;
-    //   })
-    //   .catch(err => {
-    //       console.error(err);
-    //   });
-    // }
     async componentDidMount() {
       const unique = await [...new Set(this.props.data.map(attendees => attendees))]
       const userNodes = unique.map(async (attendees) => {
@@ -38,7 +27,7 @@ class UserList extends Component {
               { this.state.data }
               </div>
             ) : (
-              <span>Loading data...</span>
+              <span>none :(</span>
             )}
           </div>
         )
