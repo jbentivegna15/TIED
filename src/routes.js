@@ -4,7 +4,6 @@ import EventBox from './EventBox'
 import GroupListBox from './GroupListBox'
 import GroupPageBox from './GroupPageBox'
 import Header from './Header';
-import Message from './MessageBox'
 //import Login from './Auth/Login';
 //import Logout from './Auth/Logout';
 import Callback from './Callback';
@@ -21,7 +20,6 @@ const Routes = () => (
       <Route exact path={"/"} component={() => <Home />}/>
       <Route path={"/createGroup"} component={() => <GroupBox url={`${APICONST}/groups`} pollInterval={2000}/>}/>
       <Route exact path={"/groupList"} onEnter={requireAuth} component={() => <GroupListBox url={`${APICONST}/groups`} pollInterval={2000}/>}/>
-      //<Route exact path={"/groups/:group_id/Message"} onEnter={requireAuth} component={() => <Message url={`${APICONST}/groups`} pollInterval={2000}/>}/>
       <Route exact path={"/groupList/:group_id"} onEnter={requireAuth} component={() => <GroupPageBox url={`${APICONST}/groups`} pollInterval={2000}/>}/>
 	  <Route exact path={"/groupList/:group_id/createEvent"} onEnter={requireAuth} component={() => <EventBox url={`${APICONST}/groups`} pollInterval={2000}/>}/>
       <Route path={"/callback"} component={() => <Callback url={`${APICONST}/users`}/>} />

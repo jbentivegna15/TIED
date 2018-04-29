@@ -99,7 +99,6 @@ class GroupPageBox extends Component {
 			}
       render() {
           return (
-//page formatting
 						<div className="divFont">
 							<div className="divCenter">
             		<h1><Link to="/">TIED</Link></h1>

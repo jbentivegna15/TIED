@@ -24,7 +24,7 @@ class UserList extends Component {
       const unique = await [...new Set(this.props.data.map(attendees => attendees))]
       const userNodes = unique.map(async (attendees) => {
           const response= await axios.get(`${APICONST}/users/${attendees}`);
-          return response.data.firstname.concat(" ", response.data.lastname);
+          return response.data.firstname.concat(" ", response.data.lastname, " ");
       });
       const users = await Promise.all(userNodes);
       await this.setState({ data: users });

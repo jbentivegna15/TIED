@@ -285,7 +285,6 @@ router.route('/groups/:group_id/rejectAdmin')
     });
   });
 
-
 router.route('/groups/:group_id/edit')
  //for editing groups
  .put(function(req, res) {
