@@ -4,7 +4,7 @@ import {APICONST} from '../urlConst';
 
 //checks whether a user is an admin of a given group
 export function isAdmin(userId,groupId,callback){
-  console.log(groupId);
+    console.log(groupId);
     console.log(userId);
     var admins = [];
     axios.get(`${APICONST}/groups/${groupId}`)

@@ -5,11 +5,12 @@ import EventForm from './forms/EventForm';
 import { withRouter, Redirect } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import { isAdmin } from './Auth/UserChecks'
+import { getUserIdentifier } from './Auth/AuthService';
 
 class EventBox extends Component {
     constructor(props) {
         super(props);
-        this.state = { data: [], id: props.match.params.group_id, submitted: false, adminStatus: true };
+        this.state = { data: [], id: props.match.params.group_id, submitted: false, adminStatus: true, userId: "" };
         this.handleEventSubmit = this.handleEventSubmit.bind(this);
       }
       handleEventSubmit(event) {
@@ -22,9 +23,14 @@ class EventBox extends Component {
           });
   		}
       componentDidMount() {
-        isAdmin( this.state.id, function(adminStat){
-          this.setState({ adminStatus: adminStat });
-        }.bind(this));
+        getUserIdentifier(function(res){
+          this.setState({userId: res},() => {
+            isAdmin(this.state.userId,this.state.id,function(adminStat){
+              this.setState({ adminStatus: adminStat});
+              console.log(this.state.adminStatus);
+            }.bind(this));
+          });
+        }.bind(this))
       }
       render() {
           return (
