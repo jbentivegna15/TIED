@@ -16,6 +16,7 @@ class GroupPageBox extends Component {
 					this.toggleModal = this.toggleModal.bind(this);
 					this.handleClickGroup= this.handleClickGroup.bind(this);
 					this.handleGroupDelete = this.handleGroupDelete.bind(this);
+					this.handleMessageSend = this.handleMessageSend.bind(this);
 					this.handleEventDelete = this.handleEventDelete.bind(this);
 					this.handleGroupEdit = this.handleGroupEdit.bind(this);
 					this.handleEventEdit = this.handleEventEdit.bind(this);
@@ -72,6 +73,17 @@ class GroupPageBox extends Component {
 						console.log(err);
 					});
 			}
+			handleMessageSend(id, message) {
+				axios.post(`${this.props.url}/${this.state.id}/Message`,message)
+				.then(res => {
+					this.setState({ submitted: true});
+				})
+				.catch(err => {
+					console.error(err);
+				});
+			}
+
+
 			componentDidMount() {
 					this.handleClickGroup();
 					getUserIdentifier(function(res){
@@ -107,6 +119,7 @@ class GroupPageBox extends Component {
 								userId={ this.state.userId }
 								onEventDelete={ this.handleEventDelete }
 								onEventEdit={ this.handleEventEdit }
+								onMessageSubmit={ this.handleMessageSend}
 								admin={ this.state.adminStatus }/>
 								) : (<span>Loading Events</span>)
 							}

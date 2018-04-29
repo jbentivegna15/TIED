@@ -24,6 +24,7 @@ class EventList extends Component {
 								userId = { this.state.userId }
 								onEventDelete={ this.props.onEventDelete }
 								onEventEdit={ this.props.onEventEdit }
+								onMessageSubmit={ this.props.onMessageSubmit}
 								key={ events['_id']}
 								admin={ this.props.admin }>
 								</Event>

@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Modal from './Modal';
 import EventForm from './forms/EventForm';
+import MessageForm from './forms/MessageForm';
 import UserList from './UserList';
 import { rsvp, unrsvp } from './Auth/UserChecks';
 
@@ -12,6 +13,8 @@ class Event extends Component {
     this.state= { name: '', description: '', image: '', isOpen: false, isRSVP: false, userId: ''};
     this.toggleModal = this.toggleModal.bind(this);
     this.toggleUserModal = this.toggleUserModal.bind(this);
+    this.toggleMessageModal = this.toggleMessageModal.bind(this);
+	this.sendMessage = this.sendMessage.bind(this);
     this.deleteEvent = this.deleteEvent.bind(this);
     this.editEvent = this.editEvent.bind(this);
     this.doRSVP = this.doRSVP.bind(this);
@@ -26,6 +29,17 @@ class Event extends Component {
     e.preventDefault();
     this.setState({ isUserOpen: !this.state.isUserOpen})
   }
+  toggleMessageModal(e) {
+    e.preventDefault();
+    this.setState({ isMessageOpen: !this.state.isMessageOpen})
+  }
+  sendMessage(message){
+    let id=this.props.uniqueID;
+    this.props.onMessageSubmit(id, message);
+    this.setState({ isMessageOpen: !this.state.isMessageOpen})
+  }
+	
+	
   deleteEvent(e) {
     e.preventDefault();
     let id = this.props.uniqueID;
@@ -76,7 +90,8 @@ class Event extends Component {
                     (<div>
                       <h4><a style={{ color: 'blue' }} href='foo' onClick={ this.toggleModal }>edit   </a>
                       <a style={{ color: 'red' }} href='foo' onClick={ this.deleteEvent }>   delete</a>
-                      <a style={{ color: 'purple'}} href='foo' onClick={ this.toggleUserModal }> list of attendees </a></h4>
+                      <a style={{ color: 'purple'}} href='foo' onClick={ this.toggleUserModal }> list of attendees </a>
+                      <a style={{ color: 'green'}} href='foo' onClick={ this.toggleMessageModal }> Send a Message </a></h4>
                     </div>)
                 }
                 {!this.state.isRSVP ?
@@ -94,11 +109,19 @@ class Event extends Component {
                   <EventForm onEventSubmit={ this.editEvent }
                     data={{ name: this.props.name, description: this.props.description, date: this.props.date, time: this.props.time, loc: this.props.loc}}/>
                 </Modal>
-                <Modal show={ this.state.isUserOpen }
+                
+				<Modal show={ this.state.isUserOpen }
                   onClose={ this.toggleUserModal }>
                   <UserList
                     data={ this.props.attendees }/>
                 </Modal>
+
+                <Modal show={ this.state.isMessageOpen }
+                  onClose={ this.toggleMessageModal }>
+                  <MessageForm onMessageSubmit={ this.sendMessage }
+                    data={{ name: this.props.name, attendees: this.props.attendees}}/>
+                </Modal>
+
               </div>
              )
   }
