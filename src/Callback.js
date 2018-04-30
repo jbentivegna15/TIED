@@ -27,7 +27,7 @@ class Callback extends Component {
             axios.get(`${APICONST}/users/${subId}`)
               .then((res) => {
                 console.log(res);
-                if(res.data == null){
+                if(res.data === ""){
                   console.log('yup');
                   console.log(this.state.data);
                   var user = {user: this.state.data.nickname,
