@@ -5,7 +5,7 @@ import EventForm from './forms/EventForm';
 import { withRouter, Redirect } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import { isAdmin } from './Auth/UserChecks'
-import { getUserIdentifier } from './Auth/AuthService';
+import { getUserIdentifier, isLoggedIn } from './Auth/AuthService';
 
 class EventBox extends Component {
     constructor(props) {
@@ -35,6 +35,7 @@ class EventBox extends Component {
       render() {
           return (
 //page formatting
+            isLoggedIn() ? (
             this.state.adminStatus ? (
               <div className="divFont divCenter">
                 <h1><Link to="/">TIED</Link></h1>
@@ -54,7 +55,13 @@ class EventBox extends Component {
                 state: { from: this.props.location }
               }} />
             )
+          ) : (
+            <Redirect to={{
+              pathname: '/',
+              state: { from: this.props.location }
+            }} />
           )
+        )
       }
   }
 
