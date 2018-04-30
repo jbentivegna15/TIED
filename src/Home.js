@@ -23,7 +23,7 @@ const Home = () => (
         <div className="divFont divCenter">
           <h1><Link to='/'>TIED</Link></h1>
           <Link to="/createGroup"><button className="pageButton">Create a POD</button></Link><br/>
-          <Link to="/groupList"><button className="pageButton">POD List</button></Link>
+          <Link to="/groupList"><button className="pageButton">PODs List</button></Link>
         </div>
       )
     }
