@@ -169,7 +169,6 @@ router.route('/users/:user_id')
 
     });
   })
-
   .put(function(req,res){
     User.find({uniqueId: req.params.user_id}, function(err, user){
       if(err)
