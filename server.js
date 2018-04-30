@@ -156,7 +156,7 @@ router.route('/users/:user_id')
       User.find({uniqueId: user_id}, function(err, user) {
           if (err)
               res.send(err)
-          res.json(user);
+          res.json(user[0]);
       });
   })
   .post(function(req,res){
@@ -324,7 +324,7 @@ router.route('/groups/:group_id/rejectAdmin')
       if(err)
         res.send(err);
       if(group.rqadmins.indexOf(req.body.userId) > -1){
-        group.rqadmins.splice(indexOf(req.body.userId),1);
+        group.rqadmins.splice(group.rqadmins.indexOf(req.body.userId),1);
       }
       group.save(function(err){
         if(err)
