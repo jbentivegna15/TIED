@@ -186,7 +186,12 @@ router.route('/users/:user_id/rsvp')
             res.send(err);
         if(user[0].rsvps.length > 0){
           var groupIndex = user[0].rsvps.findIndex(x => x.group_id == req.body.groupId);
-          user[0].rsvps[groupIndex].events.unshift(req.body.eventId);
+          if(groupIndex > -1){
+                      user[0].rsvps[groupIndex].events.unshift(req.body.eventId);
+          }
+          else{
+            user[0].rsvps.unshift({group_id: req.body.groupId, events:[req.body.eventId]});
+          }
         }
         else{
           user[0].rsvps.unshift({group_id: req.body.groupId, events: [req.body.eventId]});
@@ -206,14 +211,15 @@ router.route('/users/:user_id/unrsvp')
         res.send(err);
       if(user[0].rsvps.length > 0){
         var index = user[0].rsvps.findIndex(x => x.group_id == req.body.groupId);
-        if(user[0].rsvps[index].events.length > -1){
-          var eventIndex = user[0].rsvps[index].events.indexOf(req.body.eventId);
-          user[0].rsvps[index].events.splice(eventIndex,1);
-          if(user[0].rsvps[index].events.length === 0){
-            user[0].rsvps.splice(index,1);
+        if(index > -1){
+          if(user[0].rsvps[index].events.length > -1){
+            var eventIndex = user[0].rsvps[index].events.indexOf(req.body.eventId);
+            user[0].rsvps[index].events.splice(eventIndex,1);
+            if(user[0].rsvps[index].events.length === 0){
+              user[0].rsvps.splice(index,1);
+            }
           }
         }
-
       }
       user[0].save(function(err){
         if (err)
