@@ -153,15 +153,10 @@ router.route('/users/:user_id')
       var user_id = String(req.params.user_id);
       var userFound = null;
 
-      User.find(function(err, users) {
+      User.find({uniqueId: user_id}, function(err, user) {
           if (err)
               res.send(err)
-          users.map(function(user) {
-              if (user.uniqueId === user_id) {
-                  userFound = user;
-              }
-          });
-          res.json(userFound);
+          res.json(user);
       });
   })
   .post(function(req,res){
@@ -174,6 +169,15 @@ router.route('/users/:user_id')
 
     });
   });
+  .put(function(req,res){
+    User.find({uniqueId: req.params.user_id}, function(err, user){
+      if(err)
+        res.send(err);
+      (req.body.firstame) ? user[0].firstname = req.body.firstname : null;
+      (req.body.lastname) ? user[0].lastname = req.body.lastname : null;
+      (req.body.email) ? user[0].email = req.body.email : null;
+    })
+  })
 
 router.route('/users/:user_id/rsvp')
   .put(function(req, res) {
