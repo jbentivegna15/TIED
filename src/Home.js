@@ -22,8 +22,8 @@ const Home = () => (
 //page formatting
         <div className="divFont divCenter">
           <h1><Link to='/'>TIED</Link></h1>
-          <Link to="/createGroup"><button className="pageButton">Create Group</button></Link><br/>
-          <Link to="/groupList"><button className="pageButton">Group List</button></Link>
+          <Link to="/createGroup"><button className="pageButton">Create a POD</button></Link><br/>
+          <Link to="/groupList"><button className="pageButton">POD List</button></Link>
         </div>
       )
     }
