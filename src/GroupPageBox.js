@@ -82,8 +82,6 @@ class GroupPageBox extends Component {
 					console.error(err);
 				});
 			}
-
-
 			componentDidMount() {
 					this.handleClickGroup();
 					getUserIdentifier(function(res){

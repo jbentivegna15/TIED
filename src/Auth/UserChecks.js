@@ -67,10 +67,18 @@ export function rsvp(userId,groupId,eventId){
       .catch(err => {
         console.log(err);
       });
+    axios.put(`${APICONST}/users/${userId}/rsvp`,{groupId: groupId,eventId: eventId})
+      .catch(err => {
+        console.log(err);
+      });
 }
 
 export function unrsvp(userId,groupId,eventId){
   axios.put(`${APICONST}/groups/${groupId}/${eventId}/unrsvp`,{userId: userId})
+    .catch(err => {
+      console.log(err);
+    });
+  axios.put(`${APICONST}/users/${userId}/unrsvp`,{groupId: groupId,eventId: eventId})
     .catch(err => {
       console.log(err);
     });

@@ -100,6 +100,7 @@ export function getUserIdentifier(callback) {
   var userID;
   axios.get(AUDIENCE, { headers: { Authorization: `Bearer ${token}`,'Content-type': 'application/json'}})
     .then((res) => {
+      console.log(res);
       userID = res.data.sub;
       callback(userID);
     })

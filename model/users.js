@@ -11,8 +11,8 @@ var userSchema = new Schema({
 	firstname: String,
 	lastname: String,
 	email: String,
-	private_groups: [{ _id: Schema.Types.ObjectId}],
-	rsvps: [{ group_id: Schema.Types.ObjectId, event_id: Schema.Types.ObjectId}]
+	rsvps: [{ group_id: '', events: []}],
+	admins: []
 });
 //userSchema.plugin(uniqueValidator);
 
