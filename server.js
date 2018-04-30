@@ -210,7 +210,7 @@ router.route('/users/:user_id/unrsvp')
         }
 
       }
-      user.save(function(err){
+      user[0].save(function(err){
         if (err)
           res.send(err);
         res.json({ message: 'User RSVP updated'})
