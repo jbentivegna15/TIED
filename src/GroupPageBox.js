@@ -125,12 +125,12 @@ class GroupPageBox extends Component {
 								</div>
 								{this.state.adminStatus ?
 											(<div className="divFont">
-												<Link to={`/groupList/${this.state.id}/createEvent`}><button className="pageButton">Create an event!</button></Link>
-												<button onClick={ this.toggleAdminModal } className="pageButton">Click here to manage admin requests</button>
+												<Link to={`/groupList/${this.state.id}/createEvent`}><button className="pageButton">Create Event</button></Link>
+												<button onClick={ this.toggleAdminModal } className="pageButton">Manage Admin Requests</button>
 											</div>)
 											: [(!this.state.rqAdminStatus ?
 														(<div>
-																<button onClick={ this.handleAdminRequest } className="pageButton">Click here to request admin status</button>
+																<button onClick={ this.handleAdminRequest } className="pageButton">Request Admin Status</button>
 														</div>)
 														: null)
 												]
