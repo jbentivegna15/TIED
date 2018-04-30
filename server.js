@@ -176,9 +176,15 @@ router.route('/users/:user_id')
     User.find({uniqueId: req.params.user_id}, function(err, user){
       if(err)
         res.send(err);
-      (req.body.firstame) ? user[0].firstname = req.body.firstname : null;
+      (req.body.firstname) ? user[0].firstname = req.body.firstname : null;
       (req.body.lastname) ? user[0].lastname = req.body.lastname : null;
       (req.body.email) ? user[0].email = req.body.email : null;
+
+      user[0].save(function(err) {
+          if (err)
+              res.send(err);
+          res.json({ message: 'User successfully updated' });
+      })
     })
   });
 

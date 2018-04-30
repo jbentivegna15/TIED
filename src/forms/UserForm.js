@@ -5,14 +5,11 @@ import '../components/styles.css';
 class UserForm extends Component {
   constructor(props) {
     super(props)
-    this.state = { firstname:'', lastname:'', email:'', user:'', password: '', confpassword:''};
+    this.state = { firstname: this.props.data, lastname: "", email: "" };
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleUserChange = this.handleUserChange.bind(this);
-    this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handleFirstnameChange = this.handleFirstnameChange.bind(this);
     this.handleLastnameChange = this.handleLastnameChange.bind(this);
     this.handleEmailChange = this.handleEmailChange.bind(this);
-    this.handleConfpasswordChange = this.handleConfpasswordChange.bind(this);
   }
   handleFirstnameChange(e) {
       this.setState({ firstname: e.target.value });
@@ -23,83 +20,30 @@ class UserForm extends Component {
   handleEmailChange(e) {
       this.setState({ email: e.target.value });
   }
-  handleUserChange(e) {
-      this.setState({ user: e.target.value });
-  }
-  handlePasswordChange(e) {
-      this.setState({ password: e.target.value });
-  }
-  handleConfpasswordChange(e) {
-      this.setState({ confpassword: e.target.value });
-  }
   handleSubmit(e) {
     e.preventDefault();
     let firstname = this.state.firstname.trim();
     let lastname = this.state.lastname.trim();
     let email = this.state.email.trim()
-    let user = this.state.user.trim();
-    let password = this.state.password.trim();
-    let confpassword = this.state.confpassword.trim()
-    if (!firstname || !lastname || !email || !user || !password || !confpassword) {
+    if (!firstname || !lastname || !email) {
       return;
     }
-    if (password !== confpassword) {
-      return;
-    }
-    this.props.onUserSubmit({ firstname: firstname, lastname: lastname, email: email, user: user, password: password});
-    this.setState({ firstname:'', lastname:'', email:'', user:'', password: '', confpassword:''});
+    this.props.onUserSubmit({ firstname: firstname, lastname: lastname, email: email });
   }
   render() {
     return (
-      <div>
-      <form style={ style.userForm} onSubmit={ this.handleSubmit }>
-      Enter First Name:<br/>
-      <input
-      type='text'
-      placeholder='John'
-      style={ style.userFormUsername}
-      value={ this.state.firstname}
-      onChange={ this.handleFirstnameChange } /><br/>
-      Enter Last Name:<br/>
-      <input
-      type='text'
-      placeholder='Doe'
-      style={ style.userFormUsername}
-      value={ this.state.lastname}
-      onChange={ this.handleLastnameChange } /><br/>
-      Enter Email:<br/>
-      <input
-      type='text'
-      placeholder='JohnDoe@gmail.com'
-      style={ style.userFormUsername}
-      value={ this.state.email}
-      onChange={ this.handleEmailChange } /><br/>
-      Enter Username:<br/>
-      <input
-      type='text'
-      placeholder='johndoe1'
-      style={ style.userFormUsername}
-      value={ this.state.user}
-      onChange={ this.handleUserChange } /><br/>
-      Enter Password:<br/>
-      <input
-      type='password'
-      placehold='******'
-      style={ style.userFormPassword}
-      value={ this.state.password}
-      onChange={ this.handlePasswordChange } /><br/>
-      Confirm Password:<br/>
-      <input
-      type='password'
-      placehold='******'
-      style={ style.userFormPassword}
-      value={ this.state.confpassword}
-      onChange={ this.handleConfpasswordChange } /><br/>
-      <input
-      type='submit'
-      style={ style.userFormPost}
-      value='Submit' />
-      </form>
+      <div className="divFont divCenter">
+        <div id="right">
+          <h2><form onSubmit={ this.handleSubmit }>
+            Enter Firstname:<br/>
+            <input type="text" placeholder="John" value={ this.state.firstname } onChange={ this.handleFirstnameChange } required="required"/><br/>
+            Enter Lastname:<br/>
+            <input type="text" placeholder="Doe" value={ this.state.lastname } onChange={ this.handleLastnameChange } required="required"/><br/>
+            Enter Email:<br/>
+            <input type="text" placeholder="johndoe@gmail.com" value={ this.state.email } onChange={ this.handleEmailChange } required="required"/><br/>
+            <input type="submit" value='Submit'/>
+          </form></h2>
+        </div>
       </div>
     )
   }
