@@ -135,7 +135,7 @@ class GroupPageBox extends Component {
 														: null)
 												]
 								}
-								<h2>Group Information:</h2>
+								<h2>POD Information:</h2>
 								<GroupPage data={ this.state.data }/>
 								<h2>Event List:</h2>
 								{this.state.userId.length ? (
