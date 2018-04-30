@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { Link, withRouter, Redirect } from "react-router-dom";
 import axios from 'axios';
+import { isLoggedIn } from './Auth/AuthService';
 import UserPageList from './UserPageList';
 
 class UserPageBox extends Component {
@@ -24,12 +25,20 @@ class UserPageBox extends Component {
       }
       render() {
           return (
+            isLoggedIn() ? (
             <div>
               <UserPageList
               userId={ this.state.id }
               data={ this.state.data }/>
             </div>
+
+        ) : (
+          <Redirect to={{
+            pathname: '/',
+            state: { from: this.props.location }
+          }} />
           )
+        )
       }
   }
 

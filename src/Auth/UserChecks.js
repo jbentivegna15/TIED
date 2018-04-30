@@ -83,5 +83,3 @@ export function unrsvp(userId,groupId,eventId){
       console.log(err);
     });
 }
-
-//export function isRSVP()

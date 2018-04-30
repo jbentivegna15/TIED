@@ -8,7 +8,7 @@ import GroupForm from './forms/GroupForm';
 import AdminList from './AdminList';
 import { Link, withRouter, Redirect } from "react-router-dom";
 import {isAdmin, isRQAdmin, rqAdmin, approveAdmin, rejectAdmin } from './Auth/UserChecks'
-import { getUserIdentifier } from './Auth/AuthService';
+import { getUserIdentifier, isLoggedIn } from './Auth/AuthService';
 
 class GroupPageBox extends Component {
 			constructor(props) {
@@ -118,25 +118,26 @@ class GroupPageBox extends Component {
 			}
       render() {
           return (
-						<div className="divFont">
-							<div className="divCenter">
-            		<h1><Link to="/">TIED</Link></h1>
-							</div>
-							{this.state.adminStatus ?
-										(<div className="divFont">
-											<Link to={`/groupList/${this.state.id}/createEvent`}><button className="pageButton">Create an event!</button></Link>
-											<button onClick={ this.toggleAdminModal } className="pageButton">Click here to manage admin requests</button>
-										</div>)
-										: [(!this.state.rqAdminStatus ?
-													(<div>
-															<button onClick={ this.handleAdminRequest } className="pageButton">Click here to request admin status</button>
-													</div>)
-													: null)
-											]
-							}
-							<GroupPage data={ this.state.data }/>
-							<h2>Event List:</h2>
-							<div className="scrollList">
+						isLoggedIn() ? (
+							<div className="divFont">
+								<div className="divCenter">
+	            		<h1><Link to="/">TIED</Link></h1>
+								</div>
+								{this.state.adminStatus ?
+											(<div className="divFont">
+												<Link to={`/groupList/${this.state.id}/createEvent`}><button className="pageButton">Create an event!</button></Link>
+												<button onClick={ this.toggleAdminModal } className="pageButton">Click here to manage admin requests</button>
+											</div>)
+											: [(!this.state.rqAdminStatus ?
+														(<div>
+																<button onClick={ this.handleAdminRequest } className="pageButton">Click here to request admin status</button>
+														</div>)
+														: null)
+												]
+								}
+								<h2>Group Information:</h2>
+								<GroupPage data={ this.state.data }/>
+								<h2>Event List:</h2>
 								{this.state.userId.length ? (
 									<EventList
 									data={ this.state.edata }
@@ -148,33 +149,38 @@ class GroupPageBox extends Component {
 									admin={ this.state.adminStatus }/>
 									) : (<span>Loading Events</span>)
 								}
-							</div>
 
-							{this.state.adminStatus &&
-									 (<div>
-										 	<button onClick={ this.toggleModal } className="pageButton">Edit group</button>
-											<button onClick={ this.handleGroupDelete } className="pageButton">Delete group</button>
-									 </div>)
-							}
-							<Modal show={ this.state.isOpen }
-								onClose={ this.toggleModal }>
-                <GroupForm onGroupSubmit={ this.handleGroupEdit }
-									data={ this.state.data }/>
-							</Modal>
-							<Modal show={ this.state.isAdminOpen }
-								onClose={ this.toggleAdminModal }>
-								<AdminList
-									data={ this.state.data }
-									onAdminAccept={ this.handleAdminAccept }
-									onAdminDecline={ this.handleAdminDecline }/>
-							</Modal>
-							{this.state.deleted ?
-								(<Redirect to={{
-									pathname: '/groupList',
-									state: { from: this.props.location }
-								}} />)
-								: null}
-						</div>
+								{this.state.adminStatus &&
+										 (<div>
+											 	<button onClick={ this.toggleModal } className="pageButton">Edit group</button>
+												<button onClick={ this.handleGroupDelete } className="pageButton">Delete group</button>
+										 </div>)
+								}
+								<Modal show={ this.state.isOpen }
+									onClose={ this.toggleModal }>
+	                <GroupForm onGroupSubmit={ this.handleGroupEdit }
+										data={ this.state.data }/>
+								</Modal>
+								<Modal show={ this.state.isAdminOpen }
+									onClose={ this.toggleAdminModal }>
+									<AdminList
+										data={ this.state.data }
+										onAdminAccept={ this.handleAdminAccept }
+										onAdminDecline={ this.handleAdminDecline }/>
+								</Modal>
+								{this.state.deleted ?
+									(<Redirect to={{
+										pathname: '/groupList',
+										state: { from: this.props.location }
+									}} />)
+									: null}
+							</div>
+						) : (
+							<Redirect to={{
+								pathname: '/',
+								state: { from: this.props.location }
+							}} />
+						)
         )}
   }
 
