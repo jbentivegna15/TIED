@@ -361,6 +361,14 @@ router.route('/groups/:group_id/edit')
 
 router.route('/groups/:group_id/:event_id')
 //retrieve an event from a group in the database
+  .get(function(req, res) {
+      Group.findById(req.params.group_id, function(err, group) {
+        if (err)
+            res.send(err);
+        var index = group.events.findIndex(x => x._id == req.params.event_id);
+        res.json(group.events[index])
+      })
+  })
   .put(function(req, res) {
       Group.findById(req.params.group_id, function(err, group) {
         if (err)
