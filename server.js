@@ -178,7 +178,6 @@ router.route('/users/:user_id')
 router.route('/users/:user_id/rsvp')
   .put(function(req, res) {
       User.find({uniqueId: req.params.user_id}, function(err, user) {
-        console.log(user[0].rsvps);
         if (err)
             res.send(err);
         if(user[0].rsvps.length > 0){
@@ -199,7 +198,6 @@ router.route('/users/:user_id/rsvp')
 router.route('/users/:user_id/unrsvp')
   .put(function(req,res){
     User.find({uniqueId:req.params.user_id}, function(err, user) {
-      console.log(user[0].rsvps);
       if(err)
         res.send(err);
       if(user[0].rsvps.length > 0){
@@ -207,6 +205,9 @@ router.route('/users/:user_id/unrsvp')
         if(user[0].rsvps[index].events.length > -1){
           var eventIndex = user[0].rsvps[index].events.indexOf(req.body.eventId);
           user[0].rsvps[index].events.splice(eventIndex,1);
+          if(user[0].rsvps[index].events.length === 0){
+            user[0].rsvps.splice(index,1);
+          }
         }
 
       }
