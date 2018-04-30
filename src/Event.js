@@ -14,7 +14,7 @@ class Event extends Component {
     this.toggleModal = this.toggleModal.bind(this);
     this.toggleUserModal = this.toggleUserModal.bind(this);
     this.toggleMessageModal = this.toggleMessageModal.bind(this);
-	this.sendMessage = this.sendMessage.bind(this);
+	  this.sendMessage = this.sendMessage.bind(this);
     this.deleteEvent = this.deleteEvent.bind(this);
     this.editEvent = this.editEvent.bind(this);
     this.doRSVP = this.doRSVP.bind(this);
@@ -38,8 +38,6 @@ class Event extends Component {
     this.props.onMessageSubmit(id, message);
     this.setState({ isMessageOpen: !this.state.isMessageOpen})
   }
-	
-	
   deleteEvent(e) {
     e.preventDefault();
     let id = this.props.uniqueID;
@@ -109,8 +107,8 @@ class Event extends Component {
                   <EventForm onEventSubmit={ this.editEvent }
                     data={{ name: this.props.name, description: this.props.description, date: this.props.date, time: this.props.time, loc: this.props.loc}}/>
                 </Modal>
-                
-				<Modal show={ this.state.isUserOpen }
+
+				        <Modal show={ this.state.isUserOpen }
                   onClose={ this.toggleUserModal }>
                   <UserList
                     data={ this.props.attendees }/>

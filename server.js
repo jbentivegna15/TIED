@@ -168,7 +168,8 @@ router.route('/users/:user_id')
         res.send(err);
 
     });
-  });
+  })
+
   .put(function(req,res){
     User.find({uniqueId: req.params.user_id}, function(err, user){
       if(err)
@@ -177,7 +178,7 @@ router.route('/users/:user_id')
       (req.body.lastname) ? user[0].lastname = req.body.lastname : null;
       (req.body.email) ? user[0].email = req.body.email : null;
     })
-  })
+  });
 
 router.route('/users/:user_id/rsvp')
   .put(function(req, res) {
@@ -287,7 +288,7 @@ router.route('/groups/:group_id')
     Group.findById(req.params.group_id, function(err, group){
       if(err)
         res.send(err);
-      if(group.rqadmins.indexOf(req.body.userId) > -1){
+      if(group.rqadmins.indexOf(req.body.userId) < 0){
         group.rqadmins.unshift(req.body.userId);
       }
       group.save(function(err){
@@ -303,9 +304,9 @@ router.route('/groups/:group_id/approveAdmin')
     Group.findById(req.params.group_id, function(err, group){
       if(err)
         res.send(err);
-      if(group.rqadmins.indexOf(req.body.userId) > -1){
-        group.rqadmins.splice(indexOf(req.body.userId),1);
-        if(group.admins.indexOf(req.body.userId) > -1){
+      if(group.rqadmins.indexOf(req.body.userId) > -1) {
+        group.rqadmins.splice(group.rqadmins.indexOf(req.body.userId),1);
+        if(group.admins.indexOf(req.body.userId) < 0) {
           group.admins.unshift(req.body.userId);
         }
       }
