@@ -124,7 +124,7 @@ class GroupPageBox extends Component {
 							</div>
 							{this.state.adminStatus ?
 										(<div className="divFont">
-											<Link to={`/groupList/${this.state.id}/createEvent`}><button className="pageButton">Click here to create an event!</button></Link>
+											<Link to={`/groupList/${this.state.id}/createEvent`}><button className="pageButton">Create an event!</button></Link>
 											<button onClick={ this.toggleAdminModal } className="pageButton">Click here to manage admin requests</button>
 										</div>)
 										: [(!this.state.rqAdminStatus ?
@@ -134,25 +134,26 @@ class GroupPageBox extends Component {
 													: null)
 											]
 							}
-							<h2>Group Information:</h2>
 							<GroupPage data={ this.state.data }/>
 							<h2>Event List:</h2>
-							{this.state.userId.length ? (
-								<EventList
-								data={ this.state.edata }
-								groupId={ this.state.id }
-								userId={ this.state.userId }
-								onEventDelete={ this.handleEventDelete }
-								onEventEdit={ this.handleEventEdit }
-								onMessageSubmit={ this.handleMessageSend}
-								admin={ this.state.adminStatus }/>
-								) : (<span>Loading Events</span>)
-							}
+							<div className="scrollList">
+								{this.state.userId.length ? (
+									<EventList
+									data={ this.state.edata }
+									groupId={ this.state.id }
+									userId={ this.state.userId }
+									onEventDelete={ this.handleEventDelete }
+									onEventEdit={ this.handleEventEdit }
+									onMessageSubmit={ this.handleMessageSend}
+									admin={ this.state.adminStatus }/>
+									) : (<span>Loading Events</span>)
+								}
+							</div>
 
 							{this.state.adminStatus &&
 									 (<div>
-										 	<button onClick={ this.toggleModal } className="pageButton">Click here to edit group</button>
-											<button onClick={ this.handleGroupDelete } className="pageButton">Click here to delete group</button>
+										 	<button onClick={ this.toggleModal } className="pageButton">Edit group</button>
+											<button onClick={ this.handleGroupDelete } className="pageButton">Delete group</button>
 									 </div>)
 							}
 							<Modal show={ this.state.isOpen }

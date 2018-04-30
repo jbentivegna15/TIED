@@ -35,14 +35,15 @@ class GroupForm extends Component {
 //page formatting
 			<div className="divFont divCenter">
 				<div id="right">
-					<h2><form onSubmit={ this.handleSubmit }>
+					<h2><form className="formStyle" onSubmit={ this.handleSubmit }>
 						Enter Group Name:<br/>
 						<input type="text" placeholder="TIDE Enthusiasts" value={ this.state.name} onChange={ this.handleNameChange } required="required"/><br/>
-						Description:<br/>
-						<textarea id="groupDesc" name="Description" placeholder="Do not eat." rows="5" cols="50" value={ this.state.description} onChange={ this.handleDescriptionChange } required="required"></textarea><br/>
+
+            Description:<br/>
+						<textarea id="groupDesc" name="Description" placeholder="Do not eat." rows="15" cols="50" value={ this.state.description} onChange={ this.handleDescriptionChange } required="required"></textarea><br/>
             {/*Enter Group Image:<br/>
 						<input type="file" name="bannerGroup" accept="image/*" /><br/> */}
-						<input type="submit" value='Submit'/>
+						<input type="submit" value='Submit' className="pageButton"/>
 					</form></h2>
 				</div>
 			</div>

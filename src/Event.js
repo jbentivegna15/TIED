@@ -14,6 +14,11 @@ class Event extends Component {
     this.toggleModal = this.toggleModal.bind(this);
     this.toggleUserModal = this.toggleUserModal.bind(this);
     this.toggleMessageModal = this.toggleMessageModal.bind(this);
+<<<<<<< Updated upstream
+=======
+    this.toggleDetailModal = this.toggleDetailModal.bind(this);
+
+>>>>>>> Stashed changes
 	  this.sendMessage = this.sendMessage.bind(this);
     this.deleteEvent = this.deleteEvent.bind(this);
     this.editEvent = this.editEvent.bind(this);
@@ -38,6 +43,15 @@ class Event extends Component {
     this.props.onMessageSubmit(id, message);
     this.setState({ isMessageOpen: !this.state.isMessageOpen})
   }
+<<<<<<< Updated upstream
+=======
+  toggleDetailModal(e) {
+    e.preventDefault();
+    this.setState({ isDetailOpen: !this.state.isDetailOpen})
+  }
+
+
+>>>>>>> Stashed changes
   deleteEvent(e) {
     e.preventDefault();
     let id = this.props.uniqueID;
@@ -82,26 +96,34 @@ class Event extends Component {
       return (
 //page formatting
               <div className="divFont listStyle">
-                <h3>{this.props.name}</h3>
-                {this.props.description}
-                {this.props.admin &&
-                    (<div>
-                      <h4><a style={{ color: 'blue' }} href='foo' onClick={ this.toggleModal }>edit   </a>
-                      <a style={{ color: 'red' }} href='foo' onClick={ this.deleteEvent }>   delete</a>
-                      <a style={{ color: 'purple'}} href='foo' onClick={ this.toggleUserModal }> list of attendees </a>
-                      <a style={{ color: 'green'}} href='foo' onClick={ this.toggleMessageModal }> Send a Message </a></h4>
-                    </div>)
-                }
+                <div className="name">
+                  {this.props.name}
+                </div>
+                <div className="desc">
+                  {this.props.description}<br/>
+                  <button className="smallButton" onClick={ this.toggleDetailModal }>Details</button>
+                </div>
+
                 {!this.state.isRSVP ?
-                  (<div>
-                    <h4><a style={{ color: 'green'}} href='foo' onClick={ this.doRSVP }>Rsvp 'going' to this event</a></h4>
+                  (<div className="desc">
+                    <button className="smallButton" onClick={ this.doRSVP }>RSVP</button>
                    </div>
                  ) : (
-                   <div>
-                    <h4>You are going to this event!<a style={{color:'red'}} href='foo' onClick={this.undoRSVP }>Cancel RSVP</a></h4>
+                   <div className="desc">
+                    Registered! <button className="smallButton" onClick={ this.undoRSVP }>Cancel RSVP</button>
                   </div>
                   )
                 }
+
+                {this.props.admin &&
+                    (<div className="desc">
+                      <button className="smallButton" onClick={ this.toggleModal }>Edit</button>
+                      <button className="smallButton" onClick={ this.deleteEvent }>Delete</button>
+                      <button className="smallButton" onClick={ this.toggleUserModal }>Attendee List</button>
+                      <button className="smallButton" onClick={ this.toggleMessageModal }>Message</button>
+                    </div>)
+                }
+
                 <Modal show={ this.state.isOpen }
                   onClose={ this.toggleModal }>
                   <EventForm onEventSubmit={ this.editEvent }
@@ -118,6 +140,30 @@ class Event extends Component {
                   onClose={ this.toggleMessageModal }>
                   <MessageForm onMessageSubmit={ this.sendMessage }
                     data={{ name: this.props.name, attendees: this.props.attendees}}/>
+                </Modal>
+
+                <Modal show={ this.state.isDetailOpen }
+                  onClose={ this.toggleDetailModal }>
+                  <div className="divFont desc">
+                    <table>
+                      <tr>
+                        <th colspan="2">{this.props.name}</th>
+                      </tr>
+                      <tr>
+                        <td>Date</td>
+                        <td>{this.props.date}</td>
+                      </tr>
+                      <tr>
+                        <td>Time</td>
+                        <td>{this.props.time}</td>
+                      </tr>
+                      <tr>
+                        <td>Location</td>
+                        <td>{this.props.loc}</td>
+                      </tr>
+                    </table>
+                    {this.props.description}
+                  </div>
                 </Modal>
 
               </div>

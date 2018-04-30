@@ -16,11 +16,14 @@ class Group extends Component {
       return (
 //page formatting
               <div className="divFont listStyle">
-                <Link to={{pathname: `/groupList/${this.props.uniqueID}`,
-                          userId: this.props.userId}}>
-                  <h3>{this.props.name}</h3>
+                <Link to={{pathname: `/groupList/${this.props.uniqueID}`, userId: this.props.userId}}>
+                  <div className="name">
+                    {this.props.name}
+                  </div>
                 </Link>
-                {this.props.description}
+                <div className="desc">
+                  {this.props.description}
+                </div>
               </div>
              )
   }

@@ -32,7 +32,7 @@ class GroupListBox extends Component {
 								<div className="divCenter">
 									<h1><Link to='/'>TIED</Link></h1>
 								</div>
-	            	<h2>Groups:</h2>
+	            	<h2>PODs:</h2>
 								<GroupList data={ this.state.data }/>
 	            </div>
 						) : (

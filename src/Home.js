@@ -10,6 +10,10 @@ const Home = () => (
 //page formatting
         <div className="divFont divCenter">
           <h1>TIED</h1>
+          <p>
+            Welcome to Tomorrow's Interactive Event Database, TIED! <br/>
+            Use this platform to create your PODs and events
+          </p>
         </div>
       )
     }

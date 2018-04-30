@@ -27,7 +27,7 @@ class UserList extends Component {
               { this.state.data }
               </div>
             ) : (
-              <span>none :(</span>
+              <span className="divFont">none :(</span>
             )}
           </div>
         )

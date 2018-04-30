@@ -1,4 +1,4 @@
-body {background-color: powderblue;}
+body {background-color: royalblue;}
 
 .introLogo{
   text-align: center;
@@ -7,12 +7,12 @@ body {background-color: powderblue;}
 }
 
 h1 {
-  color: orange;
+  color: white;
   font-size: 350%;
 }
 
 h2 {
-  color: orange;
+  color: white;
   font-size: 150%;
 }
 
@@ -21,6 +21,18 @@ h3 {
   line-height: 10px;
 }
 
+p{
+  color: white;
+}
+.name{
+  color: slateblue;
+  padding: 5px;
+  font-size: 25px;
+}
+.desc{
+  color: black;
+  padding: 5px;
+}
 .vl{border-left: 5px solid gold;
   height: 1000px;
   position: absolute;
@@ -29,8 +41,9 @@ h3 {
   top: 0;}
 
 table, th, td{
-  border: 1px solid black;
+  border: 1px solid white;
   border-collapse: collapse;
+  margin: 0 auto;
 }
 
 th,td{
@@ -43,16 +56,23 @@ th,td{
   margin-top: 15%;
   width: 30%;
   background-color: orange;
+  color: white;
   border: 1px orange;
   padding: 15px;
+  font-size: 20px;
+  cursor: pointer;
+  border-radius: 4px;
 }
 .loginStyle:hover{
   background-color: darkorange;
 }
 .loggedStyle{
   background-color: orange;
+  color: white;
   border: 1px orange;
   padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 4px;
 }
 .loggedStyle:hover{
   background-color: darkorange;
@@ -73,19 +93,38 @@ th,td{
 }
 .divFont{
   font-family: arial, helvetica, sans-serif;
+  color: white;
 }
 
 .pageButton{
   background-color: orange;
-  color: black;
+  color: white;
   font-size: 14px;
   padding: 10px;
   cursor: pointer;
   border: 1px orange;
   margin: 10px;
-  width: 300px;
+  width: 200px;
+  cursor: pointer;
+  border-radius: 4px;
 }
 .pageButton:hover{
+  background-color: darkorange;
+}
+
+.smallButton{
+  background-color: orange;
+  color: white;
+  font-size: 10px;
+  padding: 5px;
+  cursor: pointer;
+  border: 1px orange;
+  margin: 2px;
+  width: 75px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+.smallButton:hover{
   background-color: darkorange;
 }
 
@@ -105,20 +144,25 @@ a:active {
 }
 
 .listStyle{
-  background-color: white;
+  background-color: gainsboro;
   padding: 5px;
   margin: 5px;
+  color: black;
 }
 
 .formStyle{
   padding: 10px;
+  font-family: arial, helvetica, sans-serif;
 }
 
 .scrollList{
-  border: 1px solid #f1f1f1;
-  padding: 0 12px;
-  maxHeight: 70vh;
-  overflow: scroll;
+  border-collapse: collapse;
+  border: royalblue;
+  padding: 0px;
+  height: 400px;
+  overflow: hidden;;
+  overflow-y: scroll;
+  margin: 0 auto;
 }
 
 .navLogo{
@@ -127,3 +171,21 @@ a:active {
   display: inline-block;
   vertical-align: middle;
 }
+
+.bottomHeader{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  font-size: 10px;
+}
+
+.modal{
+  background-color: navy;
+  border-radius: 15px;
+  width: 40%;
+  minHeight: 300;
+  margin: 0 auto;
+  padding: 30;
+  color: black;
+};

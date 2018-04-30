@@ -40,7 +40,7 @@ class EventList extends Component {
 			(userId.length !== 0) ? (
 							this.renderEvents()
 						) : (
-							<span>Loading Events</span>
+							<span className="divFont">Loading Events</span>
 						)
 			)
 	}
