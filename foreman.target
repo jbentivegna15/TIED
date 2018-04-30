@@ -1,0 +1,5 @@
+[Unit]
+Wants= foreman-web.target foreman-api.target
+
+[Install]
+WantedBy=multi-user.target

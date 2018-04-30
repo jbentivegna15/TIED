@@ -1,0 +1,19 @@
+[Unit]
+Description=foreman-api-1
+Requires=foreman-api.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/env nodemon server.js
+WorkingDirectory=/home/cooper/t/TIED
+
+User=root
+Group=root
+
+EnvironmentFile=-/home/cooper/t/TIED/.env
+Environment=PORT=3100
+
+StandardInput=null
+StandardOutput=syslog
+StandardError=syslog
+Restart=always

@@ -1,0 +1,3 @@
+[Unit]
+Requires=foreman.target
+Wants= foreman-api-1.service
