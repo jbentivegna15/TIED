@@ -35,11 +35,11 @@ class UserForm extends Component {
       <div className="divFont divCenter">
         <div id="right">
           <h2><form onSubmit={ this.handleSubmit }>
-            Enter Firstname:<br/>
+            Update Firstname:
             <input type="text" placeholder="John" value={ this.state.firstname } onChange={ this.handleFirstnameChange } required="required"/><br/>
-            Enter Lastname:<br/>
+            Update Lastname:
             <input type="text" placeholder="Doe" value={ this.state.lastname } onChange={ this.handleLastnameChange } required="required"/><br/>
-            Enter Email:<br/>
+            Update Email:
             <input type="text" placeholder="johndoe@gmail.com" value={ this.state.email } onChange={ this.handleEmailChange } required="required"/><br/>
             <input type="submit" value='Submit'/>
           </form></h2>

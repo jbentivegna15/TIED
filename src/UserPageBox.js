@@ -40,11 +40,11 @@ class UserPageBox extends Component {
           return (
             isLoggedIn() ? (
             <div>
-              <UserForm onUserSubmit={ this.handleUserSubmit }
-                data={ this.state.udata.firstname }/>
               <UserPageList
               userId={ this.state.id }
               data={ this.state.data }/>
+              <UserForm onUserSubmit={ this.handleUserSubmit }
+                data={ this.state.udata.firstname }/>
             </div>
 
         ) : (

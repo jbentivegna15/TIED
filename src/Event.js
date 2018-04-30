@@ -14,11 +14,7 @@ class Event extends Component {
     this.toggleModal = this.toggleModal.bind(this);
     this.toggleUserModal = this.toggleUserModal.bind(this);
     this.toggleMessageModal = this.toggleMessageModal.bind(this);
-<<<<<<< Updated upstream
-=======
     this.toggleDetailModal = this.toggleDetailModal.bind(this);
-
->>>>>>> Stashed changes
 	  this.sendMessage = this.sendMessage.bind(this);
     this.deleteEvent = this.deleteEvent.bind(this);
     this.editEvent = this.editEvent.bind(this);
@@ -43,15 +39,10 @@ class Event extends Component {
     this.props.onMessageSubmit(id, message);
     this.setState({ isMessageOpen: !this.state.isMessageOpen})
   }
-<<<<<<< Updated upstream
-=======
   toggleDetailModal(e) {
     e.preventDefault();
     this.setState({ isDetailOpen: !this.state.isDetailOpen})
   }
-
-
->>>>>>> Stashed changes
   deleteEvent(e) {
     e.preventDefault();
     let id = this.props.uniqueID;
