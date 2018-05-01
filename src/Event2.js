@@ -50,16 +50,22 @@ class Event2 extends Component {
       return (
 //page formatting
               <div className="divFont listStyle">
-                <h2>{this.state.data.name}</h2>
-                <h3>{this.state.edata.name}</h3>
-                {this.state.edata.description}
+                <div className="name">
+                  {this.props.name}
+                  {this.state.edata.name}
+                </div>
+                <div className="desc">
+                  {this.props.description}<br/>
+                  <button className="smallButton" onClick={ this.toggleDetailModal }>Details</button>
+                </div>
+
                 {!this.state.isRSVP ?
-                  (<div>
-                    <h4><a style={{ color: 'green'}} href='foo' onClick={ this.doRSVP }>Rsvp 'going' to this event</a></h4>
+                  (<div className="desc">
+                    <button className="smallButton" onClick={ this.doRSVP }>RSVP</button>
                    </div>
                  ) : (
-                   <div>
-                    <h4>You are going to this event!<a style={{color:'red'}} href='foo' onClick={this.undoRSVP }>Cancel RSVP</a></h4>
+                   <div className="desc">
+                    Registered! <button className="smallButton" onClick={ this.undoRSVP }>Cancel RSVP</button>
                   </div>
                   )
                 }

@@ -163,10 +163,12 @@ class GroupPageBox extends Component {
 								</Modal>
 								<Modal show={ this.state.isAdminOpen }
 									onClose={ this.toggleAdminModal }>
-									<AdminList
-										data={ this.state.data }
-										onAdminAccept={ this.handleAdminAccept }
-										onAdminDecline={ this.handleAdminDecline }/>
+									<div className="divFont">
+										<AdminList
+											data={ this.state.data }
+											onAdminAccept={ this.handleAdminAccept }
+											onAdminDecline={ this.handleAdminDecline }/>
+									</div>
 								</Modal>
 								{this.state.deleted ?
 									(<Redirect to={{

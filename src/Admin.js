@@ -22,15 +22,18 @@ class Admin extends Component {
   async componentDidMount() {
     const id = await this.props.adminId
     const response = await axios.get(`${APICONST}/users/${id}`);
-    await this.setState({ name: response.data.firstname.concat(" ", response.data.lastname, " ") })
+    await this.setState({ name: response.data.firstname.concat(" ", response.data.lastname, "\n") })
   }
   render() {
     return (
-        <div>
-          {this.state.name}
+        <div className="divFont" style={{padding: "10px"}}>
+          <h2>Admin Requests</h2>
+          <div className="attList">
+            {this.state.name}
+          </div>
           <div>
-            <a style={{ color: 'blue' }} href='foo' onClick={ this.acceptAdmin }> accept </a>
-            <a style={{ color: 'red' }} href='foo' onClick={ this.rejectAdmin }> reject </a>
+            <button className="smallButton" onClick={ this.acceptAdmin }> accept </button>
+            <button className="smallButton" onClick={ this.rejectAdmin }> reject </button>
           </div>
         </div>
       )
