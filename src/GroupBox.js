@@ -32,7 +32,7 @@ class GroupBox extends Component {
 //page formatting
               <div className="divFont divCenter">
                 <h1><Link to='/'>TIED</Link></h1>
-                <h2>Create Group</h2>
+                <h2>Create POD</h2>
                 <GroupForm onGroupSubmit={ this.handleGroupSubmit }
                   data={ this.state.data }/>
                 {this.state.submitted ?

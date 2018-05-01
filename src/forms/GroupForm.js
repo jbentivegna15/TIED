@@ -36,7 +36,7 @@ class GroupForm extends Component {
 			<div className="divFont divCenter">
 				<div id="right">
 					<h2><form className="formStyle" onSubmit={ this.handleSubmit }>
-						Enter Group Name:<br/>
+						Enter POD Name:<br/>
 						<input type="text" placeholder="TIDE Enthusiasts" value={ this.state.name} onChange={ this.handleNameChange } required="required"/><br/>
 
             Description:<br/>
