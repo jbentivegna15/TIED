@@ -15,7 +15,7 @@ class Event extends Component {
     this.toggleUserModal = this.toggleUserModal.bind(this);
     this.toggleMessageModal = this.toggleMessageModal.bind(this);
     this.toggleDetailModal = this.toggleDetailModal.bind(this);
-	  this.sendMessage = this.sendMessage.bind(this);
+	this.sendMessage = this.sendMessage.bind(this);
     this.deleteEvent = this.deleteEvent.bind(this);
     this.editEvent = this.editEvent.bind(this);
     this.doRSVP = this.doRSVP.bind(this);

@@ -4,6 +4,7 @@ var express = require('express');
 var mongoose = require('mongoose');
 //var fs = require('fs');
 //var grid = require('grid');
+var nodeMailer = require('nodemailer');
 var bodyParser = require('body-parser');
 var User = require('./model/users');
 var Comment = require('./model/comments')
@@ -364,6 +365,38 @@ router.route('/groups/:group_id/edit')
     })
  });
 
+router.route('/groups/:group_id/Message')
+	//messaging to clients
+	.get(function(req,res) {
+		res.render('forms/MessageForm');
+	})
+	.post(function(req,res) {
+		let transporter = nodeMailer.createTransport({
+			host: 'smtp.gmail.com',
+			port:465,
+			secure: true,
+			auth: {
+				user:'tied.emailer@gmail.com',
+				pass:'kirtSnig'
+			}
+		});
+		let mailOptions = {
+			from: '"TIED Incorporated." <tied.emailer@gmail.com>',
+			to:'tied.emailer@gmail.com',
+			bcc:req.body.to,
+			subject:req.body.subject,
+			html:req.body.body
+		};
+
+		transporter.sendMail(mailOptions, (error, info) => {
+			if(error) {
+				return console.log(Error);
+			}
+			console.log('Message %s sent: %s', info.messageId, info.response);
+				res.render('forms/MessageForm');
+			});
+	});
+
 router.route('/groups/:group_id/:event_id')
 //retrieve an event from a group in the database
   .get(function(req, res) {
@@ -407,6 +440,8 @@ router.route('/groups/:group_id/:event_id')
         })
       })
   });
+
+
 
 router.route('/groups/:group_id/:event_id/unrsvp')
   .put(function(req,res){

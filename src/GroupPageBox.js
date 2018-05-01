@@ -80,6 +80,7 @@ class GroupPageBox extends Component {
 			}
 			handleMessageSend(id, message) {
 				axios.post(`${this.props.url}/${this.state.id}/Message`,message)
+				//axios.post(`${this.props.url}/${this.state.id}/`,message)
 				.then(res => {
 					this.setState({ submitted: true});
 				})

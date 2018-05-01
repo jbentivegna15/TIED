@@ -43,6 +43,7 @@ export default class EventForm extends Component {
 
 	this.handleImageUpload(files[0]);
   }
+  //TODO make image reject work
 
   handleImageUpload(file){
 	  let upload = request.post(CLOUDINARY_UPLOAD_URL)
@@ -91,9 +92,9 @@ export default class EventForm extends Component {
 					Location of Event:<br/>
 					<input type="text" placeholder="Not the Ocean" value={ this.state.loc} onChange={ this.handleLocChange } required="required"/><br/>
           Image of Event:<br/>
-          <Dropzone multiple={false} accept="image/*" onDrop={this.onImageDrop.bind(this)} className="dropzoneStyle">
+          <Dropzone multiple={false} accept=".jpeg,.png,.jpg" onDrop={this.onImageDrop.bind(this)} className="dropzoneStyle">
             <div>
-				      Drop an image or click to select a file to upload.
+				      Click here to select a file to upload.
             </div>
 				  </Dropzone>
 					<input type="submit" value="Submit" className="pageButton"/>

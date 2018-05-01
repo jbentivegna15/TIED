@@ -28,7 +28,7 @@ class MessageForm extends Component{
 			}
 			let data = {to:to, subject:subject, body:body}
 			this.props.onMessageSubmit(data);
-			this.setState = {subject:'', body:''};
+			this.setState = {body:''};
 		}
 
 		async componentDidMount() {
@@ -49,7 +49,7 @@ class MessageForm extends Component{
 					<h1>Event Emailer</h1>
 					<form>
 					<textarea cols="30" rows="7" required = 'required' name="body" value={this.state.body} placeholder="Enter your message here." onChange={this.handleBodyChange}></textarea>
-
+					
 					<div className="row">
 						<div className="col-md-4"></div>
 						<div className="form-group col-md-4">
