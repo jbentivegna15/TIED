@@ -381,7 +381,7 @@ router.route('/groups/:group_id/Message')
 			}
 		});
 		let mailOptions = {
-			from: '"TIED Incorporated." <tied.emailer@gmail.com>',
+			from: '"NO REPLY-TIED." <tied.emailer@gmail.com>',
 			to:'tied.emailer@gmail.com',
 			bcc:req.body.to,
 			subject:req.body.subject,
