@@ -9,8 +9,8 @@ const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/dcvhojee9/image/u
 export default class EventForm extends Component {
   constructor(props) {
     super(props)
-    
-	  
+
+
 	this.state = { name: this.props.data.name, description: this.props.data.description, date: this.props.data.date, time: this.props.data.time, loc: this.props.data.loc, img:'', uploadedFile: Buffer};
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleNameChange = this.handleNameChange.bind(this);
@@ -59,7 +59,7 @@ export default class EventForm extends Component {
 		  }
 	  });
   }
-  
+
 	handleSubmit(e) {
     e.preventDefault();
     let name = this.state.name.trim();
@@ -79,35 +79,33 @@ export default class EventForm extends Component {
     return (
 //page formatting
 			<div className="divFont divCenter">
-        <div id="right">
-  				<h2><form onSubmit={ this.handleSubmit} className="formStyle">
-  					Event Name:<br/>
-  					<input type="text" placeholder="Cat Party" value={ this.state.name} onChange={ this.handleNameChange } required="required"/><br/>
-  					Description:<br/>
-  					<textarea id="groupDesc" name="Description" placeholder="Lots of Cats." rows="7" cols="30" value={ this.state.description} onChange={ this.handleDescriptionChange } required="required"></textarea><br/>
-  					Date of Event:<br/>
-  					<input type="date" value={ this.state.date } onChange={ this.handleDateChange } required="required"/><br/>
-  					Time of Event:<br/>
-  					<input type="time" value={ this.state.time } onChange={ this.handleTimeChange } required="required"/><br/>
-  					Location of Event:<br/>
-  					<input type="text" placeholder="Not the Ocean" value={ this.state.loc} onChange={ this.handleLocChange } required="required"/><br/>
-            Image of Event:<br/>
-					<Dropzone  multipe={false} accept="image/*" onDrop={this.onImageDrop.bind(this)}>
-					<p> Drop an image or click to select a file to upload.</p>
-					</Dropzone>
-  					<input type="submit" value="Submit"/>
-  				</form></h2>
-			</div>
-
-			<div>
-				{this.state.img ==='' ? null: 
-				<div className='divFront divCenter'>
-					<p>{this.state.uploadedFile.name}</p>
-					<img src = {this.state.img} alt='' />
-				</div>}
-			</div>
-		</div>
+				<h2><form onSubmit={ this.handleSubmit} className="formStyle">
+					Event Name:<br/>
+					<input type="text" placeholder="Cat Party" value={ this.state.name} onChange={ this.handleNameChange } required="required"/><br/>
+					Description:<br/>
+					<textarea id="groupDesc" name="Description" placeholder="Lots of Cats." rows="7" cols="30" value={ this.state.description} onChange={ this.handleDescriptionChange } required="required"></textarea><br/>
+					Date of Event:<br/>
+					<input type="date" value={ this.state.date } onChange={ this.handleDateChange } required="required"/><br/>
+					Time of Event:<br/>
+					<input type="time" value={ this.state.time } onChange={ this.handleTimeChange } required="required"/><br/>
+					Location of Event:<br/>
+					<input type="text" placeholder="Not the Ocean" value={ this.state.loc} onChange={ this.handleLocChange } required="required"/><br/>
+          Image of Event:<br/>
+          <Dropzone multiple={false} accept="image/*" onDrop={this.onImageDrop.bind(this)} className="dropzoneStyle">
+            <div>
+				      Drop an image or click to select a file to upload.
+            </div>
+				  </Dropzone>
+					<input type="submit" value="Submit" className="pageButton"/>
+				</form></h2>
+			  <div>
+				{this.state.img ==='' ? null:
+				  <div className='divFont divCenter'>
+					  <p>{this.state.uploadedFile.name}</p>
+					  <img src = {this.state.img} alt='' />
+				  </div>}
+			  </div>
+		  </div>
     )
   }
 }
-

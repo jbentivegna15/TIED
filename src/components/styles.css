@@ -90,6 +90,7 @@ th,td{
 .divCenter{
   text-align: center;
   text-decoration: none;
+  margin: 0 auto;
 }
 .divFont{
   font-family: arial, helvetica, sans-serif;
@@ -189,3 +190,22 @@ a:active {
   padding: 30;
   color: black;
 };
+
+.dropzoneStyle{
+  width: 200px;
+  height: 200px;
+  margin: 0 auto;
+  position: absolute;
+}
+
+.attList{
+  margin: 10px;
+  white-space: pre;
+}
+
+.evPic{
+  display: inline;
+  width: 200px;
+  height: 200px;
+  float: left;
+}

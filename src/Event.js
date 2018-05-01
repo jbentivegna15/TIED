@@ -123,8 +123,13 @@ class Event extends Component {
 
 				        <Modal show={ this.state.isUserOpen }
                   onClose={ this.toggleUserModal }>
-                  <UserList
-                    data={ this.props.attendees }/>
+                  <div className="divFont" style={{padding: "10px"}}>
+                    <h2>Attendees of { this.props.name }</h2>
+                    <div className="attList">
+                      <UserList
+                      data={ this.props.attendees }/>
+                    </div>
+                  </div>
                 </Modal>
 
                 <Modal show={ this.state.isMessageOpen }
@@ -136,6 +141,9 @@ class Event extends Component {
                 <Modal show={ this.state.isDetailOpen }
                   onClose={ this.toggleDetailModal }>
                   <div className="divFont desc">
+                    <h2> {this.props.name}'s Details </h2>
+                    <img src={this.props.img} className="evPic" align="top">
+                    </img>
                     <table>
                       <tr>
                         <th colspan="2">{this.props.name}</th>
@@ -153,6 +161,7 @@ class Event extends Component {
                         <td>{this.props.loc}</td>
                       </tr>
                     </table>
+                    Event Description: <br/>
                     {this.props.description}
                   </div>
                 </Modal>
