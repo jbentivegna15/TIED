@@ -95,6 +95,7 @@ th,td{
 .divFont{
   font-family: arial, helvetica, sans-serif;
   color: white;
+  white-space: pre-line;
 }
 
 .pageButton{
