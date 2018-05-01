@@ -1,6 +1,7 @@
 //Event.js
 import React, { Component } from 'react';
 import axios from 'axios';
+import Modal from './Modal';
 import { rsvp, unrsvp } from './Auth/UserChecks';
 import { APICONST } from './urlConst';
 
@@ -10,6 +11,7 @@ class Event2 extends Component {
     this.state= { data: [], edata:[], userId: '', isRSVP: true };
     this.getGroupData = this.getGroupData.bind(this);
     this.getEventData = this.getEventData.bind(this);
+    this.toggleDetailModal = this.toggleDetailModal.bind(this);
     this.doRSVP = this.doRSVP.bind(this);
     this.undoRSVP = this.undoRSVP.bind(this);
   }
@@ -31,6 +33,10 @@ class Event2 extends Component {
         console.error(err);
     });
   }
+  toggleDetailModal(e) {
+    e.preventDefault();
+    this.setState({ isDetailOpen: !this.state.isDetailOpen})
+  }
   doRSVP(e){
     e.preventDefault();
     rsvp(this.state.userId,this.props.groupId,this.props.eventId);
@@ -51,11 +57,11 @@ class Event2 extends Component {
 //page formatting
               <div className="divFont listStyle">
                 <div className="name">
-                  {this.props.name}
+                  {this.state.data.name} <br/>
                   {this.state.edata.name}
                 </div>
                 <div className="desc">
-                  {this.props.description}<br/>
+                  {this.state.edata.description}<br/>
                   <button className="smallButton" onClick={ this.toggleDetailModal }>Details</button>
                 </div>
 
@@ -69,6 +75,34 @@ class Event2 extends Component {
                   </div>
                   )
                 }
+
+                <Modal show={ this.state.isDetailOpen }
+                  onClose={ this.toggleDetailModal }>
+                  <div className="divFont desc">
+                    <h2> {this.state.edata.name}'s Details </h2>
+                    <img src={this.state.edata.img} className="evPic" align="top">
+                    </img>
+                    <table>
+                      <tr>
+                        <th colspan="2">{this.state.edata.name}</th>
+                      </tr>
+                      <tr>
+                        <td>Date</td>
+                        <td>{this.state.edata.date}</td>
+                      </tr>
+                      <tr>
+                        <td>Time</td>
+                        <td>{this.state.edata.time}</td>
+                      </tr>
+                      <tr>
+                        <td>Location</td>
+                        <td>{this.state.edata.loc}</td>
+                      </tr>
+                    </table>
+                    Event Description: <br/>
+                    {this.state.edata.description}
+                  </div>
+                </Modal>
               </div>
       )
   }

@@ -32,8 +32,8 @@ class Admin extends Component {
             {this.state.name}
           </div>
           <div>
-            <button className="smallButton" onClick={ this.acceptAdmin }> accept </button>
-            <button className="smallButton" onClick={ this.rejectAdmin }> reject </button>
+            <button className="smallButton" onClick={ this.acceptAdmin }> Accept </button>
+            <button className="smallButton" onClick={ this.rejectAdmin }> Reject </button>
           </div>
         </div>
       )
