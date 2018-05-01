@@ -5,7 +5,7 @@ import '../components/styles.css';
 class UserForm extends Component {
   constructor(props) {
     super(props)
-    this.state = { firstname: this.props.data, lastname: "", email: "" };
+    this.state = { firstname: this.props.data.firstname, lastname: this.props.data.lastname, email: this.props.data.email };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleFirstnameChange = this.handleFirstnameChange.bind(this);
     this.handleLastnameChange = this.handleLastnameChange.bind(this);
