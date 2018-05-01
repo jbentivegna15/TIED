@@ -83,3 +83,17 @@ export function unrsvp(userId,groupId,eventId){
       console.log(err);
     });
 }
+
+export function eventdeleteunrsvp(userId,groupId,eventId){
+  axios.put(`${APICONST}/users/${userId}/unrsvp`, {groupId: groupId,eventId: eventId})
+    .catch(err => {
+      console.log(err);
+    });
+}
+
+export function groupdeleteunrsvp(userId,groupId){
+  axios.put(`${APICONST}/users/${userId/groupdeleteunrsvp}`, {groupId: groupId})
+    .catch(err => {
+      console.log(err);
+    });
+}

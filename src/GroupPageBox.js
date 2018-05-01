@@ -7,7 +7,7 @@ import Modal from './Modal';
 import GroupForm from './forms/GroupForm';
 import AdminList from './AdminList';
 import { Link, withRouter, Redirect } from "react-router-dom";
-import {isAdmin, isRQAdmin, rqAdmin, approveAdmin, rejectAdmin } from './Auth/UserChecks'
+import {isAdmin, isRQAdmin, rqAdmin, approveAdmin, rejectAdmin, eventdeleteunrsvp } from './Auth/UserChecks'
 import { getUserIdentifier, isLoggedIn } from './Auth/AuthService';
 
 class GroupPageBox extends Component {
@@ -40,6 +40,11 @@ class GroupPageBox extends Component {
 					});
 			}
 			handleGroupDelete() {
+				this.state.edata.map(event => {
+					event.attendees.map(user => {
+						eventdeleteunrsvp(user,this.state.id,event);
+					});
+				});
 				axios.delete(`${this.props.url}/${this.state.id}`)
 					.then(res => {
 						this.setState({ deleted: true });
@@ -48,6 +53,7 @@ class GroupPageBox extends Component {
 					.catch(err => {
 						console.error(err);
 					});
+
 			}
 			handleGroupEdit(group) {
 				axios.put(`${this.props.url}/${this.state.id}/edit`, group)
@@ -67,6 +73,7 @@ class GroupPageBox extends Component {
 					.catch(err => {
 						console.error(err);
 					});
+
 			}
 			handleEventEdit(id, event) {
 				axios.put(`${this.props.url}/${this.state.id}/${id}`, event)

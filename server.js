@@ -239,6 +239,25 @@ router.route('/users/:user_id/unrsvp')
     })
   })
 
+router.route('/users/:user_id/groupdeleteunrsvp')
+  .put(function(req,res){
+    User.find({uniqueId:req.params.user_id}, function(err, user) {
+      if(err)
+        res.send(err);
+      if(user[0].rsvps.length > 0){
+        var index = user[0].rsvps.findIndex(x => x.group_id == req.body.groupId);
+        if(index > -1){
+          user[0].rsvps.splice(index,1);
+        }
+      }
+      user[0].save(function(err){
+        if(err)
+          res.send(err);
+        res.json({ message: 'User RSVP updated'})
+      })
+    })
+  })
+
 router.route('/groups')
 //retrieve all groups from the database
 .get((req,res) => {

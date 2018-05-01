@@ -5,7 +5,7 @@ import Modal from './Modal';
 import EventForm from './forms/EventForm';
 import MessageForm from './forms/MessageForm';
 import UserList from './UserList';
-import { rsvp, unrsvp } from './Auth/UserChecks';
+import { rsvp, unrsvp, eventdeleteunrsvp } from './Auth/UserChecks';
 
 class Event extends Component {
   constructor(props) {
@@ -46,6 +46,7 @@ class Event extends Component {
   deleteEvent(e) {
     e.preventDefault();
     let id = this.props.uniqueID;
+    this.props.attendees.map(user => eventdeleteunrsvp(user,this.props.groupId,this.props.uniqueID));
     this.props.onEventDelete(id);
   }
   editEvent(event) {
