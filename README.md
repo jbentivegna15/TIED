@@ -6,9 +6,10 @@ This is a fully functinoal public event platform built using the MERN (Mongo, Ex
 
 The site comes with the ability to create and edit groups, create and edit events within those groups, admin privileges, messaging, and user authentification.  
 
-`git clone https://github.com/jbentivegna15/TIED
+```git clone https://github.com/jbentivegna15/TIED
  cd TIED
  npm install
- npm run start-dev`
+ npm run start-dev
+ ```
 
 
