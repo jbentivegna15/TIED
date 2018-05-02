@@ -30,10 +30,14 @@ class Callback extends Component {
                 if(res.data === ""){
                   console.log('yup');
                   console.log(this.state.data);
+                  var first = '';
+                  var last = '';
+                  (this.state.data.given_name) ? first = this.state.data.given_name : null;
+                  (this.state.data.family_name) ? last = this.state.data.family_name : null;
                   var user = {user: this.state.data.nickname,
                               uniqueId: String(this.state.data.sub),
-                              firstname: this.state.data.given_name,
-                              lastname: this.state.data.family_name,
+                              firstname: first,
+                              lastname: last,
                               email: '',
                               admin_groups: [],
                               private_groups: [],
@@ -41,7 +45,7 @@ class Callback extends Component {
                             };
                   axios.post(this.props.url, user)
                       .then(() => {
-                        window.location.href = "/";
+                        window.location.href = `/users/${this.state.data.sub}`;
                       })
                       .catch(err => {
                           console.error(err);
