@@ -13,5 +13,5 @@ The site comes with the ability to create and edit groups, create and edit event
  npm run start-dev
 ```
 
-Note that node.js is required to run the project
+Note that node.js is required to run the project.
 
